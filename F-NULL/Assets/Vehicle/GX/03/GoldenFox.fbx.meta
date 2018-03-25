@@ -3,7 +3,7 @@ guid: ea24a236a95e3c74f9cd349d17b9a465
 timeCreated: 1508770524
 licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: 03_goldenfox_a
     100002: //RootNode
@@ -17,10 +17,117 @@ ModelImporter:
     3300002: steer_m1
     4300000: steer_m1
     4300002: 03_goldenfox_a
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat1
+    second: {fileID: 2100000, guid: 38d25e6776a047641b77b596e1449309, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat10
+    second: {fileID: 2100000, guid: a1b253790028d04439c6396d4d735d78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat13
+    second: {fileID: 2100000, guid: 63320ae14fa2ce74c9a94e2cb27a522c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat14
+    second: {fileID: 2100000, guid: 6494e1b0a90294b49b8ebd45f88dc1f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat15
+    second: {fileID: 2100000, guid: b439987f53e7c78409d17f80049dc290, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat17
+    second: {fileID: 2100000, guid: 0e40c74f2385c3342a84bec81a97bb79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat19
+    second: {fileID: 2100000, guid: 889d9484c5423314c9bcffb71c190164, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat2
+    second: {fileID: 2100000, guid: 4d83cea58cb410447aa768edaecf5586, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat22
+    second: {fileID: 2100000, guid: 7ddd64548c4e2b54296c2d4c8e82949d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat25
+    second: {fileID: 2100000, guid: 9c56423664be99f4aab3df88b4e23c29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat26
+    second: {fileID: 2100000, guid: b7510d041fee04f419f292f2ee4956e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat29
+    second: {fileID: 2100000, guid: b457cf90b0ec9ca4bad68ee969712791, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat3
+    second: {fileID: 2100000, guid: a415c904bef8d3a4a986724c90aee27e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat31
+    second: {fileID: 2100000, guid: 0b45f886f7966c645a8344fe2f178ab3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat32
+    second: {fileID: 2100000, guid: 32fb299e0c9af574db1ce8e82369aa79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat33
+    second: {fileID: 2100000, guid: 3059299fdeb89e244bcca15e0b8a2589, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat5
+    second: {fileID: 2100000, guid: 3eacf2fe1880a2d479d431f7ed49d590, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat6
+    second: {fileID: 2100000, guid: c82d1d5a34687ff43b9d0e2f9a927ae7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat7
+    second: {fileID: 2100000, guid: 348264b8e1b45fe4b8b16603b2e7ea6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat8
+    second: {fileID: 2100000, guid: fed6ab350c632784cbd18faf8a03f062, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat9
+    second: {fileID: 2100000, guid: 71e57c80858ed3d4cb08ec0e41c59e4e, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
-    materialSearch: 1
+    materialSearch: 0
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -33,12 +140,14 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -46,13 +155,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -62,6 +176,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

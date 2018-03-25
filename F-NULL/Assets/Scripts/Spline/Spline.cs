@@ -150,8 +150,15 @@ public class Spline : MonoBehaviour {
 
 			newPos = GetBezierPosition(t, p0, p1, p2, p3);
 
+			Vector3 tan = GetBezierTangent(p0, p1, p2, p3, t);
+
 			// バンク、ロール
-			q = Quaternion.Lerp(currentBankQ, nextBankQ, t); // せん断された(Xのコースと同じ)にする
+			q = Quaternion.Lerp(currentBankQ, nextBankQ, t);
+
+			Vector3 up = q*Vector3.up; // 上方向を取得
+
+			q = Quaternion.LookRotation(tan, up);
+
 			// x軸の方向を描画
 			Gizmos.color = Color.red;
 			Gizmos.DrawLine(newPos+(q*Vector3.right)*-20f, newPos+(q*Vector3.right)*20f);
@@ -159,11 +166,10 @@ public class Spline : MonoBehaviour {
 			// y軸の方向を描画
 			Gizmos.color = Color.green;
 			Gizmos.DrawLine(newPos, newPos+(q*Vector3.up)*20f);
-			/*
+
 			// z軸の方向を描画
 			Gizmos.color = Color.blue;
 			Gizmos.DrawLine(newPos, newPos+(q*Vector3.forward)*20f);
-			*/
 
 			allPoints[allIndex] = new OrientedPoint(newPos, q);
 

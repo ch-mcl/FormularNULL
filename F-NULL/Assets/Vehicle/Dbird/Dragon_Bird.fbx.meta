@@ -3,7 +3,7 @@ guid: ca28908f2a815a145aac74c794850f20
 timeCreated: 1487489350
 licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: 00_dragonbird
     100002: //RootNode
@@ -17,26 +17,122 @@ ModelImporter:
     3300002: steer_m1.001
     4300000: 00_dragonbird
     4300002: steer_m1.001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_body1
+    second: {fileID: 2100000, guid: b062003cc160957479eab0a96197a0d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_body2
+    second: {fileID: 2100000, guid: 177c4e0ad404f684b82c11db7f9de8dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_body3
+    second: {fileID: 2100000, guid: c38f701ce2255a8419881410ff4c1d2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_body4
+    second: {fileID: 2100000, guid: 3ea13920124891843ab391143d44f514, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_booster
+    second: {fileID: 2100000, guid: 196479bb2cba14046bcb43b615cefa4b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_bottom
+    second: {fileID: 2100000, guid: 24ec72fc47114b0419585a27216201d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_bottom_air_booster
+    second: {fileID: 2100000, guid: 4d1b1201814569043b6531781dd8ce29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_cockpit
+    second: {fileID: 2100000, guid: 7de444b0d4de70047bf369ae63ee1004, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_fire
+    second: {fileID: 2100000, guid: b59a9bbf8a3fff242b8b90717306a80f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_glass
+    second: {fileID: 2100000, guid: 3ac1bbe4d2a1e644da8c432572ec7cd1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_hole
+    second: {fileID: 2100000, guid: 4ed649c2233454d4e8858ad7ebd0a7ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DB_vezel
+    second: {fileID: 2100000, guid: f8812b82c55a3574d99e908b72a03d0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gx_num_00
+    second: {fileID: 2100000, guid: 43d55ea13e7a454428507b8db96d9be0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: b9d1195dc00ceb84ab7cedd1243bd63a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat19
+    second: {fileID: 2100000, guid: 86bb1a6c5cba552418e1240717d7ea45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat20
+    second: {fileID: 2100000, guid: a1db5d9a404113e41a5b77ef0f567f59, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat21
+    second: {fileID: 2100000, guid: f8197e6c342860542a53ae688c4ee472, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gxmat27.001
+    second: {fileID: 2100000, guid: f6f8c4081d7a660449053a76ddbb17f9, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
-    materialSearch: 1
+    materialSearch: 0
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -44,13 +140,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -60,6 +161,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

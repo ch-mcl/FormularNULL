@@ -114,49 +114,67 @@ public class Spline : MonoBehaviour {
 		Quaternion q;
 
 
-		Vector3 currentBank = controlPoints[current].transform.up; // 現在CPのバンク角
-		Vector3 nextBank = controlPoints[next].transform.up; // 次CPのバンク角
+		Vector3 currentForward = controlPoints[current].transform.forward; // 現在CPのバンク角
+		Vector3 nextForward = controlPoints[next].transform.forward; // 次CPのバンク角
 
 		lastPos = p0; // Bezierは1つ前の点を含まないので上書き
 
 
 		// 現在CPのバンク角度
-		float currentBankAngle = controlPoints[current].m_roll;
+		float currentBankAngle = -controlPoints[current].m_roll;
 		// 次CPのバンク角度
-		float nextBankAngle = controlPoints[next].m_roll;
+		float nextBankAngle = -controlPoints[next].m_roll;
+
+		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward)*controlPoints[current].transform.rotation;
+		/*
+		Gizmos.color = Color.green;
+		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(currentBankQ*Vector3.up)*40f);
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(controlPoints[current].transform.position+(currentBankQ*Vector3.right)*-40f, controlPoints[current].transform.position+(currentBankQ*Vector3.right)*40f);
+		Gizmos.color = Color.blue;
+		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(currentBankQ*Vector3.forward)*40f);
+		*/
+
+		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward)*controlPoints[next].transform.rotation;
+		/*
+		Gizmos.color = Color.green;
+		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(nextBankQ*Vector3.up)*40f);
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(controlPoints[current].transform.position+(nextBankQ*Vector3.right)*-40f, controlPoints[current].transform.position+(nextBankQ*Vector3.right)*40f);
+		Gizmos.color = Color.blue;
+		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(nextBankQ*Vector3.forward)*40f);
+		*/
 
 		for (int i = 1; i <= loops; i++) {
 			t = i * resolution;
 
 			newPos = GetBezierPosition(t, p0, p1, p2, p3);
 
+			Vector3 tan = GetBezierTangent(p0, p1, p2, p3, t);
+
 			// バンク、ロール
-			q = GetOrientation3D(p0, p1, p2, p3, t, controlPoints[current].transform.up); // 向きを取得
+			q = Quaternion.Lerp(currentBankQ, nextBankQ, t);
 
-			currentBankAngle = Mathf.LerpAngle(currentBankAngle, nextBankAngle, t);
+			Vector3 up = q*Vector3.up; // 上方向を取得
 
-			// 取得した向きの前方向を軸に回す
-			// 前方向の取得
-			Vector3 pointForward = GetBezierTangent(p0, p1, p2, p3, t);
+			q = Quaternion.LookRotation(tan, up);
 
-			// 前方向を軸に回す
-			Quaternion qBank = Quaternion.AngleAxis(-currentBankAngle, pointForward);
-			q = qBank*q;
-			
 			// x軸の方向を描画
 			Gizmos.color = Color.red;
+<<<<<<< HEAD
 			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*controlPoints[current].m_widthR);
 			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*-controlPoints[current].m_widthL);
+=======
+			Gizmos.DrawLine(newPos+(q*Vector3.right)*-20f, newPos+(q*Vector3.right)*20f);
+>>>>>>> 9e35d3159fef10fe49e0be6ba643c53fbf7d6f33
 
 			// y軸の方向を描画
 			Gizmos.color = Color.green;
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.up)*40f);
+			Gizmos.DrawLine(newPos, newPos+(q*Vector3.up)*20f);
 
-			/*
 			// z軸の方向を描画
 			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.forward)*10f);
-			*/
+			Gizmos.DrawLine(newPos, newPos+(q*Vector3.forward)*20f);
 
 			allPoints[allIndex] = new OrientedPoint(newPos, q);
 

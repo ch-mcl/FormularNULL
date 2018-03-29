@@ -145,8 +145,8 @@ public class Spline : MonoBehaviour {
 			
 			// x軸の方向を描画
 			Gizmos.color = Color.red;
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*40f);
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*-40f);
+			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*controlPoints[current].m_widthR);
+			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*-controlPoints[current].m_widthL);
 
 			// y軸の方向を描画
 			Gizmos.color = Color.green;

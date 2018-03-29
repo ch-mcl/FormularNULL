@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[ExecuteInEditMode] // Update Startをeditorモードでも実行
 public class TrackCreate : MonoBehaviour {
 	ExtrudeShape m_shape;
 	OrientedPoint[] m_path;
@@ -18,32 +17,31 @@ public class TrackCreate : MonoBehaviour {
 			m_path = spline.allPoints;
 
 			m_mesh.Clear();
+			float cpNum = 1/spline.resolution;
 
-			//int nowControlPoint = 0; // 現在のコントロールポイント番号
+			int currentCP = 0; // 現在のコントロールポイント番号
 
-			//int points = (int)(1f / spline.resolution);
-			/*
 			for (int i = 0; i < spline.allPoints.Length; i++) {
-				//if (i != 0) {
-				//	nowControlPoint = spline.allPoints.Length % points; //現在のコントロールポイント番号を算出
-				//} else {
-				//	nowControlPoint = 0;
-				//}
+				currentCP = (int)(i/cpNum);
+				Debug.Log(currentCP);
 
-				m_shape = spline.controlPointsList[0].RoadShape;
+				spline.controlPoints[currentCP].GetShape();
+				m_shape = spline.controlPoints[currentCP].RoadShape;
 
 				if (m_shape != null) {
 					Extrude(m_mesh, m_shape, m_path);
 
 					MeshFilter mf = GetComponent<MeshFilter>();
 					mf.mesh = m_mesh;
+
+					// collisionの自動更新
+					trackColl.sharedMesh = m_mesh;
 				}
 			}
-			*/
 
-			spline.controlPoints[0].GetShape();
+			/*
+			//spline.controlPoints[2].GetShape();
 			m_shape = spline.controlPoints[0].RoadShape;
-
 			if (m_shape != null) {
 				Extrude(m_mesh, m_shape, m_path);
 
@@ -53,6 +51,7 @@ public class TrackCreate : MonoBehaviour {
 				// collisionの自動更新
 				trackColl.sharedMesh = m_mesh;
 			}
+			*/
 		}
 	}
 
@@ -77,7 +76,7 @@ public class TrackCreate : MonoBehaviour {
 			for(int j = 0; j < vertsInShape; j++) {
 				int id = offset + j;
 				// Oriented pointを元に、頂点の位置を追加
-				vertices[id] = path[i% path.Length].LocalToWorld(shape.m_verts[j]);
+				vertices[id] = path[i%path.Length].LocalToWorld(shape.m_verts[j]);
 
 				// Oriented pointを元に、法線の向きを追加
 				//normals[id] = path[i].LocalToWorldDirction(shape.normals[j]);

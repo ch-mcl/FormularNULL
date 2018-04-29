@@ -121,12 +121,13 @@ public class Spline : MonoBehaviour {
 
 
 		// 現在CPのバンク角度
-		float currentBankAngle = -controlPoints[current].m_roll;
+		float currentBankAngle = -controlPoints[current].Bank;
 		// 次CPのバンク角度
-		float nextBankAngle = -controlPoints[next].m_roll;
+		float nextBankAngle = -controlPoints[next].Bank;
 
 		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward)*controlPoints[current].transform.rotation;
 		/*
+		// 現CPにおけるXYZ方向を表示
 		Gizmos.color = Color.green;
 		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(currentBankQ*Vector3.up)*40f);
 		Gizmos.color = Color.red;
@@ -137,6 +138,7 @@ public class Spline : MonoBehaviour {
 
 		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward)*controlPoints[next].transform.rotation;
 		/*
+		// 次のCPにおけるXYZ方向を表示
 		Gizmos.color = Color.green;
 		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(nextBankQ*Vector3.up)*40f);
 		Gizmos.color = Color.red;
@@ -161,20 +163,12 @@ public class Spline : MonoBehaviour {
 
 			// x軸の方向を描画
 			Gizmos.color = Color.red;
-<<<<<<< HEAD
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*controlPoints[current].m_widthR);
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*-controlPoints[current].m_widthL);
-=======
-			Gizmos.DrawLine(newPos+(q*Vector3.right)*-20f, newPos+(q*Vector3.right)*20f);
->>>>>>> 9e35d3159fef10fe49e0be6ba643c53fbf7d6f33
+			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*controlPoints[current].WidthR);
+			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*-controlPoints[current].WidthL);
 
 			// y軸の方向を描画
 			Gizmos.color = Color.green;
 			Gizmos.DrawLine(newPos, newPos+(q*Vector3.up)*20f);
-
-			// z軸の方向を描画
-			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.forward)*20f);
 
 			allPoints[allIndex] = new OrientedPoint(newPos, q);
 
@@ -192,7 +186,7 @@ public class Spline : MonoBehaviour {
 		Gizmos.DrawLine(p2, p3);
 	}
 
-	// Bezier
+	// Bezier曲線上の位置
 	Vector3 GetBezierPosition(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3) {
 		float t2 = t*t;
 		float t3 = t2*t;

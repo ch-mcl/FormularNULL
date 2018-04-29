@@ -9,6 +9,8 @@ public class TrackCreate : MonoBehaviour {
 	[SerializeField] Spline spline;
 	[SerializeField] MeshCollider trackColl;
 
+	float cpNum;
+
 	public void createMesh() {
 		Mesh m_mesh = new Mesh();
 		
@@ -17,16 +19,16 @@ public class TrackCreate : MonoBehaviour {
 			m_path = spline.allPoints;
 
 			m_mesh.Clear();
-			float cpNum = 1/spline.resolution;
+			cpNum = 1/spline.resolution;
 
 			int currentCP = 0; // 現在のコントロールポイント番号
 
 			for (int i = 0; i < spline.allPoints.Length; i++) {
 				currentCP = (int)(i/cpNum);
-				Debug.Log(currentCP);
+				//Debug.Log(currentCP);
 
-				spline.controlPoints[currentCP].GetShape();
-				m_shape = spline.controlPoints[currentCP].RoadShape;
+				// CpのExtrudeShapeを取得
+				m_shape = spline.controlPoints[currentCP].GetRoadShape();
 
 				if (m_shape != null) {
 					Extrude(m_mesh, m_shape, m_path);
@@ -38,28 +40,14 @@ public class TrackCreate : MonoBehaviour {
 					trackColl.sharedMesh = m_mesh;
 				}
 			}
-
-			/*
-			//spline.controlPoints[2].GetShape();
-			m_shape = spline.controlPoints[0].RoadShape;
-			if (m_shape != null) {
-				Extrude(m_mesh, m_shape, m_path);
-
-				MeshFilter mf = GetComponent<MeshFilter>();
-				mf.mesh = m_mesh;
-
-				// collisionの自動更新
-				trackColl.sharedMesh = m_mesh;
-			}
-			*/
 		}
 	}
 
-
+	// mesh生成
 	public void Extrude(Mesh mesh, ExtrudeShape shape, OrientedPoint[] path) {
 		int vertsInShape = shape.m_verts.Length;
 		int segments = path.Length; // edgeLoopの間の面の数
-		int edgeLoops = path.Length + 1; // edgeLoop(基本図形)の数
+		int edgeLoops = path.Length+1; // edgeLoop(基本図形)の数
 		int vertCount = vertsInShape * edgeLoops; // 頂点数の算出
 		int triCount = shape.m_lines.Length * segments; // 三角形の数
 		int triIndexCount = triCount * 3;
@@ -71,7 +59,7 @@ public class TrackCreate : MonoBehaviour {
 
 		// 頂点の算出
 		int uc = 0;
-		for(int i = 0; i < path.Length+1; i++) {
+		for(int i = 0; i < edgeLoops; i++) {
 			int offset = i * vertsInShape;
 			for(int j = 0; j < vertsInShape; j++) {
 				int id = offset + j;

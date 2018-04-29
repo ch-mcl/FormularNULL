@@ -6,17 +6,34 @@ public class ControlPoint : MonoBehaviour {
 
 	public int m_id; // 何番目
 
-	public float m_widthR = 26f; // 右幅
-	public float m_widthL = 26f; // 左幅
+	[SerializeField]
+	private float m_widthR = 26f; // 右幅
+	[SerializeField]
+	private float m_widthL = 26f; // 左幅
 	// 26.5 : Xのスタート地点の値(基準値)
-	[Range(0, 360)]
-	public float m_roll = 0f; // バンク (0~360まで)
+	[SerializeField] [Range(0, 360)]
+	private float m_roll = 0f; // バンク (0~360まで)
 
 	private ExtrudeShape roadShape;
 
-	public ExtrudeShape RoadShape {
+	// 右幅　プロパティ
+	public float WidthR {
 		get {
-			return roadShape;
+			return m_widthR;
+		}
+	}
+
+	// 左幅　プロパティ
+	public float WidthL {
+		get {
+			return m_widthL;
+		}
+	}
+
+	// 左幅　プロパティ
+	public float Bank {
+		get {
+			return m_roll;
 		}
 	}
 
@@ -53,7 +70,7 @@ public class ControlPoint : MonoBehaviour {
 	public GimicType m_GimicType;
 
 
-	public void GetShape() {
+	public ExtrudeShape GetRoadShape() {
 		int road;
 
 		switch (m_RoadType) {
@@ -87,5 +104,6 @@ public class ControlPoint : MonoBehaviour {
 		// gimic 分岐
 		*/
 		roadShape = new ExtrudeShape(m_widthR, m_widthL, road, gimic);
+		return roadShape;
 	}
 }

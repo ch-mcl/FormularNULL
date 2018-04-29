@@ -7,10 +7,10 @@ using UnityEngine;
 public class ExtrudeShape {
 	public Vector2[] m_verts; // 頂点位置
 	public Vector2[] m_normals; // 法線の向き
-	public float[] m_uCoords; // U座標 V座標は指定しない
+	public float[] m_uCoords; // U座標 (V座標は指定しない)
 	public int[] m_lines; // 頂点の接線
 
-	int polyNum = 24; // ハーフパイプ、パイプ、シリンダーの頂点数
+	private int polyNum = 24; // ハーフパイプ、パイプ、シリンダーの頂点数
 
 	// コンストラクタ
 	public ExtrudeShape(float widthR, float widthL, int road, int gimic) {
@@ -149,6 +149,7 @@ public class ExtrudeShape {
 				break;
 			case 7:
 				#region 空白
+
 				#endregion
 				break;
 			default:

@@ -9,49 +9,52 @@ public class VehicleTime : MonoBehaviour {
 	[SerializeField] RaceManage raceManage; // ゴールしたか
 	
 	// ラップタイム
-	private System.Diagnostics.Stopwatch lapSw = new System.Diagnostics.Stopwatch();
+	private System.Diagnostics.Stopwatch lapStopWatch = new System.Diagnostics.Stopwatch();
 	// 総合タイム
-	private System.Diagnostics.Stopwatch Totalsw = new System.Diagnostics.Stopwatch(); 
+	private System.Diagnostics.Stopwatch TotalStopWatch = new System.Diagnostics.Stopwatch(); 
 
 	int m_goalLap; // ゴールまでのラップ数
 	Player_InfoUI playerInfo;	
 	
+
+	// 初期化処理
 	void Start () {
-		lapSw.Reset();
-		Totalsw.Reset();
+		lapStopWatch.Reset();
+		TotalStopWatch.Reset();
 		playerInfo = GetComponent<Player_InfoUI>();
 	}
 	
 	void Update () {
 		// ポーズ中、もしくはゴール時
-		if(Time.timeScale <= 0 || raceManage.finish) {
+		if(Time.timeScale <= 0 || raceManage.Finish == true) {
 			// 各種タイマーを停止
-			Totalsw.Stop();
-			lapSw.Stop();
+			TotalStopWatch.Stop();
+			lapStopWatch.Stop();
 		// カウントダウン完了時
 		} else if(counDown.GetCounted()) {
 			// 各種タイマーをスタート
-			Totalsw.Start();
-			lapSw.Start();
+			TotalStopWatch.Start();
+			lapStopWatch.Start();
 		}
 
 		// タイムを文字列に変換
-		playerInfo.totalTime.text = Totalsw.Elapsed.Minutes.ToString("00") + ":" + Totalsw.Elapsed.Seconds.ToString("00") + ":" + Totalsw.Elapsed.Milliseconds.ToString("000");
+		playerInfo.TotalTimeText.text = TotalStopWatch.Elapsed.Minutes.ToString("00") + ":" + TotalStopWatch.Elapsed.Seconds.ToString("00") + ":" + TotalStopWatch.Elapsed.Milliseconds.ToString("000");
 		/*
 		playerInfo.laptimes[(m_goalLap - 1)].text =
 					lap.ToString().PadLeft(2) + " " + lapSw.Elapsed.Minutes.ToString("00") + ":" + lapSw.Elapsed.Seconds.ToString("00") + ":" + lapSw.Elapsed.Milliseconds.ToString("000");
 		*/
 	}
 
-	public void Sw(int lap) {
-		lapSw.Stop();
+	// ラップ変更時におけるStopWatchの処理
+	public void ChangeLapTime(int lap) {
+		lapStopWatch.Stop();
 		if (lap - 1 < m_goalLap) {
-			lapTimes[lap - 1] = lapSw;
+			lapTimes[lap - 1] = lapStopWatch;
 			//lapTimes[lap - 1] = lap.ToString().PadLeft(2) + " " + lapSw.Elapsed.Minutes.ToString("00") + ":" + lapSw.Elapsed.Seconds.ToString("00") + ":" + lapSw.Elapsed.Milliseconds.ToString("000");
 			// 表示用配列に収まる時
-			if (lap - 1 < playerInfo.laptimes.Length) {
+			if (lap - 1 < playerInfo.LapTimesTexts.Length) {
 				// タイムを文字列に変換
-				playerInfo.laptimes[(lap - 1)].text = 
+				playerInfo.LapTimesTexts[(lap - 1)].text = 
 					lap.ToString().PadLeft(2) + " " + lapTimes[lap - 1].Elapsed.Minutes.ToString("00") + ":" + lapTimes[lap - 1].Elapsed.Seconds.ToString("00") + ":" + lapTimes[lap - 1].Elapsed.Milliseconds.ToString("000");
 				//playerInfo.laptimes[(lap - 1)].text = lapTimes[lap - 1];
 			}
@@ -59,26 +62,26 @@ public class VehicleTime : MonoBehaviour {
 				// 要素を入れ替える
 				//SwapArray(lap);
 			}
-			lapSw.Reset();
-			lapSw.Start();
+			lapStopWatch.Reset();
+			lapStopWatch.Start();
 		}
 	}
 
 	// ラップタイム計測開始
-	public void LapSwstart() {
-		lapSw.Reset();
-		lapSw.Start();
+	public void StartLapStopWatch() {
+		lapStopWatch.Reset();
+		lapStopWatch.Start();
 	}
 
 	// 総合タイム計測開始
-	public void TotalSwStart() {
-		Totalsw.Reset();
-		Totalsw.Start();
+	public void StartTotalStopWatch() {
+		TotalStopWatch.Reset();
+		TotalStopWatch.Start();
 	}
 
 	// 総合タイム停止
-	public void TotalSwStop() {
-		Totalsw.Stop();
+	public void StopTotalStopWatch() {
+		TotalStopWatch.Stop();
 	}
 	
 	// ゴールまでのラップを取得
@@ -87,14 +90,14 @@ public class VehicleTime : MonoBehaviour {
 		lapTimes = new System.Diagnostics.Stopwatch[m_goalLap];
 	}
 
-	/*
+
 	// lapTimesの要素を1つずらす
-	public void SwapArray(int lap) {
-		for (int i = 0; i < laptimes.Length-1; i++){
-			laptimes[i].text = laptimes[i+1];
+	// これ動くか?
+	public void SwapLapTimesArray(int lap) {
+		for (int i = 0; i < playerInfo.LapTimesTexts.Length-1; i++){
+			playerInfo.LapTimesTexts[i].text = playerInfo.LapTimesTexts[i+1].text;
 		}
-		laptimes[laptimes.Length-1].text = laptimes[lap - 1].text;
-		//LtimeText[LtimeText.Length-1].text = "00:00:000";
+		playerInfo.LapTimesTexts[lapTimes.Length-1].text = playerInfo.LapTimesTexts[lap - 1].text;
+		playerInfo.LapTimesTexts[lapTimes.Length-1].text = "00:00:000";
 	}
-	*/
 }

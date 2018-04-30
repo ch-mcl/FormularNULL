@@ -14,10 +14,10 @@ public class PlayerMessage : MonoBehaviour {
 	}
 
 	// 2秒間表示させる
-	IEnumerator MessageShow(string mssg){
-		playerInfo.message.text = mssg;
+	IEnumerator MessageShow(string messageText){
+		playerInfo.MessageText.text = messageText;
 		yield return new WaitForSeconds(messageTime);
-		playerInfo.message.text = "";
+		playerInfo.MessageText.text = "";
 	}
 
 	public void Sender(string str) {

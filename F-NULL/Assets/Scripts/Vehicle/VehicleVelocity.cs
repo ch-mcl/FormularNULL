@@ -13,6 +13,6 @@ public class VehicleVelocity : MonoBehaviour {
 	
 	void Update () {
 		float vel = vehicleController.m_vel * 3.6f;
-		playerInfo.messageVel.text = vel.ToString("0");
+		playerInfo.VelocityText.text = vel.ToString("0");
 	}
 }

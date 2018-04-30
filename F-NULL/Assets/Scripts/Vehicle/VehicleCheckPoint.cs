@@ -20,13 +20,6 @@ public class VehicleCheckPoint : MonoBehaviour {
 		goalLap = raceManage.GoalLap;
 	}
 
-	/*
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	*/
-
 	// 初期化
 	public void Init(int lastCP) {
 		lastcheckpoint = lastCP; // 最後に通過するチェックポイントの設定
@@ -55,7 +48,7 @@ public class VehicleCheckPoint : MonoBehaviour {
 			currentlap++; // ラップ更新
 			//GetComponent<PlayerMessage>().Sender((goalLap - currentlap).ToString() + "LAPS LEFT");
 			GetComponent<PlayerMessage>().Sender((currentlap + 1).ToString() + "LAPS TO GO");
-			GetComponent<VehicleTime>().Sw(currentlap); // 
+			GetComponent<VehicleTime>().ChangeLapTime(currentlap); // 
 			GetComponent<Player_InfoUI>().ChengeLap(currentlap);
 			nowcheckpoint = 0;
 			// 2周目
@@ -69,9 +62,9 @@ public class VehicleCheckPoint : MonoBehaviour {
 			}
 			// ゴール
 			if (currentlap == goalLap){
-				raceManage.finish = true; // ゴール判定を有効にする
+				raceManage.Finish = true; // ゴール判定を有効にする
 				GetComponent<PlayerMessage>().Sender("FINISH!");
-				GetComponent<VehicleTime>().TotalSwStop();
+				GetComponent<VehicleTime>().StopTotalStopWatch();
 			}
 		}
 	}

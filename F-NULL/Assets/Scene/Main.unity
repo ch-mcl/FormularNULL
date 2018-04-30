@@ -3218,7 +3218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 973995786}
   m_Layer: 5
-  m_Name: HP
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9019,15 +9019,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raceManage: {fileID: 1536677204}
-  message: {fileID: 143487639}
-  messageVel: {fileID: 1650456472}
-  totalTime: {fileID: 1469124521}
-  laptimes:
+  m_message: {fileID: 143487639}
+  m_messageVel: {fileID: 1650456472}
+  m_totalTime: {fileID: 1469124521}
+  m_laptimes:
   - {fileID: 959502557}
   - {fileID: 1245779727}
   - {fileID: 1026463586}
-  lap: {fileID: 2076410647}
-  energybar: {fileID: 1928143815}
+  m_lap: {fileID: 2076410647}
+  m_energybar: {fileID: 1928143815}
 --- !u!114 &1473320229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9093,6 +9093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479c053ae0369df4b9ad7ee28f77f76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raceManage: {fileID: 1536677204}
   player_id: 0
   doublTapTime: 0.2
   playerCamera: {fileID: 1651479204}
@@ -9308,13 +9309,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3e7c45fa4f26f48a1bb7a67bb877ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
+  m_players:
   - {fileID: 1473320221}
-  activePlayers: []
-  waypoint: {fileID: 0}
-  finish: 0
-  miss: 0
-  laps: 3
+  m_activePlayers: []
+  m_waypoint: {fileID: 0}
+  m_canmove: 0
+  m_finish: 0
+  m_miss: 0
+  m_gaolLap: 3
 --- !u!4 &1536677205
 Transform:
   m_ObjectHideFlags: 0
@@ -9820,7 +9822,7 @@ GameObject:
   - component: {fileID: 1685751191}
   - component: {fileID: 1685751190}
   m_Layer: 5
-  m_Name: HP_Back
+  m_Name: Energy_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10527,7 +10529,7 @@ GameObject:
   - component: {fileID: 1928143817}
   - component: {fileID: 1928143816}
   m_Layer: 5
-  m_Name: HP
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

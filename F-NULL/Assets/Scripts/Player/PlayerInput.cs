@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class PlayerInput : MonoBehaviour {
 	
 	[Header("0:any, 1=1p,2=2p,3=3p,4=4p")]
+
+	[SerializeField] RaceManage raceManage;
+
 	[SerializeField] private GamePad.Index player_id;  //自分が何人目のプレイヤーか設定する。
 
 	[SerializeField] private float doublTapTime = 0.5f;
@@ -170,7 +173,7 @@ public class PlayerInput : MonoBehaviour {
 			playerCamera.ChangeView();
 		}
 
-		if (RaceManage.canmove && Time.timeScale > 0) {
+		if (raceManage.Canmove && Time.timeScale > 0) {
 			vehicleController.MoveVehicle(m_accel, m_brake, m_boost, m_steer, m_slideR, m_slideL, m_sideAttackR, m_sideAttackL, m_spin, m_pitch);
 		}
 

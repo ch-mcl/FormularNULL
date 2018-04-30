@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour {
 
-	[SerializeField] DBLoadVehicle loader;
+	[SerializeField] LoadVehicleStatus loader;
 	public int vehicleID;
 
 	[Header("Performance")]
@@ -44,7 +44,7 @@ public class Vehicle : MonoBehaviour {
 	[SerializeField] Transform model_root;
 
 	void Start() {
-		DBVehicle dbVehicle = loader.GetVehicleStatus(vehicleID);
+		VehicleStatus dbVehicle = loader.GetVehicleStatus(vehicleID);
 
 		maximumSpeed = dbVehicle.m_maxSpeed;
 		weight = dbVehicle.m_weight;

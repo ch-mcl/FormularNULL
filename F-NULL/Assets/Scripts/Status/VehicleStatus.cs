@@ -5,7 +5,7 @@ using System;
 // DBLoadVehicleが各種ステータスを読み、その値を保持させる
 
 [Serializable]
-public class DBVehicle {
+public class VehicleStatus {
 	public string m_name;      // マシン名
 	public float m_maxSpeed;   // 最高速度
 	public int m_weight;       // 機体重量
@@ -17,7 +17,7 @@ public class DBVehicle {
 	public float[] m_perfom;	// 出力カーブ
 
 	// コンストラクタ
-	public DBVehicle(
+	public VehicleStatus (
 		string name, float maxspeed, int weight, float body, float boost, float grip, float steer, string path, float[] performs
 	) {
 		m_name = name;

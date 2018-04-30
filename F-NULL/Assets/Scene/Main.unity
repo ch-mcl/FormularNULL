@@ -1858,7 +1858,7 @@ GameObject:
   - component: {fileID: 466309399}
   - component: {fileID: 466309398}
   m_Layer: 0
-  m_Name: DB
+  m_Name: StatusLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

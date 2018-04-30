@@ -6,7 +6,7 @@ using System.IO;
 
 // マシン設定を読み取る
 
-public class DBLoadVehicle : MonoBehaviour {
+public class LoadVehicleStatus : MonoBehaviour {
 	[SerializeField] string dbname; // 読み込むcsvファイル
 	/*
 	csv内容
@@ -21,7 +21,7 @@ public class DBLoadVehicle : MonoBehaviour {
 		モデルへのパス
 		出力カーブ
 	*/
-	Dictionary<int, DBVehicle> vehicleDic = new Dictionary<int, DBVehicle>(); // マシン番号とマシンステータスを紐づけ
+	Dictionary<int, VehicleStatus> vehicleDic = new Dictionary<int, VehicleStatus>(); // マシン番号とマシンステータスを紐づけ
 
 	void Awake() {
 		string line; // 文字列を格納
@@ -40,7 +40,7 @@ public class DBLoadVehicle : MonoBehaviour {
 			};
 
 			// マシンステータスの登録
-			DBVehicle dbv = new DBVehicle(
+			VehicleStatus dbv = new VehicleStatus(
 				s[1], float.Parse(s[2]), int.Parse(s[3]), float.Parse(s[4]), float.Parse(s[5]), float.Parse(s[6]), float.Parse(s[7]), s[8], peform
 			);
 
@@ -49,7 +49,7 @@ public class DBLoadVehicle : MonoBehaviour {
 	}
 
 	//マシン性能を教える
-	public DBVehicle GetVehicleStatus(int id) {
+	public VehicleStatus GetVehicleStatus(int id) {
 		return vehicleDic[id];
 	}
 }

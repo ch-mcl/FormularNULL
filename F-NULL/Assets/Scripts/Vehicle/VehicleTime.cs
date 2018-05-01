@@ -50,10 +50,15 @@ public class VehicleTime : MonoBehaviour {
 		// 表示用配列に収まる時
 			if (lap-1 < playerInfo.LapTimesTexts.Length) {
 				// タイムを文字列に変換
+
+				SetLapTime(playerInfo.LapTimesTexts[(lap-1)], lap);
+
+				/*
 				playerInfo.LapTimesTexts[(lap-1)].text = 
 					lap.ToString().PadLeft(2) + " " + lapTimes[lap-1].Elapsed.Minutes.ToString("00") + 
 					":" + lapTimes[lap-1].Elapsed.Seconds.ToString("00") + 
 					":" + lapTimes[lap-1].Elapsed.Milliseconds.ToString("000");
+					*/
 			}
 			else {
 
@@ -89,6 +94,12 @@ public class VehicleTime : MonoBehaviour {
 		lapTimes = new System.Diagnostics.Stopwatch[m_goalLap];
 	}
 
+	// ラップタイム文字列を設定する
+	protected void SetLapTime(Text lapText, int lap) {
+		lapText.text = lap.ToString().PadLeft(2) + " " + lapTimes[lap-1].Elapsed.Minutes.ToString("00") +
+			":" + lapTimes[lap-1].Elapsed.Seconds.ToString("00") +
+			":" + lapTimes[lap-1].Elapsed.Milliseconds.ToString("000");
+	}
 
 	// lapTimesの要素を1つずらす
 	public void SwapLapTimesArray(int lap) {
@@ -96,9 +107,12 @@ public class VehicleTime : MonoBehaviour {
 			playerInfo.LapTimesTexts[i].text = playerInfo.LapTimesTexts[i+1].text;
 		}
 
+		SetLapTime(playerInfo.LapTimesTexts[playerInfo.LapTimesTexts.Length-1], lap);
+		/*
 		playerInfo.LapTimesTexts[playerInfo.LapTimesTexts.Length-1].text = 
 					lap.ToString().PadLeft(2) + " " + lapTimes[lap-1].Elapsed.Minutes.ToString("00") + 
 					":" + lapTimes[lap-1].Elapsed.Seconds.ToString("00") + 
 					":" + lapTimes[lap-1].Elapsed.Milliseconds.ToString("000");
+					*/
 	}
 }

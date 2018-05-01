@@ -12,30 +12,25 @@ public class RaceManage : MonoBehaviour {
 	[SerializeField] private bool m_miss = false; // 失敗
 	[SerializeField] int m_gaolLap = 3; // ゴールまでのラップ
 
-	// 
-	public int GoalLap {
-		get { return m_gaolLap; }
-	}
-
-	// canmoveのプロパティ
+	// 走行可能フラグの取得
 	public bool Canmove {
 		get { return m_canmove; }
 	}
 
-	// finishのプロパティ
+	// ゴールフラグの取得と変更
 	public bool Finish {
 		get { return m_finish; }
 		set { m_finish = value; }
 	}
 
-	// miss
+	// リアイアフラグの取得
 	public bool Miss {
 		get { return m_miss; }
 	}
 
-	// finishのプロパティ
-	public bool Lap {
-		get { return m_finish; }
+	// ゴールまでのラップを取得する
+	public int GoalLap {
+		get { return m_gaolLap; }
 	}
 
 	VehicleTime[] vehicleTimes;
@@ -92,11 +87,6 @@ public class RaceManage : MonoBehaviour {
 	void Update () {
 	}
 	*/
-
-	// 終了ラップの取得
-	public int GetLap() {
-		return m_gaolLap;
-	}
 
 	// カウント表示
 	public void RaceCount(string str){

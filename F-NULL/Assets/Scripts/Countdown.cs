@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// カウントダウン
+// コースイントロ終了後に、有効にすればいいんじゃないか？
+
 public class Countdown : MonoBehaviour {
 
 	[SerializeField] RaceManage raceManage;
@@ -9,10 +12,21 @@ public class Countdown : MonoBehaviour {
 	[SerializeField] AudioClip[] DJc = new AudioClip[3];
 	[SerializeField] AudioClip DJgo;
 
-	public int countValue = 3; // カウントダウンする数 3から開始
+	[SerializeField] protected int countValue = 3; // カウントダウンする数 3から開始
 	bool counted = false; //カウント終了
 
+	// カウントダウン値の取得
+	public int CountValue {
+		get { return countValue; }
+	}
+
+	// カウント完了フラグの取得
+	public bool Counted {
+		get { return counted; }
+	}
+
 	void Start () {
+		// カウントダウン開始
 		StartCoroutine(CountingDown());
 	}
 
@@ -32,9 +46,5 @@ public class Countdown : MonoBehaviour {
 		
         yield return new WaitForSeconds(1.0f);
        // Message.text = "";
-	}
-
-	public bool GetCounted(){
-		return counted;
 	}
 }

@@ -2,7 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// カメラ設定用クラス
+
 public class CamParameter {
-	public static Vector3 camPos; // 位置
-	public static float camPitch; // カメラのx軸(ピッチ)回転
+	private Vector3 camPos; // 位置
+	private float camPitch; // カメラのx軸(ピッチ)角度
+
+	public Vector3 CamPos {
+		get { return camPos; }
+	}
+
+	public float CamPitch {
+		get { return camPitch; }
+	}
 }

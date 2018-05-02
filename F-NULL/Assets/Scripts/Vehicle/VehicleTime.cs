@@ -2,9 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
+// ラップ毎と総合タイムを計測する
+// 計測した結果を画面に出力する
+
 public class VehicleTime : MonoBehaviour {
 
-	[SerializeField] System.Diagnostics.Stopwatch[] lapTimes; // タイムを保存
+	[SerializeField] System.Diagnostics.Stopwatch[] lapTimes; // 全てのラップタイムを保存する
 	[SerializeField] Countdown counDown; // カウントダウン完了したか
 	[SerializeField] RaceManage raceManage; // ゴールしたか
 	
@@ -36,36 +39,30 @@ public class VehicleTime : MonoBehaviour {
 			TotalStopWatch.Start();
 			lapStopWatch.Start();
 		}
-
 		// タイムを文字列に変換
-		playerInfo.TotalTimeText.text = TotalStopWatch.Elapsed.Minutes.ToString("00") + ":" + TotalStopWatch.Elapsed.Seconds.ToString("00") + ":" + TotalStopWatch.Elapsed.Milliseconds.ToString("000");
+		playerInfo.TotalTimeText.text = 
+			TotalStopWatch.Elapsed.Minutes.ToString("00") + ":" + 
+			TotalStopWatch.Elapsed.Seconds.ToString("00") + ":" + 
+			TotalStopWatch.Elapsed.Milliseconds.ToString("000");
 	}
 
 	// ラップ変更時におけるStopWatchの処理
-	public void ChangeLapTime(int lap) {
+	public void ChangeLapTime(int lap) {	
+		//　ラップタイム計測を終了
 		lapStopWatch.Stop();
-		// ゴールしてからのラップ数ではない場合
+		// ゴールしていない場合
 		if (lap-1 < m_goalLap) {
-			lapTimes[lap - 1] = lapStopWatch;
-		// 表示用配列に収まる時
+			// タイムをlapTimesに保存
+			lapTimes[lap-1] = lapStopWatch;
+			// 表示用配列に収まる時
 			if (lap-1 < playerInfo.LapTimesTexts.Length) {
 				// タイムを文字列に変換
-
 				SetLapTime(playerInfo.LapTimesTexts[(lap-1)], lap);
-
-				/*
-				playerInfo.LapTimesTexts[(lap-1)].text = 
-					lap.ToString().PadLeft(2) + " " + lapTimes[lap-1].Elapsed.Minutes.ToString("00") + 
-					":" + lapTimes[lap-1].Elapsed.Seconds.ToString("00") + 
-					":" + lapTimes[lap-1].Elapsed.Milliseconds.ToString("000");
-					*/
-			}
-			else {
-
+			}　else {
 				// 要素を入れ替える
 				SwapLapTimesArray(lap);
-
 			}
+			// ラップタイムを初期化して、新たにラップタイム計測を開始
 			lapStopWatch.Reset();
 			lapStopWatch.Start();
 		}
@@ -103,16 +100,10 @@ public class VehicleTime : MonoBehaviour {
 
 	// lapTimesの要素を1つずらす
 	public void SwapLapTimesArray(int lap) {
-		for (int i = 0; i < playerInfo.LapTimesTexts.Length - 1; i++) {
+		for (int i = 0; i < playerInfo.LapTimesTexts.Length-1; i++) {
 			playerInfo.LapTimesTexts[i].text = playerInfo.LapTimesTexts[i+1].text;
 		}
 
 		SetLapTime(playerInfo.LapTimesTexts[playerInfo.LapTimesTexts.Length-1], lap);
-		/*
-		playerInfo.LapTimesTexts[playerInfo.LapTimesTexts.Length-1].text = 
-					lap.ToString().PadLeft(2) + " " + lapTimes[lap-1].Elapsed.Minutes.ToString("00") + 
-					":" + lapTimes[lap-1].Elapsed.Seconds.ToString("00") + 
-					":" + lapTimes[lap-1].Elapsed.Milliseconds.ToString("000");
-					*/
 	}
 }

@@ -17,7 +17,7 @@ public class VehicleManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.B)){
-			vehicles[0].GetComponent<VehicleMover>().lapBooster = true;
+			vehicles[0].GetComponent<VehicleMover>().LapBooster = true;
 		}
 	}
 

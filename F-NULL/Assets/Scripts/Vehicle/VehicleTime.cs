@@ -16,7 +16,7 @@ public class VehicleTime : MonoBehaviour {
 	// 総合タイム
 	private System.Diagnostics.Stopwatch TotalStopWatch = new System.Diagnostics.Stopwatch(); 
 
-	int m_goalLap; // ゴールとなるラップ数
+	int m_goalLap; // ゴールラップ
 	int m_curentLapTextIndex = 0; // ラップを表示する場所のインデックス
 	int m_currentLap = 1; // 表示上のラップ
 	Player_InfoUI playerInfo;	
@@ -56,23 +56,25 @@ public class VehicleTime : MonoBehaviour {
 		//　ラップタイム計測を終了
 		lapStopWatch.Stop();
 		// ゴールしていない場合
-		if (lap-1 < m_goalLap) {
+		if (lap < m_goalLap) {
 			// タイムをlapTimesに保存
-			lapTimes[lap-1] = lapStopWatch;
+			lapTimes[lap - 1] = lapStopWatch;
 			// 表示用配列に収まる時
-			if (lap-1 < playerInfo.LapTimesTexts.Length-1 && raceManage.Finish != true) {
+			if (lap - 1 < playerInfo.LapTimesTexts.Length - 1 && raceManage.Finish != true) {
 				// タイムを文字列に変換
-				SetLapTime(playerInfo.LapTimesTexts[(lap-1)], lap, lapTimes[lap-1]);
+				SetLapTime(playerInfo.LapTimesTexts[(lap - 1)], lap, lapTimes[lap - 1]);
 			} else {
 				// 要素を入れ替える
 				SwapLapTimesArray(lap);
 			}
 
-			if (m_curentLapTextIndex < playerInfo.LapTimesTexts.Length-1) {
-				++m_curentLapTextIndex;
+			// ゴールしていない場合
+			if (m_curentLapTextIndex < playerInfo.LapTimesTexts.Length - 1) {
+				// ラップを更新
+				m_curentLapTextIndex++;
 			}
 			++m_currentLap;
-			
+
 			// ラップタイムを初期化して、新たにラップタイム計測を開始
 			lapStopWatch.Reset();
 			lapStopWatch.Start();
@@ -95,8 +97,8 @@ public class VehicleTime : MonoBehaviour {
 	public void StopTotalStopWatch() {
 		TotalStopWatch.Stop();
 	}
-	
-	// ゴールまでのラップを取得
+
+	//ゴールラップを取得
 	public void Setlap(int goalLap) {
 		m_goalLap = goalLap;
 		lapTimes = new System.Diagnostics.Stopwatch[m_goalLap];
@@ -110,14 +112,14 @@ public class VehicleTime : MonoBehaviour {
 			lapTime.Elapsed.Milliseconds.ToString("000");
 	}
 
-	// lapTimesの要素を1つずらす
+	// lapTimesの要素を1つずらして、ラップタイムをテキストを更新
 	public void SwapLapTimesArray(int lap) {
-		Debug.Log("swap");
-
+		//  lapTimesの要素を1つずらす
 		for (int i = 0; i < playerInfo.LapTimesTexts.Length-1; i++) {
 			playerInfo.LapTimesTexts[i].text = playerInfo.LapTimesTexts[i+1].text;
 		}
 
+		// ラップタイムをテキストを更新
 		SetLapTime(playerInfo.LapTimesTexts[playerInfo.LapTimesTexts.Length-1], lap, lapTimes[lap-1]);
 	}
 }

@@ -25,10 +25,10 @@ public class Player_InfoUI : MonoBehaviour {
 	[SerializeField] private RectTransform m_energybar; // エネルギーバー用UI
 
 
-	private float barWidth; // 体力バー
-	private float m_energy; // エネルギー
+	private float m_barWidth; // 体力バーの長さ
+	private float m_energy; // 機体のエネルギー
 
-	private int goalLap = 0; // ゴールとなる周回数
+	private int m_goalLap = 0; // ゴールラップ
 	private Vehicle vehicle; // 情報をもらう機体
 
 	// プロパティ
@@ -59,14 +59,14 @@ public class Player_InfoUI : MonoBehaviour {
 
 	void Start() {
 		// エネルギーバーの長さを算出
-		barWidth = m_energybar.anchorMax.x - m_energybar.anchorMin.x;
+		m_barWidth = m_energybar.anchorMax.x - m_energybar.anchorMin.x;
 		// 情報をもらうオブジェクトをキャッシュ
 		vehicle = GetComponent<Vehicle>();
 
 		// ゴールラップの取得
-		goalLap = raceManage.GoalLap;
+		m_goalLap = raceManage.GoalLap;
 		// ラップとゴールラップを表示
-		m_lap.text = 1 + "/" + goalLap.ToString("##");
+		m_lap.text = 1 + "/" + m_goalLap.ToString("##");
 	}
 
 	void Update () {
@@ -74,13 +74,16 @@ public class Player_InfoUI : MonoBehaviour {
 		m_energy = vehicle.hp; // 機体のエネルギー値を取得
 		// エネルギーバーに現在のエネルギー値を適用
 		m_energybar.anchorMax = new Vector2(
-			(m_energy * barWidth) / 100f + m_energybar.anchorMin.x, 
+			(m_energy * m_barWidth) / 100f + m_energybar.anchorMin.x, 
 			m_energybar.anchorMin.y);
 	}
 
 	// ラップ表示　更新
 	public void ChengeLap(int nowLap) {
-		// ラップ表示を更新
-		m_lap.text = (nowLap+1).ToString("##") + "/" + (goalLap).ToString("##");
+		// ゴールしていない場合
+		if (nowLap < m_goalLap) {
+			// ラップ表示を更新
+			m_lap.text = (nowLap + 1).ToString("##") + "/" + (m_goalLap).ToString("##");
+		}
 	}
 }

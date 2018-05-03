@@ -10,7 +10,7 @@ public class RaceManage : MonoBehaviour {
 	[SerializeField] private bool m_canmove; // 動いていいか(VehicleControllerにて参照)
 	[SerializeField] private bool m_finish = false; // ゴール (player分のbool配列であるべき)
 	[SerializeField] private bool m_miss = false; // 失敗
-	[SerializeField] int m_gaolLap = 3; // ゴールまでのラップ
+	[SerializeField] int m_gaolLap = 3; // ゴールとなるラップ
 
 	// 走行可能フラグの取得
 	public bool Canmove {
@@ -37,8 +37,6 @@ public class RaceManage : MonoBehaviour {
 	PlayerMessage[] playerMessages;
 
 	void Awake(){
-		Debug.Log("excuted");
-
 		m_canmove = false; // canmoveの初期化
 		m_waypoint = GameObject.FindObjectOfType<WayPoint>();
 

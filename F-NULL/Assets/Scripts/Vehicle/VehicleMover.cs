@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class VehicleMover : MonoBehaviour {
 	[Header("Misc")]
-	public bool lapBooster; // ブースト使用権限
-	public bool booster; // ブースト使用判定
-	public float flyHeight = 0.6f; // 飛行高 うまくいってないぞ... なんで?
+	[SerializeField] bool lapBooster; // ブースト使用権限
+	[SerializeField] bool booster; // ブースト使用判定
+	[SerializeField] float flyHeight = 0.6f; // 飛行高 うまくいってないぞ... なんで?
 
 	[Header("Orients")]
 	[SerializeField] GameObject particle;
@@ -109,8 +109,15 @@ public class VehicleMover : MonoBehaviour {
 	bool onAir = false;
 	bool spinAttack = false;
 
+	// キャッシュ用
 	Rigidbody m_rigidbody;
 	Vehicle m_vehicle;
+
+	// 2週目以降にブースト使用可能にする為のプロパティ
+	public bool LapBooster {
+		set { lapBooster = value; }
+	}
+
 
 	// 初期化
 	void Start () {

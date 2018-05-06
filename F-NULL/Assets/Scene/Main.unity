@@ -2549,14 +2549,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850662510}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: 0.6
   intensity: 0.75
-  blurSize: 0.25
+  blurSize: 0.5
   blurIterations: 2
   blurType: 0
   fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
@@ -7652,9 +7652,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   target: {fileID: 0}
+  changePosSpeed: 0.1
   sense: 0.1
   defaultFOV: 45
-  positionType: 0
   zoom: 0.26
 --- !u!4 &1270154398
 Transform:
@@ -8902,7 +8902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loader: {fileID: 466309398}
-  vehicleID: 50
+  vehicleID: 0
   maximumSpeed: 303.8889
   agv_perform:
     serializedVersion: 2
@@ -9131,11 +9131,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raceManage: {fileID: 1536677204}
-  hitcheckpoint: 0
-  nowcheckpoint: -1
-  lastcheckpoint: 0
-  currentlap: 0
-  goalLap: 0
+  m_checkpoint: 0
+  m_nowcheckpoint: -1
+  m_lastcheckpoint: 0
+  m_currentlap: 0
 --- !u!1 &1483930271
 GameObject:
   m_ObjectHideFlags: 0
@@ -9718,9 +9717,9 @@ MonoBehaviour:
   - {fileID: 1853691502}
   - {fileID: 1222930660}
   target: {fileID: 1473320222}
+  changePosSpeed: 0.1
   sense: 0.1
   defaultFOV: 45
-  positionType: 0
   zoom: 0.64
 --- !u!4 &1651479205
 Transform:

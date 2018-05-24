@@ -24,9 +24,9 @@ public class CHKPT_NameChanger : Editor {
 		if (GUILayout.Button("2.CHKPTs to numbers")) {
 			waypoint = target as WayPoint;
 
-			waypoint.path_objs[0].name = (waypoint.path_objs.Count-1).ToString();
-			for (int i = 0; i < waypoint.path_objs.Count-1; i++) {
-				waypoint.path_objs[i+1].name = i.ToString();
+			waypoint.m_PathObjects[0].name = (waypoint.m_PathObjects.Count-1).ToString();
+			for (int i = 0; i < waypoint.m_PathObjects.Count-1; i++) {
+				waypoint.m_PathObjects[i+1].name = i.ToString();
 			}
 
 		}

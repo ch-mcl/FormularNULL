@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Player_InfoUI : MonoBehaviour {
 	[SerializeField] RaceManage raceManage; // RaceManage(情報をもらうオブジェクト)
+	[SerializeField] RacePlace racePlace; // 順位情報
 
 	[Header("Message")]
 	[SerializeField] Text m_message; // メッセージ用UI Text
@@ -17,6 +18,9 @@ public class Player_InfoUI : MonoBehaviour {
 	[Header("Time")]
 	[SerializeField] Text m_totalTime; // 総合タイムを表示するテキストエリア
 	[SerializeField] Text[] m_laptimes; // ラップタイムを表示するテキストエリア
+
+	[Header("Position")]
+	[SerializeField] Text m_position; // ラップとゴールラップを表示するテキストエリア (現在のラップ / ゴールラップ)
 
 	[Header("Lap")]
 	[SerializeField] Text m_lap; // ラップとゴールラップを表示するテキストエリア (現在のラップ / ゴールラップ)
@@ -30,6 +34,7 @@ public class Player_InfoUI : MonoBehaviour {
 
 	private int m_goalLap = 0; // ゴールラップ
 	private Vehicle vehicle; // 情報をもらう機体
+	private VehiclePlace vehiclePlace; // 順位を出したい機体
 
 	// プロパティ
 	// 総合タイム
@@ -62,11 +67,15 @@ public class Player_InfoUI : MonoBehaviour {
 		m_barWidth = m_energybar.anchorMax.x - m_energybar.anchorMin.x;
 		// 情報をもらうオブジェクトをキャッシュ
 		vehicle = GetComponent<Vehicle>();
+		vehiclePlace = GetComponent<VehiclePlace>();
+
 
 		// ゴールラップの取得
 		m_goalLap = raceManage.GoalLap;
 		// ラップとゴールラップを表示
 		m_lap.text = 1 + "/" + m_goalLap.ToString("##");
+
+		m_position.text = racePlace.GetPlace(vehiclePlace).ToString("##") + "/" + "";
 	}
 
 	void Update () {
@@ -76,6 +85,8 @@ public class Player_InfoUI : MonoBehaviour {
 		m_energybar.anchorMax = new Vector2(
 			(m_energy * m_barWidth) / 100f + m_energybar.anchorMin.x, 
 			m_energybar.anchorMin.y);
+
+		m_position.text = racePlace.GetPlace(vehiclePlace).ToString("##") + "/" + "";
 	}
 
 	// ラップ表示　更新

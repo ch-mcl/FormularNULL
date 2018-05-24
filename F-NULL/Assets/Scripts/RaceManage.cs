@@ -12,6 +12,11 @@ public class RaceManage : MonoBehaviour {
 	[SerializeField] private bool m_miss = false; // 失敗
 	[SerializeField] int m_gaolLap = 3; // ゴールとなるラップ
 
+	VehicleTime[] vehicleTimes;
+	PlayerMessage[] playerMessages;
+
+	// プロパティ
+
 	// 走行可能フラグの取得
 	public bool Canmove {
 		get { return m_canmove; }
@@ -28,17 +33,19 @@ public class RaceManage : MonoBehaviour {
 		get { return m_miss; }
 	}
 
-	// ゴールまでのラップを取得する
+	// ゴールまでのラップを取得
 	public int GoalLap {
 		get { return m_gaolLap; }
 	}
 
-	VehicleTime[] vehicleTimes;
-	PlayerMessage[] playerMessages;
+	// WayPointの取得
+	public WayPoint WayPoint {
+		get { return m_waypoint; }
+	}
 
 	void Awake(){
 		m_canmove = false; // canmoveの初期化
-		m_waypoint = GameObject.FindObjectOfType<WayPoint>();
+		m_waypoint = GameObject.FindObjectOfType<WayPoint>(); // WayPointの取得
 
 		// ActiveになっているPlayer数の取得
 		int actives = 0;
@@ -68,7 +75,7 @@ public class RaceManage : MonoBehaviour {
 
 		for (int i = 0; i < m_activePlayers.Length; i++) {
 			// チェックポイント初期化
-			m_activePlayers[i].GetComponent<VehicleCheckPoint>().Init(m_waypoint.path_objs.Count - 1);
+			m_activePlayers[i].GetComponent<VehicleCheckPoint>().Init(m_waypoint.m_PathObjects.Count - 1);
 
 			vehicleTimes[i] = m_activePlayers[i].GetComponent<VehicleTime>(); // VehicleTimeをキャッシュ
 			vehicleTimes[i].Setlap(m_gaolLap);

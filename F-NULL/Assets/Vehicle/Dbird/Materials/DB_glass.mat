@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: DB_glass
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -73,5 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 0.422}
+    - _Color: {r: 0.23111118, g: 0.21333341, b: 0.8, a: 0.422}
     - _EmissionColor: {r: 0.049735285, g: 0.04711764, b: 0.178, a: 1}

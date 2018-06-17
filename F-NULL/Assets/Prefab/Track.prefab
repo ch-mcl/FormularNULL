@@ -237,12 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec57debc1eab2844963945898dc35e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayColor: {r: 0.83823526, g: 0.0061635002, b: 0.0061635002, a: 1}
-  path_objs:
-  - {fileID: 4809008651577084}
-  - {fileID: 4347316615874486}
-  - {fileID: 4247582620486452}
-  - {fileID: 4704689532368162}
+  m_RayColor: {r: 1, g: 1, b: 1, a: 1}
+  m_PathObjects: []
 --- !u!114 &114645127720790010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,7 +280,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685474641911606}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 52
   m_Height: 200
@@ -297,7 +293,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1091097776787470}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 52
   m_Height: 200
@@ -310,7 +306,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1469529286574158}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 52
   m_Height: 200
@@ -323,7 +319,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028362547130458}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 52
   m_Height: 200

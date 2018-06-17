@@ -229,7 +229,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6801205
 Transform:
@@ -237,15 +237,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 6801204}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.40722612, z: -0, w: 0.9133274}
   m_LocalPosition: {x: -1976.5851, y: 56.999996, z: 801.4853}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6801206
-SphereCollider:
+--- !u!136 &6801206
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -253,8 +253,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6801207
 MonoBehaviour:
@@ -288,7 +289,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &129568437
 Transform:
@@ -296,15 +297,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 129568436}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.40045568, z: -0, w: 0.91631615}
   m_LocalPosition: {x: -477.1719, y: 56.999996, z: 890.41437}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &129568438
-SphereCollider:
+--- !u!136 &129568438
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -312,8 +313,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &129568439
 MonoBehaviour:
@@ -347,7 +349,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &169059031
 Transform:
@@ -355,15 +357,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 169059030}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.91791856, z: -0, w: -0.39676887}
   m_LocalPosition: {x: 858, y: 56.999996, z: -3475}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &169059032
-SphereCollider:
+--- !u!136 &169059032
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -371,8 +373,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &169059033
 MonoBehaviour:
@@ -406,7 +409,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &189961815
 Transform:
@@ -414,15 +417,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 189961814}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.90853494, z: -0, w: -0.41780886}
   m_LocalPosition: {x: -1218.4938, y: 56.999996, z: 172.71692}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &189961816
-SphereCollider:
+--- !u!136 &189961816
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -430,8 +433,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &189961817
 MonoBehaviour:
@@ -465,7 +469,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &207520280
 Transform:
@@ -473,15 +477,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 207520279}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.65517175, z: -0, w: 0.75548}
   m_LocalPosition: {x: 1337.9213, y: 56.999996, z: -3538.8337}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &207520281
-SphereCollider:
+--- !u!136 &207520281
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -489,8 +493,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &207520282
 MonoBehaviour:
@@ -524,7 +529,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &288337845
 Transform:
@@ -532,7 +537,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 288337844}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.40493712, z: -0, w: 0.91434455}
   m_LocalPosition: {x: 1549.9796, y: 56.999996, z: -3459.958}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -556,8 +561,8 @@ MonoBehaviour:
   m_roll: 0
   m_RoadType: 4
   m_GimicType: 0
---- !u!135 &288337847
-SphereCollider:
+--- !u!136 &288337847
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -565,8 +570,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &367487638
 GameObject:
@@ -583,7 +589,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &367487639
 Transform:
@@ -591,15 +597,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 367487638}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.71845806, z: -0, w: 0.69557035}
   m_LocalPosition: {x: -2299.9014, y: 56.999996, z: 1980.798}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &367487640
-SphereCollider:
+--- !u!136 &367487640
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -607,8 +613,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &367487641
 MonoBehaviour:
@@ -642,7 +649,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &399106905
 Transform:
@@ -650,7 +657,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 399106904}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.75227964, z: -0, w: 0.65884393}
   m_LocalPosition: {x: 972.3614, y: 56.999996, z: -3542.5222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -674,8 +681,8 @@ MonoBehaviour:
   m_roll: 0
   m_RoadType: 0
   m_GimicType: 0
---- !u!135 &399106907
-SphereCollider:
+--- !u!136 &399106907
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -683,8 +690,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!43 &436406511
 Mesh:
@@ -831,7 +839,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &511616998
 Transform:
@@ -839,15 +847,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 511616997}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.99995434, z: 0.0095548825, w: 0}
   m_LocalPosition: {x: 497.27545, y: 56.999996, z: -2099.4185}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &511616999
-SphereCollider:
+--- !u!136 &511616999
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -855,8 +863,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &511617000
 MonoBehaviour:
@@ -890,7 +899,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &602047041
 Transform:
@@ -898,15 +907,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 602047040}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: 497.27545, y: 95, z: -2204.7502}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &602047042
-SphereCollider:
+--- !u!136 &602047042
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -914,8 +923,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &602047043
 MonoBehaviour:
@@ -949,7 +959,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &687396561
 MonoBehaviour:
@@ -974,15 +984,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 687396560}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.0003217789, z: -0, w: 0.99999994}
   m_LocalPosition: {x: 1881.3613, y: 56.999996, z: -2302.8638}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &687396563
-SphereCollider:
+--- !u!136 &687396563
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -990,8 +1000,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &687413879
 GameObject:
@@ -1008,7 +1019,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &687413880
 MonoBehaviour:
@@ -1201,8 +1212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec57debc1eab2844963945898dc35e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayColor: {r: 0.83823526, g: 0.0061635002, b: 0.0061635002, a: 1}
-  path_objs:
+  m_RayColor: {r: 1, g: 1, b: 1, a: 1}
+  m_PathObjects:
   - {fileID: 687396562}
   - {fileID: 1807873500}
   - {fileID: 1320227632}
@@ -1256,7 +1267,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &782485988
 Transform:
@@ -1264,15 +1275,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 782485987}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.39015, z: -0, w: 0.92075133}
   m_LocalPosition: {x: -967.7031, y: 56.999996, z: 172.71692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &782485989
-SphereCollider:
+--- !u!136 &782485989
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1280,8 +1291,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &782485990
 MonoBehaviour:
@@ -1315,7 +1327,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &796887813
 Transform:
@@ -1323,15 +1335,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 796887812}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -412.99997, y: 56.999996, z: 1980.798}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &796887814
-SphereCollider:
+--- !u!136 &796887814
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1339,8 +1351,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &796887815
 MonoBehaviour:
@@ -1439,7 +1452,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &815666870
 Transform:
@@ -1447,15 +1460,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 815666869}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.9824424, z: -0, w: -0.18656625}
   m_LocalPosition: {x: 433.17212, y: 56.999996, z: 80.80781}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &815666871
-SphereCollider:
+--- !u!136 &815666871
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1463,8 +1476,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &815666872
 MonoBehaviour:
@@ -1498,7 +1512,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &818908226
 Transform:
@@ -1506,15 +1520,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 818908225}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.90258497, z: -0, w: 0.43051168}
   m_LocalPosition: {x: -3136.1987, y: 56.999996, z: 1672.666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &818908227
-SphereCollider:
+--- !u!136 &818908227
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1522,8 +1536,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &818908228
 MonoBehaviour:
@@ -1557,7 +1572,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1103900219
 Transform:
@@ -1565,15 +1580,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1103900218}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.0005270888, y: -0.9994034, z: -0.0178009, w: -0.029592566}
   m_LocalPosition: {x: 497.27545, y: 56.999996, z: -859.7299}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1103900220
-SphereCollider:
+--- !u!136 &1103900220
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1581,8 +1596,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1103900221
 MonoBehaviour:
@@ -1616,7 +1632,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1116316782
 Transform:
@@ -1624,15 +1640,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1116316781}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.61880755, z: -0, w: 0.7855426}
   m_LocalPosition: {x: 1217.8828, y: 56.999996, z: 1957.1005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1116316783
-SphereCollider:
+--- !u!136 &1116316783
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1640,8 +1656,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1116316784
 MonoBehaviour:
@@ -1805,7 +1822,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1269384993
 Transform:
@@ -1813,15 +1830,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269384992}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.00037081496, y: -0.99954325, z: 0.026891936, w: -0.01378278}
   m_LocalPosition: {x: 497.27545, y: 56.999996, z: -2466.4849}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1269384994
-SphereCollider:
+--- !u!136 &1269384994
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1829,8 +1846,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1269384995
 MonoBehaviour:
@@ -1864,7 +1882,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1314815998
 Transform:
@@ -1872,15 +1890,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1314815997}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.99956256, z: 0.0295763, w: 0}
   m_LocalPosition: {x: 497.27545, y: 56.999996, z: -1299.767}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1314815999
-SphereCollider:
+--- !u!136 &1314815999
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1888,8 +1906,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1314816000
 MonoBehaviour:
@@ -1923,7 +1942,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1320227632
 Transform:
@@ -1931,15 +1950,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1320227631}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.2701889, z: -0, w: 0.96280736}
   m_LocalPosition: {x: 1803.3613, y: 56.999996, z: -3116.419}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1320227633
-SphereCollider:
+--- !u!136 &1320227633
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1947,8 +1966,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1320227634
 MonoBehaviour:
@@ -1982,7 +2002,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1338907504
 Transform:
@@ -1990,15 +2010,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1338907503}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.70195115, z: -0, w: 0.71222514}
   m_LocalPosition: {x: 820.6845, y: 56.999996, z: 1980.798}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1338907505
-SphereCollider:
+--- !u!136 &1338907505
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2006,8 +2026,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1338907506
 MonoBehaviour:
@@ -2041,7 +2062,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1354614098
 Transform:
@@ -2049,15 +2070,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1354614097}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.9633021, z: -0, w: -0.26841977}
   m_LocalPosition: {x: 723.5044, y: 56.999996, z: -3308.4429}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1354614099
-SphereCollider:
+--- !u!136 &1354614099
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2065,8 +2086,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1354614100
 MonoBehaviour:
@@ -2100,7 +2122,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1361771518
 Transform:
@@ -2108,15 +2130,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1361771517}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.9122918, z: -0, w: -0.40954083}
   m_LocalPosition: {x: -192.29851, y: 56.999996, z: 890.41437}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1361771519
-SphereCollider:
+--- !u!136 &1361771519
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2124,8 +2146,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1361771520
 MonoBehaviour:
@@ -2159,7 +2182,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1413049963
 Transform:
@@ -2167,15 +2190,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1413049962}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.033072095, y: -0.061549284, z: 0.002040555, w: 0.99755394}
   m_LocalPosition: {x: 1870.905, y: 0, z: 1294.7682}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1413049964
-SphereCollider:
+--- !u!136 &1413049964
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2183,8 +2206,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1413049965
 MonoBehaviour:
@@ -2218,7 +2242,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1416940865
 Transform:
@@ -2226,15 +2250,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1416940864}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.96088976, z: -0, w: -0.27693117}
   m_LocalPosition: {x: -3446.6003, y: 56.999996, z: 1058.1404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1416940866
-SphereCollider:
+--- !u!136 &1416940866
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2242,8 +2266,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1416940867
 MonoBehaviour:
@@ -2277,7 +2302,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1494437867
 Transform:
@@ -2285,15 +2310,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1494437866}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: 497.27545, y: 95.606285, z: -1000.6946}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1494437868
-SphereCollider:
+--- !u!136 &1494437868
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2301,8 +2326,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1494437869
 MonoBehaviour:
@@ -2336,7 +2362,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1510899371
 MonoBehaviour:
@@ -2355,8 +2381,8 @@ MonoBehaviour:
   m_roll: 0
   m_RoadType: 0
   m_GimicType: 0
---- !u!135 &1510899372
-SphereCollider:
+--- !u!136 &1510899372
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2364,8 +2390,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1510899373
 Transform:
@@ -2373,7 +2400,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1510899370}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.03750154, y: -0.34341115, z: -0.013724772, w: 0.93833584}
   m_LocalPosition: {x: 1781.0778, y: 0, z: 1480.5762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2395,7 +2422,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1574035371
 Transform:
@@ -2403,15 +2430,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1574035370}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: 497.27545, y: 103.51319, z: -1759.3224}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1574035372
-SphereCollider:
+--- !u!136 &1574035372
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2419,8 +2446,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1574035373
 MonoBehaviour:
@@ -2454,7 +2482,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1606987229
 Transform:
@@ -2462,15 +2490,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1606987228}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.9145337, z: -0, w: -0.4045099}
   m_LocalPosition: {x: -2727.5383, y: 56.999996, z: 173.97548}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1606987230
-SphereCollider:
+--- !u!136 &1606987230
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2478,8 +2506,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1606987231
 MonoBehaviour:
@@ -2513,7 +2542,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1613762162
 Transform:
@@ -2521,15 +2550,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1613762161}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.9050967, z: -0, w: -0.42520577}
   m_LocalPosition: {x: -1701.1096, y: 56.999996, z: 801.4853}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1613762163
-SphereCollider:
+--- !u!136 &1613762163
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2537,8 +2566,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1613762164
 MonoBehaviour:
@@ -2672,7 +2702,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1767713266
 Transform:
@@ -2680,15 +2710,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1767713265}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.03496715, y: -0.42044723, z: -0.016218282, w: 0.9064979}
   m_LocalPosition: {x: 1411.3307, y: 56.999996, z: 1838.5403}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1767713267
-SphereCollider:
+--- !u!136 &1767713267
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2696,8 +2726,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1767713268
 MonoBehaviour:
@@ -2861,7 +2892,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1807873500
 Transform:
@@ -2869,7 +2900,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1807873499}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.04777384, z: -0, w: 0.9988582}
   m_LocalPosition: {x: 1884.3613, y: 56.999996, z: -2911.0984}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2893,8 +2924,8 @@ MonoBehaviour:
   m_roll: 0
   m_RoadType: 0
   m_GimicType: 0
---- !u!135 &1807873502
-SphereCollider:
+--- !u!136 &1807873502
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2902,8 +2933,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1816513806
 GameObject:
@@ -2920,7 +2952,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1816513807
 Transform:
@@ -2928,15 +2960,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1816513806}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.97277856, z: -0, w: 0.23173682}
   m_LocalPosition: {x: -3462.931, y: 56.999996, z: 1343.8258}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1816513808
-SphereCollider:
+--- !u!136 &1816513808
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2944,8 +2976,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1816513809
 MonoBehaviour:
@@ -2979,7 +3012,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1817666519
 Transform:
@@ -2987,15 +3020,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1817666518}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.99139947, z: -0, w: -0.13087058}
   m_LocalPosition: {x: 516.73364, y: 56.999996, z: -2910.1797}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1817666520
-SphereCollider:
+--- !u!136 &1817666520
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -3003,8 +3036,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1817666521
 MonoBehaviour:
@@ -3038,7 +3072,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1825660533
 Transform:
@@ -3046,15 +3080,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1825660532}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.8202828, z: -0, w: 0.5719582}
   m_LocalPosition: {x: -2770.607, y: 56.999996, z: 1904.457}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1825660534
-SphereCollider:
+--- !u!136 &1825660534
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -3062,8 +3096,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1825660535
 MonoBehaviour:
@@ -3097,7 +3132,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1861790174
 MonoBehaviour:
@@ -3116,8 +3151,8 @@ MonoBehaviour:
   m_roll: 0
   m_RoadType: 0
   m_GimicType: 0
---- !u!135 &1861790175
-SphereCollider:
+--- !u!136 &1861790175
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -3125,8 +3160,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1861790176
 Transform:
@@ -3134,7 +3170,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1861790173}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.00792109, y: -0.0014531793, z: 0.000011511137, w: 0.9999676}
   m_LocalPosition: {x: 1886.6399, y: 56.999996, z: 628.3886}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
@@ -3156,7 +3192,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &2063813344
 MonoBehaviour:
@@ -3175,8 +3211,8 @@ MonoBehaviour:
   m_roll: 0
   m_RoadType: 0
   m_GimicType: 0
---- !u!135 &2063813345
-SphereCollider:
+--- !u!136 &2063813345
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -3184,8 +3220,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &2063813346
 Transform:
@@ -3193,7 +3230,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2063813343}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.42354545, z: -0, w: 0.9058749}
   m_LocalPosition: {x: -2437.0928, y: 56.999996, z: 140.2302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3215,7 +3252,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2110555096
 Transform:
@@ -3223,15 +3260,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2110555095}
-  m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.99872845, z: -0.0504136, w: 0}
   m_LocalPosition: {x: 497.27545, y: 56.999996, z: -1652.4935}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 687413881}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2110555097
-SphereCollider:
+--- !u!136 &2110555097
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -3239,8 +3276,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 62.4
+  m_Radius: 52
+  m_Height: 200
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2110555098
 MonoBehaviour:

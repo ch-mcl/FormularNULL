@@ -6307,7 +6307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loader: {fileID: 466309398}
-  vehicleID: 50
+  vehicleID: 9000
   maximumSpeed: 303.8889
   agv_perform:
     serializedVersion: 2
@@ -6717,11 +6717,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850662510}
-  m_LocalRotation: {x: 0.13917309, y: 0, z: 0, w: 0.9902681}
-  m_LocalPosition: {x: 0, y: 4, z: -8}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1151490916}
+  m_Father: {fileID: 1481216776}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 16, y: 0, z: 0}
 --- !u!114 &850662512
@@ -6764,13 +6764,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFog: 0
+  distanceFog: 1
   excludeFarPixels: 0
   useRadialDistance: 0
-  heightFog: 1
+  heightFog: 0
   height: 1
   heightDensity: 0.1
-  startDistance: 0
+  startDistance: 200
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!81 &850662516
 AudioListener:
@@ -6803,7 +6803,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 800
+  far clip plane: 600
   field of view: 45
   orthographic: 0
   orthographic size: 5
@@ -8252,7 +8252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151490916}
   m_Layer: 0
-  m_Name: Root
+  m_Name: PhotoModeRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8268,7 +8268,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 850662511}
+  - {fileID: 1481216776}
   m_Father: {fileID: 1651479205}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12117,6 +12117,9 @@ MonoBehaviour:
   sense: 0.1
   defaultFOV: 45
   zoom: 0.26
+  defultCamAngle: 16
+  runningCamAngle: 0
+  minZoomVel: 2.7
 --- !u!4 &1270154398
 Transform:
   m_ObjectHideFlags: 0
@@ -13434,7 +13437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loader: {fileID: 466309398}
-  vehicleID: 50
+  vehicleID: 9000
   maximumSpeed: 303.8889
   agv_perform:
     serializedVersion: 2
@@ -13722,6 +13725,35 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1481216775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1481216776}
+  m_Layer: 0
+  m_Name: CameraRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1481216776
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1481216775}
+  m_LocalRotation: {x: 0.13917309, y: -0, z: -0, w: 0.9902681}
+  m_LocalPosition: {x: 0, y: 4, z: -8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 850662511}
+  m_Father: {fileID: 1151490916}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1483930271
 GameObject:
   m_ObjectHideFlags: 0
@@ -13971,7 +14003,7 @@ MonoBehaviour:
   m_canmove: 0
   m_finish: 0
   m_miss: 0
-  m_gaolLap: 5
+  m_gaolLap: 3
 --- !u!4 &1536677205
 Transform:
   m_ObjectHideFlags: 0
@@ -14518,7 +14550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRoot: {fileID: 1151490915}
-  cameraTrans: {fileID: 850662511}
+  cameraTrans: {fileID: 1481216776}
   cameraParameter:
   - {fileID: 157784069}
   - {fileID: 254753267}
@@ -14529,7 +14561,10 @@ MonoBehaviour:
   changePosSpeed: 0.1
   sense: 0.1
   defaultFOV: 45
-  zoom: 0.64
+  zoom: 0.8
+  defultCamAngle: 16
+  runningCamAngle: -2
+  minZoomVel: 0
 --- !u!4 &1651479205
 Transform:
   m_ObjectHideFlags: 0
@@ -14812,7 +14847,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1757874561}
   m_LocalRotation: {x: 0.13917309, y: 0, z: 0, w: 0.9902681}
-  m_LocalPosition: {x: 0, y: 7, z: -14}
+  m_LocalPosition: {x: 0, y: 7, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2027625230}

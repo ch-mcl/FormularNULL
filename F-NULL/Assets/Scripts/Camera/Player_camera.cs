@@ -15,10 +15,14 @@ public class Player_camera : MonoBehaviour {
 	[SerializeField] float sense = 0.1f; // カメラ回転における補間値
 	[SerializeField] float defaultFOV = 80f; // デフォルトの視野 速度が上がると上昇
 	[SerializeField] float zoom = 0.2f; // 視野の拡大率
-	
+
+	[SerializeField] float defultCamAngle = 16; // 停止状態のx角度
+	[SerializeField] float runningCamAngle = 0; // 走行中のx角度
+
+
 	bool around = false; // カメラ操作可能 
-	float base_velocity = 340f; // 規定値 およそ 音速(2.7m/s = 1224km/h)
-	float minZoomVel = 2.7f; // FOVの上昇を開始する速度　2.7m/s = 100km/h
+	float base_velocity = 340f; // 規定値 およそ 音速(340fm/s = 1224km/h)
+	[SerializeField] float minZoomVel = 27f; // FOVの上昇を開始する速度　27m/s = 100km/h
 	int viewType = 0; // 視点番号
 
 	void Update () {
@@ -29,8 +33,8 @@ public class Player_camera : MonoBehaviour {
 		float vel = Mathf.Abs(target.GetComponent<VehicleMover>().m_vel);
 		// 100(km/h)以上で走行しているか判定
 		if(vel > minZoomVel) {
-			double clampdVel = Mathf.Clamp(vel, 0, base_velocity*2);
-			zoomRatio = (vel * zoom / base_velocity) + 1f;
+			float clampdVel = Mathf.Clamp(vel, 0, base_velocity*2);
+			zoomRatio = (clampdVel * zoom / base_velocity) + 1f;
 		} else {
 			zoomRatio = 1f;
 		}
@@ -62,12 +66,17 @@ public class Player_camera : MonoBehaviour {
 				cameraRoot.transform.rotation = q;
 			}
 		} else {
-			// カメラの親の向きを　機体と同じ向きにする
+			// カメラ親の向きを　機体と同じ向きにする
 			cameraRoot.transform.rotation = transform.rotation;
 			// カメラのFOVを変更
 			GetComponentInChildren<Camera>().fieldOfView = defaultFOV * zoomRatio;
+
+			// カメラX軸角度
+			float CamAngle = Mathf.Lerp(defultCamAngle, runningCamAngle, (vel / base_velocity));
+			cameraTrans.rotation = cameraRoot.transform.rotation * Quaternion.AngleAxis(CamAngle, Vector3.right);
 		}
-		// カメラの向きを、機体とカメラの向きを補完した向き　にする
+
+		// カメラ親の向きを、機体とカメラ親の向きを補完した向き　にする
 		transform.rotation = Quaternion.Slerp(transform.rotation, target.transform.rotation, sense);
 	}
 
@@ -91,6 +100,9 @@ public class Player_camera : MonoBehaviour {
 	IEnumerator FadeCameraPos() {
 		// カメラの位置を変更
 		for (float f = 0.0f; f < 1.0f; f += changePosSpeed) {
+
+			defultCamAngle = cameraParameter[viewType].eulerAngles.x;
+
 			// 現在の位置と目的の位置の間で補間
 			cameraTrans.transform.localPosition = Vector3.Lerp(cameraTrans.transform.localPosition, cameraParameter[viewType].localPosition, f);
 			// 現在の向きと目的の向きの間で補間

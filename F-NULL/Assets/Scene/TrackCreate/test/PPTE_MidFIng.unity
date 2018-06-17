@@ -230,7 +230,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &11237696
 Transform:
@@ -289,7 +289,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &118594864
 Transform:
@@ -348,7 +348,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &149458358
 Transform:
@@ -537,7 +537,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &288337845
 Transform:
@@ -596,7 +596,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &289118738
 Transform:
@@ -655,7 +655,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &306055724
 Transform:
@@ -714,7 +714,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &368237693
 Transform:
@@ -773,7 +773,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &418053293
 Transform:
@@ -832,7 +832,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &503431799
 Transform:
@@ -891,7 +891,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &619383208
 Transform:
@@ -950,7 +950,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &658109114
 Transform:
@@ -1009,7 +1009,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &687396561
 MonoBehaviour:
@@ -1068,7 +1068,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &687413880
 MonoBehaviour:
@@ -1225,8 +1225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec57debc1eab2844963945898dc35e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayColor: {r: 0.83823526, g: 0.0061635002, b: 0.0061635002, a: 1}
-  path_objs:
+  m_RayColor: {r: 1, g: 1, b: 1, a: 1}
+  m_PathObjects:
   - {fileID: 920442372}
   - {fileID: 118594864}
   - {fileID: 1871451952}
@@ -1271,7 +1271,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &688132623
 Transform:
@@ -1330,7 +1330,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &787071421
 Transform:
@@ -1389,7 +1389,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &799928528
 Transform:
@@ -1513,7 +1513,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &920442372
 Transform:
@@ -1572,7 +1572,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &972378985
 Transform:
@@ -1631,7 +1631,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1171160080
 Transform:
@@ -1690,7 +1690,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1193667076
 Transform:
@@ -1749,7 +1749,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1208395317
 Transform:
@@ -1808,7 +1808,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1268533589
 MonoBehaviour:
@@ -1867,7 +1867,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1291498435
 Transform:
@@ -1926,7 +1926,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1293994052
 Transform:
@@ -1985,7 +1985,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1362223054
 Transform:
@@ -2044,7 +2044,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1375201052
 MonoBehaviour:
@@ -2103,7 +2103,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1630097066
 Transform:
@@ -2162,7 +2162,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1807873500
 Transform:
@@ -2221,7 +2221,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1871451952
 Transform:
@@ -2280,7 +2280,7 @@ GameObject:
   m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1935401435
 Transform:

@@ -61,7 +61,7 @@ public class VehicleMover : MonoBehaviour {
 
 	// 機体振動関連
 	float shakeLowAngle = 2.4f; // 上昇時機首の最大角
-	float shakeAngle = 0.2f; // 機首の上昇する角度
+	float shakeAngle = 0.4f; // 機首の上昇する角度
 	float shakeFrequency = 64f; // 振動の周期
 
 
@@ -541,19 +541,19 @@ public class VehicleMover : MonoBehaviour {
 
 		// F-ZERO X (上下する)
 		// 0.05は上下幅
-		float mdlPos = Mathf.PingPong(Time.time, 0.05f) * m_vel / m_vehicle.maximumSpeed;
-		playermdl.transform.localPosition = Vector3.up * mdlPos;
+		//float mdlPos = Mathf.PingPong(Time.time, 0.05f) * m_vel / m_vehicle.maximumSpeed;
+		//playermdl.transform.localPosition = Vector3.up * mdlPos;
 
 		
 		// F-ZERO GX / DAYTONA USA / SEGA AM2 (機体のピッチが変わることにより機首が上下する)
-		/*
+
 		float noseAngle = m_vel / m_vehicle.maximumSpeed;
 		noseAngle = -noseAngle * (shakeLowAngle + shakeAngle * Mathf.Sin(Time.time * shakeFrequency));
 
 		var rot = Quaternion.AngleAxis(noseAngle, playerobj.transform.right);
 		rot = rot * playerobj.transform.rotation;
 		playermdl.transform.rotation = rot;
-		*/
+
 	}
 
 	// HP減少

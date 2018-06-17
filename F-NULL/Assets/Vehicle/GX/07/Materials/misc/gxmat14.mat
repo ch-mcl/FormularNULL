@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: gxmat14
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -73,5 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.019607844, g: 0.015686275, b: 0.10196079, a: 0.42352942}
+    - _Color: {r: 0.15384611, g: 0.123076916, b: 0.8, a: 0.42352942}
     - _EmissionColor: {r: 0.02031248, g: 0.01484375, b: 0.1, a: 1}

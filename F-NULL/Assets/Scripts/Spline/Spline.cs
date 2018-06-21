@@ -6,11 +6,18 @@ using UnityEngine;
 public class Spline : MonoBehaviour {
 	public ControlPoint[] controlPoints; // CP // 制御点 XのCPに相当
 
-	public Vector3[] handlePoints; // Bezierハンドル
+	[SerializeField]
+	Vector3[] handlePoints; // Bezierハンドル
 
 	bool isLooping = true; // ループになっているか (常に true)
 
 	public OrientedPoint[] allPoints;
+
+	[SerializeField]
+	bool previewWidth = false;
+
+	[SerializeField]
+	bool previewUp = false;
 
 	// 細かさ
 	[Range(0.01f, 1.0f)]
@@ -22,7 +29,7 @@ public class Spline : MonoBehaviour {
 
 	[Range(0.0f, 1.0f)]
 	public float alpha = 0.4f;
-
+	
 	[System.NonSerialized]
 	public int allIndex;
 
@@ -95,18 +102,11 @@ public class Spline : MonoBehaviour {
 
 		Vector3 p3 = controlPoints[ClampCPPos(pos+1)].transform.position;
 
-		Gizmos.DrawWireSphere(p1, 10f);
-		Gizmos.DrawWireSphere(p2, 10f);
-
-		// lastPostとnewPosを取得してExtrudeに渡せば、細分化可能
-		// 綺麗なカーブにするには、これらの向きを算出する必要あり
-
 		// 1つ前の位置
-		Vector3 lastPos = p1; //こいつが欲しい
+		Vector3 lastPos = p1;
 
-		Vector3 newPos; // あと　こいつ　も欲しい
-		float t; // どこのtなのか?
-
+		Vector3 newPos;
+		float t; 
 
 		int current = ClampCPPos(pos); // 現在CPの番号
 		int next = ClampCPPos(pos+1); //　次CPの番号
@@ -126,26 +126,8 @@ public class Spline : MonoBehaviour {
 		float nextBankAngle = -controlPoints[next].Bank;
 
 		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward)*controlPoints[current].transform.rotation;
-		/*
-		// 現CPにおけるXYZ方向を表示
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(currentBankQ*Vector3.up)*40f);
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(controlPoints[current].transform.position+(currentBankQ*Vector3.right)*-40f, controlPoints[current].transform.position+(currentBankQ*Vector3.right)*40f);
-		Gizmos.color = Color.blue;
-		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(currentBankQ*Vector3.forward)*40f);
-		*/
 
 		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward)*controlPoints[next].transform.rotation;
-		/*
-		// 次のCPにおけるXYZ方向を表示
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(nextBankQ*Vector3.up)*40f);
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(controlPoints[current].transform.position+(nextBankQ*Vector3.right)*-40f, controlPoints[current].transform.position+(nextBankQ*Vector3.right)*40f);
-		Gizmos.color = Color.blue;
-		Gizmos.DrawLine(controlPoints[current].transform.position, controlPoints[current].transform.position+(nextBankQ*Vector3.forward)*40f);
-		*/
 
 		for (int i = 1; i <= loops; i++) {
 			t = i * resolution;
@@ -161,15 +143,18 @@ public class Spline : MonoBehaviour {
 
 			q = Quaternion.LookRotation(tan, up);
 
-			// x軸の方向を描画
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*controlPoints[current].WidthR);
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.right)*-controlPoints[current].WidthL);
+			if (previewWidth == true) {
+				// x軸の方向を描画
+				Gizmos.color = Color.red;
+				Gizmos.DrawLine(newPos, newPos + (q * Vector3.right) * controlPoints[current].WidthR);
+				Gizmos.DrawLine(newPos, newPos + (q * Vector3.right) * -controlPoints[current].WidthL);
+			}
 
-			// y軸の方向を描画
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine(newPos, newPos+(q*Vector3.up)*20f);
-
+			if(previewUp == true) {
+				// y軸の方向を描画
+				Gizmos.color = Color.green;
+				Gizmos.DrawLine(newPos, newPos + (q * Vector3.up) * 20f);
+			}
 			allPoints[allIndex] = new OrientedPoint(newPos, q);
 
 			// 線分の描画
@@ -184,6 +169,9 @@ public class Spline : MonoBehaviour {
 		Gizmos.color = Color.gray;
 		Gizmos.DrawLine(p0, p1);
 		Gizmos.DrawLine(p2, p3);
+
+		Gizmos.DrawWireSphere(p1, 10f);
+		Gizmos.DrawWireSphere(p2, 10f);
 	}
 
 	// Bezier曲線上の位置

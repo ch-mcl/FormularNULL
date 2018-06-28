@@ -20,7 +20,7 @@ public class RunMeshCreate : Editor {
 		meshName = EditorGUILayout.TextField("Mesh Name", meshName); // meshの名前を変更
 
 		if (GUILayout.Button("createMesh")) {
-			creater.createMesh();
+			creater.CreateMesh();
 		}
 
 		if (GUILayout.Button("SaveMesh")) {
@@ -35,7 +35,7 @@ public class RunMeshCreate : Editor {
 	void OnSceneGUI(){
 		creater = target as TrackCreate;
 		if (realUpdate) {
-			creater.createMesh ();
+			creater.CreateMesh ();
 		}
 	}
 }

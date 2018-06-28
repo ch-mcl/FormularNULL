@@ -4,40 +4,86 @@ using UnityEngine;
 
 public class ControlPoint : MonoBehaviour {
 
-	public int m_id; // 何番目
+	[SerializeField]
+	private int m_id; // 何番目
+
+	[SerializeField]
+	private RoadTypes m_RoadType = RoadTypes.Road; // 路面形状
+	[SerializeField]
+	private GimicTypes m_GimicType = GimicTypes.None; // ギミック
 
 	[SerializeField]
 	private float m_widthR = 26f; // 右幅
 	[SerializeField]
 	private float m_widthL = 26f; // 左幅
-	// 26.5 : Xのスタート地点の値(基準値)
+	// 26.0 : Xのスタート地点の値(基準値)
+
 	[SerializeField] [Range(0, 360)]
 	private float m_roll = 0f; // バンク (0~360まで)
 
-	private ExtrudeShape roadShape;
+	/// <summary>
+	/// IDの取得
+	/// </summary>
+	public int ID {
+		get {
+			return m_id;
+		}
+		set {
+			if (value >= 0) {
+				m_id = value;
+			}
+		}
+	}
 
-	// 右幅　プロパティ
+	/// <summary>
+	/// 路面形状の取得
+	/// </summary>
+	public int RoadType {
+		get {
+			return (int)m_RoadType;
+		}
+	}
+
+	/// <summary>
+	/// 設置物の取得
+	/// </summary>
+	public int GimicType {
+		get {
+			return (int)m_GimicType;
+		}
+	}
+
+	/// <summary>
+	/// 右幅の取得
+	/// </summary>
 	public float WidthR {
 		get {
 			return m_widthR;
 		}
 	}
 
-	// 左幅　プロパティ
+	/// <summary>
+	/// 左幅の取得
+	/// </summary>
 	public float WidthL {
 		get {
 			return m_widthL;
 		}
 	}
 
-	// 左幅　プロパティ
+	/// <summary>
+	/// バンク角の取得
+	/// </summary>
 	public float Bank {
 		get {
 			return m_roll;
 		}
 	}
 
-	public enum RoadType {
+	/// <summary>
+	/// 路面形状
+	/// </summary>
+	public enum RoadTypes {
 		Road, // (NormalWall Road)
 		HRoad, // (HighWall Road)
 		TRoad, // (NoWall Road)
@@ -52,58 +98,23 @@ public class ControlPoint : MonoBehaviour {
 		*/
 	};
 
-	// パーツ Gimic(ブーストプレート、ダート、マイン、ジャンプ台、[重力エリア、マグネット、風])
-	public enum GimicType {
-		None,
-		Dash,
-		Dirt,
-		Pit,
-		Mine,
-		Jump/*,
-		Gravity,
-		Magnet,
-		Wind
+	// 
+	/// <summary>
+	/// 設置物
+	/// </summary>
+	public enum GimicTypes {
+		None, // 無し
+		Dash, // ブーストプレート
+		Dirt, // ダート
+		Pit, // ピット
+		Mine, // マイン
+		Jump/*, // ジャンプ台
+		Gravity, // 重力エリア
+		Magnet, // マグネット
+		Wind // 風
 		*/
 	};
 
-	public RoadType m_RoadType;
-	public GimicType m_GimicType;
 
-
-	public ExtrudeShape GetRoadShape() {
-		int road;
-
-		switch (m_RoadType) {
-			case RoadType.HRoad:
-				road = (int)RoadType.HRoad;
-				break;
-			case RoadType.TRoad:
-				road = (int)RoadType.TRoad;
-				break;
-			case RoadType.Tunnel:
-				road = (int)RoadType.Tunnel;
-				break;
-			case RoadType.Halfpipe:
-				road = (int)RoadType.Halfpipe;
-				break;
-			case RoadType.Pipe:
-				road = (int)RoadType.Pipe;
-				break;
-			case RoadType.Cylinder:
-				road = (int)RoadType.Cylinder;
-				break;
-			case RoadType.Gap:
-				road = (int)RoadType.Gap;
-				break;
-			default:
-				road = (int)RoadType.Road;
-				break;
-		}
-		int gimic = (int)GimicType.None;
-		/*
-		// gimic 分岐
-		*/
-		roadShape = new ExtrudeShape(m_widthR, m_widthL, road, gimic);
-		return roadShape;
-	}
+	
 }

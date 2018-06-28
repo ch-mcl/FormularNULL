@@ -6293,7 +6293,7 @@ MonoBehaviour:
   - {fileID: 1183244440}
   mask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   m_vel: 0
 --- !u!114 &710045720
 MonoBehaviour:
@@ -13617,7 +13617,7 @@ MonoBehaviour:
   - {fileID: 70483947}
   mask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   m_vel: 0
 --- !u!114 &1473320232
 MonoBehaviour:

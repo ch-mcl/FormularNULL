@@ -176,22 +176,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655d531bc2b4efc418d13840335c8d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlPoints:
+  m_controlPoints:
   - {fileID: 114397061839601274}
   - {fileID: 114907951360971116}
   - {fileID: 114645127720790010}
   - {fileID: 114275791504535126}
-  handlePoints:
-  - {x: 282.84274, y: 0, z: 500}
-  - {x: 500, y: 0, z: 282.84274}
-  - {x: 500, y: 0, z: -282.84274}
-  - {x: 282.84274, y: 0, z: -500}
-  - {x: -282.84274, y: 0, z: -500}
-  - {x: -500, y: 0, z: -282.84274}
-  - {x: -500, y: 0, z: 282.84274}
-  - {x: -282.84274, y: 0, z: 500}
-  resolution: 0.04
-  alpha: 0.4
+  m_length: 0
+  m_bezierHandlePoints: []
+  m_previewHandle: 0
+  m_previewWidth: 0
+  m_previewUp: 0
+  m_resolution: 0.04
+  m_sectionDistance: []
 --- !u!114 &114275791504535126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,11 +200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_id: 2
+  m_RoadType: 0
+  m_GimicType: 0
   m_widthR: 26
   m_widthL: 26
   m_roll: 0
-  m_RoadType: 0
-  m_GimicType: 0
 --- !u!114 &114397061839601274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,11 +217,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_id: 3
+  m_RoadType: 0
+  m_GimicType: 0
   m_widthR: 26
   m_widthL: 26
   m_roll: 0
-  m_RoadType: 0
-  m_GimicType: 0
 --- !u!114 &114580554453781030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -238,7 +234,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RayColor: {r: 1, g: 1, b: 1, a: 1}
-  m_PathObjects: []
+  m_PathObjects:
+  - {fileID: 4809008651577084}
+  - {fileID: 4347316615874486}
+  - {fileID: 4247582620486452}
+  - {fileID: 4704689532368162}
 --- !u!114 &114645127720790010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,11 +251,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_id: 1
+  m_RoadType: 0
+  m_GimicType: 0
   m_widthR: 26
   m_widthL: 26
   m_roll: 0
-  m_RoadType: 0
-  m_GimicType: 0
 --- !u!114 &114907951360971116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -268,11 +268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_id: 0
+  m_RoadType: 0
+  m_GimicType: 0
   m_widthR: 26
   m_widthL: 26
   m_roll: 0
-  m_RoadType: 0
-  m_GimicType: 0
 --- !u!136 &136275027257771940
 CapsuleCollider:
   m_ObjectHideFlags: 1

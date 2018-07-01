@@ -81,20 +81,17 @@ public class Spline : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 全長の取得
+	/// 点間の距離を取得
 	/// </summary>
-	public float Length {
+	public float[] SectionDistances {
 		get {
-			return m_length;
+			return m_sectionDistance;
 		}
 	}
 
-	public int Resolution {
-		get {
-			return (int)(1f/m_resolution);
-		}
-	}
-
+	/// <summary>
+	/// 点間の分割数を取得
+	/// </summary>
 	public int Loops {
 		get {
 			return m_loops;
@@ -174,13 +171,13 @@ public class Spline : MonoBehaviour {
 		Vector3 p2 = m_bezierHandlePoints[(pos*2)+1];
 
 		Vector3 p3 = m_controlPoints[ClampCPPos(pos+1)].transform.position;
+		int current = ClampCPPos(pos); // 現在CPの番号
 
 		// 1つ前の位置
 		Vector3 lastPos = p0; // Bezierは1つ前の点を含まないので上書き
 		Vector3 newPos;
 		float t; 
 
-		int current = ClampCPPos(pos); // 現在CPの番号
 		int next = ClampCPPos(pos+1); //　次CPの番号
 
 

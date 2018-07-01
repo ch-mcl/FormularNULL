@@ -119,11 +119,13 @@ public class TrackCreate : MonoBehaviour {
 
 		// 頂点の算出
 		int uc = 0;
-		float vc = 0f;
+
+		float vCoord = 0f;
 
 		for (int i = 0; i < edgeLoops; i++) {
 			int offset = i * vertsInShape;
-			for(int j = 0; j < vertsInShape; j++) {
+
+			for (int j = 0; j < vertsInShape; j++) {
 				int id = offset + j;
 				// Oriented pointを元に、頂点の位置を追加
 				vertices[id] = path[i%path.Length].LocalToWorld(shape.Verts[j]);
@@ -132,12 +134,21 @@ public class TrackCreate : MonoBehaviour {
 				//normals[id] = path[i].LocalToWorldDirction(shape.normals[j]);
 
 				// U座標を元にUVを追加、Vはpathの長さに準ずる
-				if (uc > shape.UCoords.Length-1) uc = 0;
-				uvs[id] = new Vector2(
-					shape.UCoords[uc],
-					//vc / m_path.Length
-					(i / ((float)edgeLoops)) * 98.6f
-					);
+				if (uc > shape.UCoords.Length - 1) {
+					uc = 0;
+				}
+				if (i < path.Length) {
+					vCoord = spline.SectionDistances[i];
+				} else {
+					float firstDisance =
+						(spline.CurvePoints[0].m_position
+						- spline.CurvePoints[spline.CurvePoints.Length - 1].m_position).magnitude;
+					float lastV = spline.SectionDistances[spline.SectionDistances.Length - 1] + firstDisance;
+					vCoord = lastV;
+				}
+
+				uvs[id] = new Vector2(shape.UCoords[uc], vCoord / 10f);
+
 				uc++;
 			}
 		}

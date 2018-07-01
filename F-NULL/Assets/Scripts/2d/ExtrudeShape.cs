@@ -214,7 +214,7 @@ public class ExtrudeShape {
 						};
 						m_UCoords = new float[] {
 							// 路面
-							1f, 0.5f, 0f,
+							0f, 1.5f, 3f,
 							// 左 路肩
 							1f, 0f,
 							// 左 縁
@@ -266,8 +266,8 @@ public class ExtrudeShape {
 						};
 						m_UCoords = new float[] {
 							0f,
-							0.5f,
-							0f,
+							1.5f,
+							3f,
 							1f,
 							1f,
 							0f,
@@ -322,7 +322,7 @@ public class ExtrudeShape {
 						};
 						m_UCoords = new float[] {
 							// 路面
-							1f, 0.5f, 0f,
+							0f, 1.5f, 3f,
 							// 左 路肩
 							1f, 0f,
 							// 左 縁

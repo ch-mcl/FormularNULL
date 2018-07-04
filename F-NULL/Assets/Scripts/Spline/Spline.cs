@@ -4,7 +4,8 @@ using UnityEngine;
 
 // CatmullRomSpline を算出
 public class Spline : MonoBehaviour {
-	public ControlPoint[] m_controlPoints; // CP // 制御点 XのCPに相当
+	[SerializeField]
+	private ControlPoint[] m_controlPoints; // CP // 制御点 XのCPに相当
 
 	// 全長
 	[SerializeField]
@@ -65,6 +66,9 @@ public class Spline : MonoBehaviour {
 	public ControlPoint[] ControlPoints {
 		get {
 			return m_controlPoints;
+		}
+		set {
+			m_controlPoints = value;
 		}
 	}
 

@@ -20,25 +20,25 @@ public class SplineInspector : Editor {
 
 		if (GUILayout.Button("1.Get Child")) {
 			// splineに子オブジェクトでControlPointコンポーネントが付加されたオブジェクトを持たせる
-			spline.m_controlPoints = spline.GetComponentsInChildren<ControlPoint>();
+			spline.ControlPoints = spline.GetComponentsInChildren<ControlPoint>();
 
 
-			ControlPoint[] cps = new ControlPoint[spline.m_controlPoints.Length];
-			for (int i = 0; i < spline.m_controlPoints.Length; i++) {
-				cps[i] = spline.m_controlPoints[i];
+			ControlPoint[] cps = new ControlPoint[spline.ControlPoints.Length];
+			for (int i = 0; i < spline.ControlPoints.Length; i++) {
+				cps[i] = spline.ControlPoints[i];
 			}
 			// 
-			spline.m_controlPoints = cps;
+			spline.ControlPoints = cps;
 		}
 
 		// 名前変更ボタンの追加
 		// 最初に通過させたいオブジェクトは子の一番上にすること
 		if (GUILayout.Button("2.CP's name to numbers")) {
-			spline.m_controlPoints[0].name = (spline.m_controlPoints.Length - 1).ToString();
-			spline.m_controlPoints[0].ID = (spline.m_controlPoints.Length - 1);
-			for (int i = 0; i < spline.m_controlPoints.Length - 1; i++) {
-				spline.m_controlPoints[i + 1].name = i.ToString();
-				spline.m_controlPoints[i + 1].ID = i;
+			spline.ControlPoints[0].name = (spline.ControlPoints.Length - 1).ToString();
+			spline.ControlPoints[0].ID = (spline.ControlPoints.Length - 1);
+			for (int i = 0; i < spline.ControlPoints.Length - 1; i++) {
+				spline.ControlPoints[i + 1].name = i.ToString();
+				spline.ControlPoints[i + 1].ID = i;
 			}
 		}
 	}
@@ -48,12 +48,12 @@ public class SplineInspector : Editor {
 		Gizmos.color = Color.white;
 
 		// ControlPointが無効か判定
-		if (spline.m_controlPoints != null) {
-			spline.CurvePoints = new OrientedPoint[spline.m_controlPoints.Length * spline.Loops]; // Cutmull-RomSpline曲線上の全点を保持
+		if (spline.ControlPoints != null) {
+			spline.CurvePoints = new OrientedPoint[spline.ControlPoints.Length * spline.Loops]; // Cutmull-RomSpline曲線上の全点を保持
 
 			// CatmullRomSplineを始点から終点までに描画
-			for (int i = 0; i < spline.m_controlPoints.Length; i++) {
-				if ((i == 0 || i == spline.m_controlPoints.Length - 2 || i == spline.m_controlPoints.Length - 1) && !spline.IsLoop) {
+			for (int i = 0; i < spline.ControlPoints.Length; i++) {
+				if ((i == 0 || i == spline.ControlPoints.Length - 2 || i == spline.ControlPoints.Length - 1) && !spline.IsLoop) {
 					continue;
 				}
 
@@ -64,21 +64,21 @@ public class SplineInspector : Editor {
 					handleRotation = Quaternion.AngleAxis(0, Vector3.one);
 				// pivotModeがローカル座標の場合
 				} else {
-					handleRotation = spline.m_controlPoints[i].transform.rotation;
+					handleRotation = spline.ControlPoints[i].transform.rotation;
 				}
 
 				// 位置変更確認
 				EditorGUI.BeginChangeCheck();
 
 				// 移動マニュピレータ表示
-				Vector3 handle = Handles.PositionHandle(spline.m_controlPoints[i].transform.position, handleRotation);
-				Handles.Label(spline.m_controlPoints[i].transform.position, spline.m_controlPoints[i].name);
-				Handles.SphereHandleCap(i, spline.m_controlPoints[i].transform.position, handleRotation, 8f, EventType.Repaint);
+				Vector3 handle = Handles.PositionHandle(spline.ControlPoints[i].transform.position, handleRotation);
+				Handles.Label(spline.ControlPoints[i].transform.position, spline.ControlPoints[i].name);
+				Handles.SphereHandleCap(i, spline.ControlPoints[i].transform.position, handleRotation, 8f, EventType.Repaint);
 
 				// (移動検出)
 				if (EditorGUI.EndChangeCheck()) {
 					Undo.RecordObject(spline, "Move CP");
-					spline.m_controlPoints[i].transform.position = handle;
+					spline.ControlPoints[i].transform.position = handle;
 					EditorUtility.SetDirty(spline);
 				}
 

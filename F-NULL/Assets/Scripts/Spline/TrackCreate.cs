@@ -104,7 +104,7 @@ public class TrackCreate : MonoBehaviour {
 
 			// 路面形状の更新
 			if (i % spline.Loops == 0) {
-				t = 0f;
+				t = resolution;
 
 				cp = spline.ControlPoints[spline.ClampCPPos(CurrentCP)];
 				next = spline.ControlPoints[spline.ClampCPPos(CurrentCP+1)];

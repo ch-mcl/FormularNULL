@@ -109,7 +109,11 @@ public class TrackCreate : MonoBehaviour {
 				cp = spline.ControlPoints[spline.ClampCPPos(CurrentCP)];
 				next = spline.ControlPoints[spline.ClampCPPos(CurrentCP+1)];
 
+				// 現在のCPにおける幅をキャッシュ
+				widthR = cp.WidthR;
+				widthL = cp.WidthL;
 
+				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
 				CurrentCP++;
 			} else {
@@ -118,14 +122,18 @@ public class TrackCreate : MonoBehaviour {
 
 			// 路面幅の変更
 			if(cp.WidthL!=next.WidthL || cp.WidthR != next.WidthR) {
+				// 右幅が変化する場合
 				if(cp.WidthR != next.WidthR) {
+					// 右幅を更新
 					widthR = cp.WidthR + t * (next.WidthR - cp.WidthR);
 				}
 
 				if (cp.WidthL != next.WidthL) {
+					// 左幅を更新
 					widthL = cp.WidthL + t * (next.WidthL - cp.WidthL);
 				}
 
+				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, widthR, widthL, cp.RoadType, cp.GimicType);
 			}
 

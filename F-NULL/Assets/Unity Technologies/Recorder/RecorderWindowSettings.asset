@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0205cb8957891b44b142689caa23987, type: 3}
   m_Name: RecorderWindowSettings
   m_EditorClassIdentifier: 
-  m_Settings: {fileID: 114858798180210422}
---- !u!114 &114339378040655164
+  m_Settings: {fileID: 114725107604813270}
+--- !u!114 &114456719247329242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -20,20 +20,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d935bf7a4fcf66488738bda5536c1cb, type: 3}
-  m_Name: 40c783e3-fe6d-4c2b-b330-7a3015690eae
+  m_Script: {fileID: 11500000, guid: fae41d0797227451ea4b10db1c086647, type: 3}
+  m_Name: 037b3c06-f060-49d2-9ee1-1b2372777a03
   m_EditorClassIdentifier: 
-  m_DisplayName: Pixels
-  m_Id: 626056c4-7143-4e6f-b85c-1029ce941420
-  m_OutputSize: 0
-  m_AspectRatio: 0
-  m_ForceEvenSize: 1
-  source: 1
-  m_CameraTag: 
-  m_FlipFinalOutput: 0
-  m_AllowTransparency: 0
-  m_CaptureUI: 0
---- !u!114 &114858798180210422
+  m_DisplayName: Audio
+  m_Id: befeddc4-deaa-4d8f-850e-b16165a3daa3
+  m_PreserveAudio: 1
+--- !u!114 &114725107604813270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -48,7 +41,7 @@ MonoBehaviour:
   m_CaptureEveryNthFrame: 1
   m_FrameRateMode: 1
   m_FrameRate: 30
-  m_FrameRateExact: 64
+  m_FrameRateExact: 1
   m_StartFrame: 0
   m_EndFrame: 10
   m_StartTime: 0
@@ -56,20 +49,20 @@ MonoBehaviour:
   m_DurationMode: 0
   m_SynchFrameRate: 1
   m_BaseFileName:
-    m_Pattern: test2.<ext>
+    m_Pattern: fzx20.mp4
   m_DestinationPath:
-    m_root: 5
-    m_leaf: /Recordings
+    m_root: 1
+    m_leaf: Recordings
   m_InputsSettings:
     m_InputsSettingsAssets:
-    - {fileID: 114339378040655164}
-    - {fileID: 114990071370850252}
+    - {fileID: 114728783786543728}
+    - {fileID: 114456719247329242}
     ownerRecorderSettingsAssetId: c3e80e73d56409a40bddd104c3c0fa7c
   m_RecorderTypeName: UnityEditor.Recorder.MediaRecorder, Assembly-CSharp-Editor,
     Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_OutputFormat: 0
   m_AppendSuffix: 0
---- !u!114 &114990071370850252
+--- !u!114 &114728783786543728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -77,9 +70,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fae41d0797227451ea4b10db1c086647, type: 3}
-  m_Name: 736cf099-d513-4000-ad97-81ad8d5e8ffa
+  m_Script: {fileID: 11500000, guid: a93936c560512aa4f89b283d08d5b3f0, type: 3}
+  m_Name: d07c6c89-89e7-4ddf-8ce0-74100b48b887
   m_EditorClassIdentifier: 
-  m_DisplayName: Audio
-  m_Id: b21dac71-89f5-4b71-899d-866ed9494584
-  m_PreserveAudio: 1
+  m_DisplayName: Pixels
+  m_Id: 5946b73e-1934-41f7-bf00-f8c12429a18e
+  m_OutputSize: 0
+  m_AspectRatio: 0
+  m_ForceEvenSize: 1

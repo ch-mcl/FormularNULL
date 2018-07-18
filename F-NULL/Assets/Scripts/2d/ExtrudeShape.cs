@@ -51,7 +51,9 @@ public class ExtrudeShape {
 		// 道路の中心
 		// 右幅が大きい場合+ 左幅が大きい場合-
 		float center = widthR - widthL;
-		center = center / 2f;
+		if(center > 0) {
+			center = center / 2f;
+		}
 
 		// 半径
 		float radius = widthR + widthL;
@@ -215,7 +217,15 @@ public class ExtrudeShape {
 					
 							// 右 路肩
 							new Vector2(edgeR, 0),	// 右 道境界
-							new Vector2(shoulderR, shoulderDown)	// 右
+							new Vector2(shoulderR, shoulderDown),	// 右
+
+							// 右壁
+							new Vector2(widthR+4, 0.8f),
+							new Vector2(widthR, 0),
+
+							// 左壁
+							new Vector2(-widthL, 0),
+							new Vector2(-widthL-4, 0.8f)
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -233,7 +243,11 @@ public class ExtrudeShape {
 							// 右 縁
 							1f, 0f,
 							// 右 路肩
-							1f, 0f
+							1f, 0f,
+							// 右壁
+							0f, 1f,
+							// 左壁
+							0f, 1f
 						};
 						m_Lines = new int[]{
 							// 路面
@@ -252,7 +266,11 @@ public class ExtrudeShape {
 							// 右 縁
 							13, 14,
 							// 右 路肩
-							15, 16
+							15, 16,
+							// 右壁
+							17, 18,
+							// 左壁
+							19, 20
 						};
 						#endregion
 						break;
@@ -323,7 +341,7 @@ public class ExtrudeShape {
 					
 							// 右 路肩
 							new Vector2(edgeR, 0),	// 右 道境界
-							new Vector2(shoulderR, shoulderDown),	// 右
+							new Vector2(shoulderR, shoulderDown)	// 右
 						};
 						m_UCoords = new float[] {
 							// 路面

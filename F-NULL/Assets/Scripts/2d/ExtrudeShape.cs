@@ -48,6 +48,11 @@ public class ExtrudeShape {
 	/// <param name="gimic"></param>
 	public ExtrudeShape(int meshType, float widthR, float widthL, int road, int gimic) {
 
+		// 道路の中心
+		// 右幅が大きい場合+ 左幅が大きい場合-
+		float center = widthR - widthL;
+		center = center / 2f;
+
 		// 半径
 		float radius = widthR + widthL;
 		radius = radius / 2;
@@ -92,7 +97,7 @@ public class ExtrudeShape {
 
 							// 路面
 							new Vector2(widthR, 0),	// 右
-							new Vector2(0, 0),		// 中央
+							new Vector2(center, 0),		// 中央
 							new Vector2(-widthL, 0)	// 左
 						};
 						m_UCoords = new float[] {
@@ -181,7 +186,7 @@ public class ExtrudeShape {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
-							new Vector2(0, 0),		// 中央
+							new Vector2(center, 0),		// 中央
 							new Vector2(-shoulderL, shoulderDown),// 左
 
 							// 左 路肩
@@ -210,7 +215,7 @@ public class ExtrudeShape {
 					
 							// 右 路肩
 							new Vector2(edgeR, 0),	// 右 道境界
-							new Vector2(shoulderR, shoulderDown),	// 右
+							new Vector2(shoulderR, shoulderDown)	// 右
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -255,7 +260,7 @@ public class ExtrudeShape {
 						#region 高い壁
 						m_Verts = new Vector2[] {
 							new Vector2(widthR, 0),			// 右
-							new Vector2(0, 0),				// 中央
+							new Vector2(center, 0),			// 中央
 							new Vector2(-widthL, 0),		// 左
 
 							new Vector2(widthR+2, 8),		// 右端
@@ -289,7 +294,7 @@ public class ExtrudeShape {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
-							new Vector2(0, 0),		// 中央
+							new Vector2(center, 0),	// 中央
 							new Vector2(-shoulderL, shoulderDown),// 左
 
 							// 左 路肩

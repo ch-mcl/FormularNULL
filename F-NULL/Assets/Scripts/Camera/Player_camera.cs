@@ -25,12 +25,18 @@ public class Player_camera : MonoBehaviour {
 	[SerializeField] float minZoomVel = 27f; // FOVの上昇を開始する速度　27m/s = 100km/h
 	int viewType = 0; // 視点番号
 
+	VehicleMover vm; // VehicleMoverキャッシュ用
+
+	void Start() {
+		vm = target.GetComponent<VehicleMover>(); // VehicleMoverのキャッシュ
+	}
+
 	void Update () {
 		transform.position = target.transform.position;
 
 		// FOV拡大度を計算
 		float zoomRatio; // カメラに適用する拡大率
-		float vel = Mathf.Abs(target.GetComponent<VehicleMover>().m_vel);
+		float vel = Mathf.Abs(vm.CurrentVelocity);
 		// 100(km/h)以上で走行しているか判定
 		if(vel > minZoomVel) {
 			float clampdVel = Mathf.Clamp(vel, 0, base_velocity*2);
@@ -40,7 +46,7 @@ public class Player_camera : MonoBehaviour {
 		}
 
 		// カメラ操作モード用
-		// PlayerController から情報をもらう(予定)
+		// TODO:PlayerController から情報をもらいなさい
 		GamepadInput.GamepadState state = GamepadInput.GamePad.GetState(GamepadInput.GamePad.Index.Any);
 		if (Input.GetKeyDown(KeyCode.Q)) {
 			// カメラ操作　有効/無効　切替
@@ -90,7 +96,7 @@ public class Player_camera : MonoBehaviour {
 		}
 
 		// 主観視点か判定(最後の要素だけが主観視点)
-		target.GetComponent<VehicleMover>().VehicleShow(viewType != cameraParameter.Length-1);
+		vm.VehicleShow(viewType != cameraParameter.Length-1);
 
 		// 視点切り替え
 		StartCoroutine("FadeCameraPos");

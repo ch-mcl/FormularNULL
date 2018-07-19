@@ -4,47 +4,45 @@ using UnityEngine;
 
 public class VehicleMover : MonoBehaviour {
 	[Header("Misc")]
-	[SerializeField] bool lapBooster; // ブースト使用権限
-	[SerializeField] bool booster; // ブースト使用判定
-	[SerializeField] float flyHeight = 0.6f; // 飛行高 うまくいってないぞ... なんで?
+	[SerializeField]
+	bool lapBooster; // ブースト使用権限
+	[SerializeField]
+	bool booster; // ブースト使用判定
+	[SerializeField]
+	float flyHeight = 0.6f; // 飛行高
 
 	[Header("Orients")]
-	[SerializeField] GameObject particle;
-	[SerializeField] GameObject playerobj;
-	[SerializeField] GameObject playermdl;
-	[SerializeField] GameObject playerspin;
-	public GameObject explosion;
-	[SerializeField] Transform[] orients;
-	[SerializeField] RaycastHit[] hits = new RaycastHit[4];
-	[SerializeField] LayerMask mask;
+	[SerializeField]
+	GameObject particle;
+	[SerializeField]
+	GameObject playerobj;
+	[SerializeField]
+	GameObject playermdl;
+	[SerializeField]
+	GameObject playerspin;
 
 	// ブースト
 	float minBoostHp; // ブースト可能最低値
 	float minSpinBoostHp; // スピンブースター可能最低値
 	float boostPower = 0f; // ブースト力
 
-	// 反重力
-	float downforce = 200f; // 機体を地面に引く力
-	float airdownforce = 50f; // 機体を地面に引く力
-	float downForceHeight = 2f; // 重力が有効になる　地面からの高度
-	float falltime = 0f; // 落下時間 
-	Vector3 m_appliedDownForce; // 落下距離から計算した落下力
-
-	bool GDiffuse = false; // マシン浮遊状態 (カウントダウンもしくは未入力時)
+	bool hovering = false; // マシン浮遊状態 (カウントダウンもしくは未入力時)
 
 	// 物理演算時に使う値達(変更するとゲーム壊れる)
-	float sideAttckForwardEnhance = 1000f; // サイドアタック時　機体を左右に動かす為の係数
-	float sideAttckEnhance = 20000f; // サイドアタック時　機体を左右に動かす為の係数
+	float sideAttckForwardCoefficient = 1000f; // サイドアタック時　機体を左右に動かす為の係数
+	float sideAttckCoefficient = 20000f; // サイドアタック時　機体を左右に動かす為の係数
 
-	float slipEnhance = 10f; // スリップ時に　機体を動かす為の係数
-	float slideEnhance = 100f; // スライド時に　機体を動かす為の係数
-	float thrustEnhance = 1000f; // 前進時に　機体を動かす為の係数
+	float slipCoefficient = 10f; // スリップ時に　機体を動かす為の係数
+	float slideCoefficient = 100f; // スライド時に　機体を動かす為の係数
+	float thrustCoefficient = 1000f; // 前進時に　機体を動かす為の係数
 	float minSlideVel = 2.7f; // スライド可能な最低速度 およそ1km/h
+
+	Vector3 m_downForce; // 落下距離から計算した落下力
 
 	// ブースト基本値
 	// 基本ブースト力 * (機体性能 + ブースト力調整値)
 	float boostForce = 50f; // 基本ブースト力
-	float boostEnhance = 0.5f; // ブースト力調整値
+	float boostCoefficient = 0.5f; // ブースト力調整値
 	float bootDecrease = 50f; // ブースト力低下
 
 	// 各種回転基本値(変更するとゲーム壊れる)
@@ -53,10 +51,9 @@ public class VehicleMover : MonoBehaviour {
 	float slideRoll = 12f; // スライド時における機体のz軸回転角(ロール)値 
 	float steerLerp = 0.1f; // 旋回前と旋回後の角度の　補間値
 	float pitchAngle = 2f; // 機首上下(ピッチ)時の
-	float normalLerp = 0.25f;
 	float gripAngle = 8f; // グリップ最大角上限
 
-	public float m_vel; // 速度
+	private float m_vel; // 速度
 	float healTime; // 回復
 
 	// 機体振動関連
@@ -112,14 +109,40 @@ public class VehicleMover : MonoBehaviour {
 	// キャッシュ用
 	Rigidbody m_rigidbody;
 	Vehicle m_vehicle;
+	VehicleAntiGravity vag;
 
-	// 2週目以降にブースト使用可能にする為のプロパティ
+	/// <summary>
+	/// 速度の取得
+	/// </summary>
+	public float CurrentVelocity {
+		get { return m_vel; }
+	}
+
+	/// <summary>
+	/// ブースト使用可能フラグの設定
+	/// </summary>
 	public bool LapBooster {
 		set { lapBooster = value; }
 	}
 
+	/// <summary>
+	/// 飛行フラグの取得
+	/// </summary>
+	public bool OnAir {
+		get { return onAir; }
+		set{ onAir = value; }
+	}
 
-	// 初期化
+	/// <summary>
+	/// ダウンフォースの設定
+	/// </summary>
+	public Vector3 DownForce {
+		set { m_downForce = value; }
+	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Start () {
 		m_rigidbody = GetComponent<Rigidbody>(); // RigidBodyをキャッシュ
 		m_vehicle = GetComponent<Vehicle>(); // Vehicleをキャッシュ
@@ -127,7 +150,7 @@ public class VehicleMover : MonoBehaviour {
 		m_rigidbody.mass = m_vehicle.weight / 1000; // 機体重量 / 1000　が機体重量
 		m_rigidbody.centerOfMass = Vector3.zero - transform.up * flyHeight; // 重心の設定
 
-		// ブースト使用可能HP計算　おかしい...
+		// TODO:ブースト使用可能HP計算　おかしい...
 		// 最低ブースト使用可能値の設定
 		minBoostHp = 2000f / m_vehicle.body; 
 		minBoostHp = minBoostHp * 0.004f;
@@ -137,7 +160,10 @@ public class VehicleMover : MonoBehaviour {
 		minSpinBoostHp = minSpinBoostHp * 0.004f;
 
 		playermdl.transform.localPosition = new Vector3(0f, -flyHeight, 0f);
+
+		vag = playerspin.transform.GetChild(0).GetComponent<VehicleAntiGravity>();
 	}
+
 
 	void Update() {
 		// 重心位置の変更
@@ -148,9 +174,9 @@ public class VehicleMover : MonoBehaviour {
 		if (m_vehicle.hp <= 0f || gameObject.transform.position.y < -100f) {
 			m_vehicle.hp = 0f;
 		}
-		
-		// 反重力
-		AntiGravity();
+
+		// Normal角度取得　とダウンフォース取得
+		m_downForce = vag.AntiGravity();
 
 		m_vel = Mathf.Abs(Vector3.Dot(m_rigidbody.velocity, transform.forward));
 
@@ -158,14 +184,16 @@ public class VehicleMover : MonoBehaviour {
 		if(steer) Slip();
 
 		// 機体振動 浮遊時適用
-		if(GDiffuse) Shake();
+		if(hovering) Shake();
 	}
 
-	// 物理用処理
-	// 0f はその方向へは力をかけないことを意味
+	/// <summary>
+	/// 物理用処理
+	/// 0f はその方向へは力をかけないことを意味
+	/// </summary>
 	void FixedUpdate() {
 		// 反重力の適用
-		m_rigidbody.AddForce(m_appliedDownForce, ForceMode.Force);
+		m_rigidbody.AddForce(m_downForce, ForceMode.Force);
 
 		// 衝突時の吹っ飛び用処理 まだない
 
@@ -175,7 +203,7 @@ public class VehicleMover : MonoBehaviour {
 		if (m_vel <= 0.2) {
 			Vector3 r_vel = m_rigidbody.velocity;
 			r_vel.z = 0f;
-			m_rigidbody.velocity = r_vel;
+			m_rigidbody.velocity = transform.rotation * r_vel;
 		}
 
 		if (accell) {
@@ -185,23 +213,23 @@ public class VehicleMover : MonoBehaviour {
 			// スリップ時の処理
 			if (slipping) {
 				m_rigidbody.AddRelativeForce(
-					m_steerSlipSide+m_slideRForceSide+ m_slideLForceSide * slipEnhance, 
+					m_steerSlipSide+m_slideRForceSide+ m_slideLForceSide * slipCoefficient, 
 					0f, 
-					m_steerSlipForward+m_slideRForceForward+ m_slideLForceForward * slipEnhance, ForceMode.Force);
+					m_steerSlipForward+m_slideRForceForward+ m_slideLForceForward * slipCoefficient, ForceMode.Force);
 			}
 
 			// サイドアタック時に動く為の処理
 			if (sideAttackR) {
 				m_rigidbody.AddRelativeForce(
-					m_forwardforce * sideAttckEnhance, 
+					m_forwardforce * sideAttckCoefficient, 
 					0f, 
-					-m_forwardforce * sideAttckForwardEnhance, ForceMode.Acceleration);
+					-m_forwardforce * sideAttckForwardCoefficient, ForceMode.Acceleration);
 			}
 			if (sideAttackL){
 				m_rigidbody.AddRelativeForce(
-					-m_forwardforce * sideAttckEnhance, 
+					-m_forwardforce * sideAttckCoefficient, 
 					0f, 
-					-m_forwardforce * sideAttckForwardEnhance, ForceMode.Acceleration);
+					-m_forwardforce * sideAttckForwardCoefficient, ForceMode.Acceleration);
 			}
 
 			// 加速用処理
@@ -209,13 +237,13 @@ public class VehicleMover : MonoBehaviour {
 				m_rigidbody.AddRelativeForce(
 				0f, 
 				0f, 
-				m_forwardforce * thrustEnhance, ForceMode.Force);
+				m_forwardforce * thrustCoefficient, ForceMode.Force);
 			}
 
 			// ブースト用処理
 			if(boostPower > 0) m_rigidbody.AddRelativeForce(
 				0f, 
-				0f, (m_forwardforce * boostPower * thrustEnhance), ForceMode.Force);
+				0f, (m_forwardforce * boostPower * thrustCoefficient), ForceMode.Force);
 		}
 
 		// スライド処理 (
@@ -223,24 +251,32 @@ public class VehicleMover : MonoBehaviour {
 		if(m_vel >= minSlideVel) {
 			if (slideR) {
 				m_rigidbody.AddRelativeForce(
-					m_slideRForceSide * slideEnhance, 
+					m_slideRForceSide * slideCoefficient, 
 					0f, 
-					m_slideLForceForward * slideEnhance, ForceMode.Acceleration);
+					m_slideLForceForward * slideCoefficient, ForceMode.Acceleration);
 			}
 			if (slideL) {
 				m_rigidbody.AddRelativeForce(
-					m_slideLForceSide * slideEnhance, 
+					m_slideLForceSide * slideCoefficient, 
 					0f, 
-					m_slideRForceForward * slideEnhance, ForceMode.Acceleration);
+					m_slideRForceForward * slideCoefficient, ForceMode.Acceleration);
 			}
 		}
 		if (brake) {
+			Vector3 r_vel = m_rigidbody.velocity;
 			// 0.96 は減少させる為の値
-			m_rigidbody.velocity *= 0.96f;
+			r_vel.z = r_vel.z * 0.96f;
+			r_vel.x = r_vel.x * 0.96f;
+
+			m_rigidbody.velocity = r_vel;
 		}
 	}
 
-	// 要はミス　壁から吹っ飛ばす為の何かが必用
+	//TODO:壁から吹っ飛ばす為の何かが必用
+	/// <summary>
+	/// 衝突処理
+	/// </summary>
+	/// <param name="coll"></param>
 	void OnCollisionEnter(Collision coll) {
 		foreach(ContactPoint cont in coll.contacts) { 
 			if (coll.gameObject.tag == "wall") {
@@ -256,7 +292,19 @@ public class VehicleMover : MonoBehaviour {
 		}
 	}
 
-	// PlayerContoroller, AIContorollerから受け取った情報を処理
+	/// <summary>
+	/// PlayerContoroller, AIContorollerから受け取った情報を処理
+	/// </summary>
+	/// <param name="move_accel"></param>
+	/// <param name="move_brake"></param>
+	/// <param name="move_boost"></param>
+	/// <param name="move_steer"></param>
+	/// <param name="move_slideR"></param>
+	/// <param name="move_slideL"></param>
+	/// <param name="move_sideattackR"></param>
+	/// <param name="move_sideattackL"></param>
+	/// <param name="move_spin"></param>
+	/// <param name="move_pitch"></param>
 	public void MoveVehicle(bool move_accel, bool move_brake, bool move_boost, float move_steer, bool move_slideR, bool move_slideL, bool move_sideattackR, bool move_sideattackL, bool move_spin, float move_pitch) {
 		// 機体のロール(y軸回転)をリセット
 		playerobj.transform.localEulerAngles = Vector3.zero;
@@ -297,10 +345,10 @@ public class VehicleMover : MonoBehaviour {
 				if ((spinAttack == true) && (m_vehicle.hp > minSpinBoostHp)) {
 					bDamage = 16f * (1 + (1-m_vehicle.body));
 					// 通常のブーストの2倍 + 機体性能値
-					bPower = boostForce * (m_vehicle.boost + boostEnhance * 2);
+					bPower = boostForce * (m_vehicle.boost + boostCoefficient * 2);
 				} else{
 					bDamage = 16f;
-					bPower = boostForce * (m_vehicle.boost + boostEnhance);
+					bPower = boostForce * (m_vehicle.boost + boostCoefficient);
 				}
 				DamageHP(bDamage); // 体力減少
 				Boost(bPower); // ブースト適応
@@ -436,62 +484,22 @@ public class VehicleMover : MonoBehaviour {
 		yield return null;
 	}
 
-	// カウントダウン時における マシン浮遊
+	/// <summary>
+	/// カウントダウン時における マシン浮遊
+	/// </summary>
 	public void StartHovr() {
-		GDiffuse = playermdl.transform.localPosition.y >= -0.1;
+		hovering = playermdl.transform.localPosition.y >= -0.1;
 
 		// 未浮遊状態
-		if (!GDiffuse) {
+		if (!hovering) {
 			StartCoroutine("Hover");
 		}
 	}
 
-	// 反重力
-	void AntiGravity() {
-		Ray ray = new Ray(transform.position, -transform.up);
-		RaycastHit hit;
-
-		Debug.DrawRay(ray.origin, ray.direction, Color.magenta, 3.0f);
-		if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask)) {
-			if (hit.distance < downForceHeight) {
-				onAir = false;
-				m_appliedDownForce = -transform.up * Mathf.Clamp(m_vel * downforce, 1000, downforce);
-				falltime = 0f;
-
-
-				// Normalに添わせる
-				// まだ修正が必用
-				// 前方の1つだけでnormal取得すれば良いかも？
-				Debug.DrawLine(transform.position, transform.position + hit.normal, Color.cyan);
-				for (int i = 0; i < orients.Length; i++)
-				{
-					Physics.Raycast(orients[i].position, -transform.up, out hits[i]);
-					Debug.DrawRay(hits[i].point, hits[i].normal);
-					var q = Quaternion.FromToRotation(transform.up, hits[i].normal);
-					q = q * transform.rotation;
-					transform.rotation = Quaternion.Lerp(transform.rotation, q, normalLerp);
-				}
-
-			}
-			else {
-				// 地面から遠すぎる場合(空中)
-				// 地面へと落下する
-				onAir = true;
-				float proportionalHeight = (hit.distance - downForceHeight);
-				proportionalHeight = Mathf.Clamp(proportionalHeight, 0, 10);
-				m_appliedDownForce = -transform.up * proportionalHeight * airdownforce;
-				falltime += Time.fixedDeltaTime;
-			}
-		}
-		else {
-			// 地面が存在しない場合
-			// 死亡判定領域まで落とす
-			onAir = true;
-			m_appliedDownForce = Vector3.down * m_rigidbody.velocity.magnitude;
-		}
-	}
-
-	// 旋回(物理用)
+	
+	/// <summary>
+	/// 旋回(物理用)
+	/// </summary>
 	void SteerHelper() {
 		if (Mathf.Abs(m_Oldrotation - transform.eulerAngles.y) < gripAngle * m_vehicle.grip) {
 			// グリップが良いと旋回時のスピードロスが少ない
@@ -504,8 +512,9 @@ public class VehicleMover : MonoBehaviour {
 		m_Oldrotation = transform.eulerAngles.y;
 	}
 
-	// スリップ
-	// F-NULL　にとって重要な処理
+	/// <summary>
+	/// スリップ
+	/// </summary>
 	void Slip() {
 		// 最低スリップの取得
 		float slipmin = Mathf.Abs(m_steerForceSide) + m_slideRForceSide + Mathf.Abs(m_slideLForceSide);
@@ -533,7 +542,9 @@ public class VehicleMover : MonoBehaviour {
 		}
 	}
 
-	// 機体振動
+	/// <summary>
+	/// 機体振動
+	/// </summary>
 	void Shake() {
 		// Mario Kart Style (モデルをランダムに拡大縮小する)
 		// playermdl.transform.localScale = Vector3.one * Random.Range(1f, 1.01f);
@@ -556,13 +567,19 @@ public class VehicleMover : MonoBehaviour {
 
 	}
 
-	// HP減少
+	/// <summary>
+	/// HP減少
+	/// </summary>
+	/// <param name="value"></param>
 	public void DamageHP(float value) {
 		m_vehicle.hp -= value;
 	}
 
-	// HP回復
-	// 100は上限値
+	/// <summary>
+	/// HP回復
+	/// 100は上限値
+	/// </summary>
+	/// <param name="value"></param>
 	public void HealthHP(float value) {
 		if (m_vehicle.hp >= 100f) {
 			m_vehicle.hp = 100f;
@@ -572,7 +589,10 @@ public class VehicleMover : MonoBehaviour {
 		}
 	}
 
-	// ブースト
+	/// <summary>
+	/// ブースト
+	/// </summary>
+	/// <param name="bPower"></param>
 	public void Boost(float bPower) {
 		GetComponent<VehicleAudio>().Boost();
 		float nowPower = m_vel / m_vehicle.maximumSpeed;
@@ -580,16 +600,18 @@ public class VehicleMover : MonoBehaviour {
 		//boostPower = bPower;
 	}
 
-	// マシン表示非表示
+	/// <summary>
+	/// マシン表示非表示
+	/// </summary>
+	/// <param name="showing"></param>
 	public void VehicleShow(bool showing) {
 		playerobj.SetActive(showing);
 	}
 
-	// モーメントや重心、RayCastの表示
+	/// <summary>
+	/// モーメントや重心、RayCastの表示
+	/// </summary>
 	void OnDrawGizmos() {
-		// 重心(Center of Mass)表示
-		// Gizmos.DrawSphere(transform.position + GetComponent<Rigidbody>().centerOfMass, 0.2f);
-
 		// 前進 forward
 		Gizmos.color = new Color(0.0f, 1.0f, 0.0f);
 		Vector3 gizForward = transform.forward * m_forwardforce;

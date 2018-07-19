@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class VehicleVelocity : MonoBehaviour {
 	Player_InfoUI playerInfo;
-	VehicleMover vehicleController;
+	VehicleMover vc;
 
 	void Start () {
 		playerInfo = GetComponent<Player_InfoUI>();
-		vehicleController = GetComponent<VehicleMover>();
+		vc = GetComponent<VehicleMover>();
 	}
 	
 	void Update () {
-		float vel = vehicleController.m_vel * 3.6f;
+		float vel = vc.CurrentVelocity * 3.6f;
 		playerInfo.VelocityText.text = vel.ToString("0");
 	}
 }

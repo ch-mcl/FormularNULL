@@ -25,7 +25,7 @@ public class EngineEffect : MonoBehaviour {
 	}
 
 	void Update () {
-		m_vel = vc.m_vel; // 速度を取得
+		m_vel = vc.CurrentVelocity; // 速度を取得
 		ThrusterEffect();
 	}
 

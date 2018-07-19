@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VehicleEnergy : MonoBehaviour {
+	[SerializeField]
+	GameObject explosion;
+
 	float energy; // 
 	float barWidth; // 体力バー
 
@@ -48,7 +51,7 @@ public class VehicleEnergy : MonoBehaviour {
 		// 速度を無くす
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		// 爆発エフェクト
-		GetComponent<VehicleMover>().explosion.SetActive(true);
+		explosion.SetActive(true);
 		// マシンの操作を無効化
 		
 

@@ -75,7 +75,8 @@ public class Player_InfoUI : MonoBehaviour {
 		// ラップとゴールラップを表示
 		m_lap.text = 1 + "/" + m_goalLap.ToString("##");
 
-		m_position.text = racePlace.GetPlace(vehiclePlace).ToString("##") + "/" + "";
+		// 順位を表示
+		m_position.text = racePlace.GetPlace(vehiclePlace).ToString("##") + "/" + racePlace.Vehicles.ToString("##");
 	}
 
 	void Update () {
@@ -86,7 +87,8 @@ public class Player_InfoUI : MonoBehaviour {
 			(m_energy * m_barWidth) / 100f + m_energybar.anchorMin.x, 
 			m_energybar.anchorMin.y);
 
-		m_position.text = racePlace.GetPlace(vehiclePlace).ToString("##") + "/" + "";
+		// 順位を更新
+		m_position.text = racePlace.GetPlace(vehiclePlace).ToString("##") + "/" + racePlace.Vehicles.ToString("##");
 	}
 
 	// ラップ表示　更新

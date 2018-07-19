@@ -10,6 +10,8 @@ public class RacePlace : MonoBehaviour {
 	[SerializeField] Dictionary<VehiclePlace, float> carDic = 
 		new Dictionary<VehiclePlace, float>(); // VehiclePlace と Place 紐付ける辞書
 
+	public int Vehicles { get { return vehicles.Length; } }
+
 	// Use this for initialization
 	void Start () {
 		/* VehicleManageから情をもらう */

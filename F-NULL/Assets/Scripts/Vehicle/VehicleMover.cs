@@ -32,29 +32,17 @@ public class VehicleMover : MonoBehaviour {
 	[SerializeField]
 	GameObject playerspin;
 
-	#region ブースト
-	/// <summary>
-	/// ブースト可能最低値
-	/// </summary>
-	float m_minBoostHp;
+
+
+
+	#region 定数
 
 	/// <summary>
-	/// スピンブースター可能最低値
+	/// スライド可能な最低速度 およそ1km/h
 	/// </summary>
-	float m_minSpinBoostHp;
-
-	/// <summary>
-	/// ブースト力
-	/// </summary>
-	float m_boostPower = 0f;
-	#endregion
-
-	/// <summary>
-	/// マシン浮遊状態 (カウントダウンもしくは未入力時)
-	/// </summary>
-	bool m_hovering = false;
-
-	// 物理演算時に使う値達(変更するとゲーム壊れる)
+	float m_minSlideVel = 2.7f;
+	
+	#region 物理演算時に使う値達(変更するとゲーム壊れる)
 	/// <summary>
 	/// 機体を左右に動かす係数(サイドアタック用)
 	/// </summary>
@@ -79,24 +67,21 @@ public class VehicleMover : MonoBehaviour {
 	/// 前進時に　機体を動かす為の係数
 	/// </summary>
 	float m_thrustCoefficient = 1000f;
+	#endregion
 
-	/// <summary>
-	/// スライド可能な最低速度 およそ1km/h
-	/// </summary>
-	float m_minSlideVel = 2.7f;
-
-	/// <summary>
-	/// 落下距離から計算した落下力
-	/// </summary>
-	Vector3 m_downForce;
-	
 	# region 減速関係
 	/// <summary>
 	/// ブレーキ係数
 	/// </summary>
 	float m_brakeCoefficient = 0.96f;
 
-	// ブースト基本値
+	/// <summary>
+	/// スライドブレーキ係数
+	/// </summary>
+	float m_SlidebrakeCofficient = 0.98f;
+	#endregion
+
+	#region ブースト定数
 	// 基本ブースト力 * (機体性能 + ブースト力調整値)
 
 	/// <summary>
@@ -152,16 +137,6 @@ public class VehicleMover : MonoBehaviour {
 	float m_gripAngle = 8f;
 	#endregion
 
-	/// <summary>
-	/// 速度
-	/// </summary>
-	private float m_vel;
-
-	/// <summary>
-	/// 回復
-	/// </summary>
-	float m_healTime;
-
 	#region 機体振動関連
 	/// <summary>
 	/// 上昇時機首の最大角
@@ -179,6 +154,29 @@ public class VehicleMover : MonoBehaviour {
 	float m_shakeFrequency = 64f;
 	#endregion
 
+	#endregion
+
+	#region フィールド変数
+	/// <summary>
+	/// マシン浮遊状態 (カウントダウンもしくは未入力時)
+	/// </summary>
+	bool m_hovering = false;
+
+	/// <summary>
+	/// 速度
+	/// </summary>
+	private float m_vel;
+
+	/// <summary>
+	/// 回復
+	/// </summary>
+	float m_healTime;
+
+	/// <summary>
+	/// 落下距離から計算した落下力
+	/// </summary>
+	Vector3 m_downForce;
+
 	/// <summary>
 	/// スリップ状態(false だと グリップ)
 	/// </summary>
@@ -189,7 +187,25 @@ public class VehicleMover : MonoBehaviour {
 	/// </summary>
 	float m_Oldrotation;
 
+	#region ブースト
+	/// <summary>
+	/// ブースト可能最低値
+	/// </summary>
+	float m_minBoostHp;
+
+	/// <summary>
+	/// スピンブースター可能最低値
+	/// </summary>
+	float m_minSpinBoostHp;
+
+	/// <summary>
+	/// ブースト力
+	/// </summary>
+	float m_boostPower = 0f;
+	#endregion
+
 	#region 物理用の変数
+
 	/// <summary>
 	/// 推進力
 	/// </summary>
@@ -206,8 +222,6 @@ public class VehicleMover : MonoBehaviour {
 	/// </summary>
 	float m_steerForceSide;
 
-
-
 	/// <summary>
 	/// ステアリングに対する摩擦力 Z方向
 	/// ドリフト時に使用
@@ -220,7 +234,6 @@ public class VehicleMover : MonoBehaviour {
 	/// </summary>
 	float m_steerSlipSide;
 
-	// 
 	/// <summary>
 	/// スライド力(右) Z方向
 	/// ドリフト時に使用
@@ -281,6 +294,7 @@ public class VehicleMover : MonoBehaviour {
 	bool m_steer = false;
 	bool m_onAir = false;
 	bool m_spinAttack = false;
+	#endregion
 	#endregion
 
 	#region キャッシュ用
@@ -529,8 +543,8 @@ public class VehicleMover : MonoBehaviour {
 
 		// ブースタ関連
 		if (m_boostPower > 0f) {
-			// ブースト力低下 20は定数
-			float decreaseBoost = Mathf.Sin(Time.deltaTime) * m_bootDecrease;
+			// ブースト力低下
+			float decreaseBoost = m_bootDecrease;
 			m_boostPower -= decreaseBoost;
 		} else {
 			m_boostPower = 0f;
@@ -562,12 +576,16 @@ public class VehicleMover : MonoBehaviour {
 			m_steer = true;
 
 			// ステア
+			/*
 			m_steerForceForward = -nowPower / m_vehicle.steering;
+			*/
 			m_steerForceSide = m_forwardforce * m_steerSlipAngle * move_steer;
 
 			// ステア　スリップ(こいつが問題)
+			/*
 			m_steerSlipForward = nowPower / m_vehicle.steering;
 			m_steerSlipSide = -m_forwardforce * (1- m_vehicle.grip) * move_steer;
+			*/
 
 			// 機体のy軸回転(ヨー)
 			// スリップ時はどのマシンも2倍
@@ -595,13 +613,14 @@ public class VehicleMover : MonoBehaviour {
 			playerobj.transform.Rotate(Vector3.forward, -m_slideRoll);
 
 			// スライド右
-			m_slideRForceForward = -nowPower * m_vehicle.grip;
+
+			//m_slideRForceForward = -nowPower * m_vehicle.grip;
 			m_slideRForceSide = nowPower * (1 + m_vehicle.grip);
 
 			// ドリフト関連
-			m_slideRSlipForward = nowPower / m_vehicle.grip;
-			m_slideRSlipSide = -nowPower * (1 + m_vehicle.grip);
-				
+			//m_slideRSlipForward = nowPower / m_vehicle.grip;
+			//m_slideRSlipSide = -nowPower * (1 + m_vehicle.grip);
+
 			m_slideR = true;
 
 		} else {
@@ -618,13 +637,13 @@ public class VehicleMover : MonoBehaviour {
 			playerobj.transform.Rotate(Vector3.forward, m_slideRoll);
 
 			// スライド左
-			m_slideLForceForward = -nowPower * m_vehicle.grip;
+			//m_slideLForceForward = -nowPower * m_vehicle.grip;
 			m_slideLForceSide = -nowPower * (1 + m_vehicle.grip);
 
 			// ドリフト関連
-			m_slideLSlipForward = nowPower / m_vehicle.grip;
-			m_slideLSlipSide = nowPower * (1 + m_vehicle.grip);
-				
+			//m_slideLSlipForward = nowPower / m_vehicle.grip;
+			//m_slideLSlipSide = nowPower * (1 + m_vehicle.grip);
+
 			m_slideL = true;
 		} else {
 			m_slideL = false;
@@ -638,7 +657,6 @@ public class VehicleMover : MonoBehaviour {
 		if (move_sideattackR) {
 			GetComponent<VehicleAudio>().SideAttack();
 			m_sideAttackR = true;
-			//m_forwardforce *= 0.02f;
 		} else {
 			m_sideAttackR = false;
 		}
@@ -647,7 +665,6 @@ public class VehicleMover : MonoBehaviour {
 		if (move_sideattackL) {
 			GetComponent<VehicleAudio>().SideAttack();
 			m_sideAttackL = true;
-			//m_forwardforce *= 0.02f;
 		} else {
 			m_sideAttackL = false;
 		}
@@ -771,7 +788,8 @@ public class VehicleMover : MonoBehaviour {
 	/// </summary>
 	/// <param name="value"></param>
 	public void DamageHP(float value) {
-		m_vehicle.hp -= value;
+		float damage = value;
+		m_vehicle.hp -= damage;
 	}
 
 	/// <summary>
@@ -784,7 +802,8 @@ public class VehicleMover : MonoBehaviour {
 			m_vehicle.hp = 100f;
 		}
 		else {
-			m_vehicle.hp += value;
+			float heal = value;
+			m_vehicle.hp += heal;
 		}
 	}
 

@@ -41,7 +41,12 @@ public class VehicleMover : MonoBehaviour {
 	/// スライド可能な最低速度 およそ1km/h
 	/// </summary>
 	float m_minSlideVel = 2.7f;
-	
+
+	/// <summary>
+	/// ダメージ係数
+	/// </summary>
+	float m_hitDamageCoefficient = 0.1f;
+
 	#region 物理演算時に使う値達(変更するとゲーム壊れる)
 	/// <summary>
 	/// 機体を左右に動かす係数(サイドアタック用)
@@ -78,7 +83,7 @@ public class VehicleMover : MonoBehaviour {
 	/// <summary>
 	/// スライドブレーキ係数
 	/// </summary>
-	float m_SlidebrakeCofficient = 0.98f;
+	float m_slidebrakeCofficient = 0.98f;
 	#endregion
 
 	#region ブースト定数
@@ -178,9 +183,15 @@ public class VehicleMover : MonoBehaviour {
 	Vector3 m_downForce;
 
 	/// <summary>
-	/// スリップ状態(false だと グリップ)
+	/// スリップ状態
+	/// true:スリップ false:グリップ
 	/// </summary>
 	bool m_slipping;
+
+	/// <summary>
+	/// スライドターン
+	/// </summary>
+	bool m_slideTurn;
 
 	/// <summary>
 	/// 1フレーム前の機体y軸回転角(ヨー)角度
@@ -211,7 +222,6 @@ public class VehicleMover : MonoBehaviour {
 	/// </summary>
 	float m_forwardforce;
 	
-
 	/// <summary>
 	/// ステアリング力 X方向
 	/// </summary>
@@ -385,7 +395,6 @@ public class VehicleMover : MonoBehaviour {
 
 		if(vag == null) {
 			// VehicleAntiGravity取得失敗の場合
-
 			// VehicleAntiGravityをキャッシュ
 			vag = playerspin.transform.GetChild(0).GetComponent<VehicleAntiGravity>();
 		}
@@ -403,13 +412,12 @@ public class VehicleMover : MonoBehaviour {
 
 	/// <summary>
 	/// 物理用処理
-	/// 0f はその方向へは力をかけないことを意味
 	/// </summary>
 	void FixedUpdate() {
 		// 反重力の適用
 		m_rigidbody.AddForce(m_downForce, ForceMode.Force);
 
-		// 衝突時の吹っ飛び用処理 まだない
+		// TODO:衝突時の吹っ飛び用処理
 
 		// 0km/hで勝手に動かない為の処理
 		// およそ1km/h以下にて停止
@@ -425,11 +433,13 @@ public class VehicleMover : MonoBehaviour {
 			if (m_steer) SteerHelper();
 
 			// スリップ時の処理
+			// TODO:計算式　見直し
 			if (m_slipping) {
 				m_rigidbody.AddRelativeForce(
-					m_steerSlipSide+m_slideRForceSide+ m_slideLForceSide * m_slipCoefficient, 
+					(m_steerSlipSide + m_slideRForceSide + m_slideLForceSide) * m_slipCoefficient, 
 					0f, 
-					m_steerSlipForward+m_slideRForceForward+ m_slideLForceForward * m_slipCoefficient, ForceMode.Force);
+					(m_steerSlipForward + m_slideRForceForward + m_slideLForceForward) * m_slipCoefficient, 
+					ForceMode.Force);
 			}
 
 			// サイドアタック時に動く為の処理
@@ -478,13 +488,34 @@ public class VehicleMover : MonoBehaviour {
 		}
 		// ブレーキ
 		if (m_brake) {
-			Vector3 r_vel = m_rigidbody.velocity;
-
-			r_vel.z = r_vel.z * m_brakeCoefficient;
-			r_vel.x = r_vel.x * m_brakeCoefficient;
-
-			m_rigidbody.velocity = r_vel;
+			Brake(m_brakeCoefficient, m_brakeCoefficient);
 		}
+	}
+
+	/// <summary>
+	/// 減速処理(X,Y方向)
+	/// </summary>
+	/// <param name="brakeForward"></param>
+	/// <param name="brakeSide"></param>
+	private void Brake(float brakeForward, float brakeSide) {
+		Vector3 r_vel = m_rigidbody.velocity;
+
+		r_vel.z = r_vel.z * brakeForward;
+		r_vel.x = r_vel.x * brakeSide;
+
+		m_rigidbody.velocity = r_vel;
+	}
+
+	/// <summary>
+	/// 減速処理(Z方向のみ)
+	/// </summary>
+	/// <param name="brakePower"></param>
+	private void Brake(float brakePower) {
+		Vector3 r_vel = m_rigidbody.velocity;
+		
+		r_vel.z = r_vel.z * brakePower;
+
+		m_rigidbody.velocity = r_vel;
 	}
 
 	//TODO:壁から吹っ飛ばす為の何かが必用
@@ -497,11 +528,8 @@ public class VehicleMover : MonoBehaviour {
 			if (coll.gameObject.tag == "wall") {
 				//GetComponent<VehicleEffect>().HitEffect(cont);
 				float dmg = m_vel * (1f - m_vehicle.body);
-				dmg = dmg * 0.1f;
-				/*
-				float dmg = m_vel / m_vehicle.body;
-				dmg = dmg * 0.05f;
-				*/
+				dmg = dmg * m_hitDamageCoefficient;
+
 				DamageHP(dmg);
 			}
 		}
@@ -570,34 +598,34 @@ public class VehicleMover : MonoBehaviour {
 			}
 		}
 
+		if( ((Mathf.Abs(move_steer) > 0) && m_slideL) || ((Mathf.Abs(move_steer) > 0) && m_slideR)){
+			m_slideTurn = true;
+		} else {
+			m_slideTurn = false;
+		}
+
 
 		// ステアリング
 		if (Mathf.Abs(move_steer) > 0) {
 			m_steer = true;
 
 			// ステア
-			/*
-			m_steerForceForward = -nowPower / m_vehicle.steering;
-			*/
 			m_steerForceSide = m_forwardforce * m_steerSlipAngle * move_steer;
 
-			// ステア　スリップ(こいつが問題)
-			/*
-			m_steerSlipForward = nowPower / m_vehicle.steering;
-			m_steerSlipSide = -m_forwardforce * (1- m_vehicle.grip) * move_steer;
-			*/
-
 			// 機体のy軸回転(ヨー)
+
+			Quaternion rot;
+
 			// スリップ時はどのマシンも2倍
-			if (m_slipping) {
-				var rot = Quaternion.AngleAxis(move_steer * (m_vehicle.steering * m_steerSlipAngle), transform.up);
-				rot = rot * transform.rotation;
-				transform.rotation = Quaternion.Slerp(transform.rotation, rot, m_steerLerp);
+			if (m_slideTurn) {
+				// スリップの場合
+				rot = Quaternion.AngleAxis(move_steer * (m_vehicle.steering * m_steerSlipAngle), transform.up);
 			} else {
-				var rot = Quaternion.AngleAxis(move_steer * m_vehicle.steering, transform.up);
-				rot = rot * transform.rotation;
-				transform.rotation = Quaternion.Slerp(transform.rotation, rot, m_steerLerp);
+				// グリップの場合
+				rot = Quaternion.AngleAxis(move_steer * m_vehicle.steering, transform.up);
 			}
+			rot = rot * transform.rotation;
+			transform.rotation = Quaternion.Slerp(transform.rotation, rot, m_steerLerp);
 
 			// 機体のz軸回転(ロール)
 			playerobj.transform.Rotate(Vector3.forward, -m_steerRoll * move_steer);
@@ -613,13 +641,16 @@ public class VehicleMover : MonoBehaviour {
 			playerobj.transform.Rotate(Vector3.forward, -m_slideRoll);
 
 			// スライド右
-
+			//
 			//m_slideRForceForward = -nowPower * m_vehicle.grip;
+			//
 			m_slideRForceSide = nowPower * (1 + m_vehicle.grip);
 
 			// ドリフト関連
+			//
 			//m_slideRSlipForward = nowPower / m_vehicle.grip;
 			//m_slideRSlipSide = -nowPower * (1 + m_vehicle.grip);
+			//
 
 			m_slideR = true;
 
@@ -637,12 +668,16 @@ public class VehicleMover : MonoBehaviour {
 			playerobj.transform.Rotate(Vector3.forward, m_slideRoll);
 
 			// スライド左
+			//
 			//m_slideLForceForward = -nowPower * m_vehicle.grip;
+			//
 			m_slideLForceSide = -nowPower * (1 + m_vehicle.grip);
 
 			// ドリフト関連
+			//
 			//m_slideLSlipForward = nowPower / m_vehicle.grip;
 			//m_slideLSlipSide = nowPower * (1 + m_vehicle.grip);
+			//
 
 			m_slideL = true;
 		} else {
@@ -655,16 +690,18 @@ public class VehicleMover : MonoBehaviour {
 		
 		// サイドアタック右
 		if (move_sideattackR) {
-			GetComponent<VehicleAudio>().SideAttack();
 			m_sideAttackR = true;
+			GetComponent<VehicleAudio>().SideAttack();
+			Brake(m_slidebrakeCofficient);
 		} else {
 			m_sideAttackR = false;
 		}
 
 		// サイドアタック左
 		if (move_sideattackL) {
-			GetComponent<VehicleAudio>().SideAttack();
 			m_sideAttackL = true;
+			GetComponent<VehicleAudio>().SideAttack();
+			Brake(m_slidebrakeCofficient);
 		} else {
 			m_sideAttackL = false;
 		}
@@ -720,13 +757,18 @@ public class VehicleMover : MonoBehaviour {
 	/// </summary>
 	void SteerHelper() {
 		if (Mathf.Abs(m_Oldrotation - transform.eulerAngles.y) < m_gripAngle * m_vehicle.grip) {
+			m_slipping = false;
+
 			// グリップが良いと旋回時のスピードロスが少ない
 			float turnadjust = (transform.eulerAngles.y - m_Oldrotation) * m_vehicle.grip;
 
 			Quaternion velRotation = Quaternion.AngleAxis(turnadjust, Vector3.up);
 
 			m_rigidbody.velocity = velRotation * m_rigidbody.velocity;
+		} else {
+			m_slipping = true;
 		}
+
 		m_Oldrotation = transform.eulerAngles.y;
 	}
 
@@ -734,6 +776,7 @@ public class VehicleMover : MonoBehaviour {
 	/// スリップ
 	/// </summary>
 	void Slip() {
+		/*
 		// 最低スリップの取得
 		float slipmin = Mathf.Abs(m_steerForceSide) + m_slideRForceSide + Mathf.Abs(m_slideLForceSide);
 		// スリップの計算
@@ -743,6 +786,7 @@ public class VehicleMover : MonoBehaviour {
 
 		// スリップ中
 		m_slipping = abslip > slipthreshold;
+		*/
 
 		if (m_slipping) {
 			particle.GetComponent<ParticleSystem>().Play();

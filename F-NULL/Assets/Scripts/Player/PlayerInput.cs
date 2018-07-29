@@ -9,7 +9,7 @@ public class PlayerInput : MonoBehaviour {
 
 	[SerializeField] RaceManage raceManage;
 
-	[SerializeField] private GamePad.Index player_id;  //自分が何人目のプレイヤーか設定する。
+	[SerializeField] private GamePad.Index player_id;  //自分が何人目のプレイヤーか設定
 
 	[SerializeField] private float doublTapTime = 0.5f;
 	[SerializeField] private Player_camera playerCamera;
@@ -40,9 +40,6 @@ public class PlayerInput : MonoBehaviour {
 	bool m_triggerLDown;
 	float lPressTime = 0;
 
-	int viewMode = 0;
-
-
 	void Start () {
 		vehicleController = GetComponent<VehicleMover>(); // VehicleControllerをキャッシュ
 	}
@@ -65,7 +62,7 @@ public class PlayerInput : MonoBehaviour {
 		// ブースター
 		m_boost = (GamePad.GetButtonDown(GamePad.Button.B, player_id) || Input.GetKeyDown(KeyCode.Space));
 
-		// ステアリングz
+		// ステアリング
 		if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f) {
 			m_steer = Input.GetAxis("Horizontal");
 		} else {
@@ -127,48 +124,24 @@ public class PlayerInput : MonoBehaviour {
 			m_slideL = false;
 			lPressTime = Time.time;
 		}
-
-		/*
-		m_sideAttackL = false;
-		if (GamePad.GetButtonDown(GamePad.Button.LeftShoulder, player_id) || Input.GetKeyDown("q")) {
-			m_sideAttackL = Time.time < lPressTime + doublTapTime;
-			lPressTime = Time.time;
-		}*/
-
-
-		/*
-		m_bumperL = false;
-		if (GamePad.GetButtonDown(GamePad.Button.LeftShoulder, player_id) || Input.GetKeyDown("q")) {
-			if (Time.time < lPressTime + doublTapTime) {
-				m_bumperL = true;
-			}
-			lPressTime = Time.time;
-		}
-
-		if (m_bumperL) {
-			m_sideAttackL = true;
-		} else {
-			m_sideAttackL = false;
-		}
-		*/
 		#endregion
 
 		// スピンアタック
 		m_spin = (state.Y || Input.GetKey(KeyCode.Keypad1));
 
 		// ピッチ
-		//if (Mathf.Abs(state.LeftStickAxis.y) > 0) {
-		//	m_pitch = state.LeftStickAxis.y;
 		if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f) {
 			m_pitch = Input.GetAxis("Vertical");
 		} else {
 			m_pitch = 0;
 		}
 
+		// ポーズ
 		if (m_pause) {
 			pauseManage.ChangePause();
 		}
 
+		// 視点切り替え
 		if (m_camera) {
 			playerCamera.ChangeView();
 		}
@@ -177,6 +150,7 @@ public class PlayerInput : MonoBehaviour {
 			vehicleController.MoveVehicle(m_accel, m_brake, m_boost, m_steer, m_slideR, m_slideL, m_sideAttackR, m_sideAttackL, m_spin, m_pitch);
 		}
 
+		// 浮遊開始
 		if (m_accel) vehicleController.StartHovr();
 	}
 }

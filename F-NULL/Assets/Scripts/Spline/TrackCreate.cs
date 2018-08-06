@@ -14,6 +14,7 @@ public class TrackCreate : MonoBehaviour {
 	[SerializeField]
 	private MeshCollider wallColl; // 壁用コリジョン
 
+
 	/// <summary>
 	/// 生成するmeshタイプ
 	/// </summary>
@@ -46,6 +47,7 @@ public class TrackCreate : MonoBehaviour {
 			// collisionの更新
 			roadColl.sharedMesh = m_Roadmesh;
 
+			/*
 			// 壁
 			Extrude((int)MeshType.CollWall, m_Wallmesh, m_path);
 			// collisionの更新
@@ -54,6 +56,7 @@ public class TrackCreate : MonoBehaviour {
 			Extrude((int)MeshType.Model, m_Modelmesh, m_path);
 			MeshFilter mf = GetComponent<MeshFilter>();
 			mf.mesh = m_Modelmesh;
+			*/
 		}
 	}
 
@@ -64,7 +67,6 @@ public class TrackCreate : MonoBehaviour {
 	/// <param name="shape"></param>
 	/// <param name="path"></param>
 	public void Extrude(int meshType, Mesh mesh, OrientedPoint[] path) {
-		Debug.Log(CalcVertces(meshType)*spline.Loops);
 
 		ControlPoint cp = spline.ControlPoints[0];
 
@@ -74,19 +76,26 @@ public class TrackCreate : MonoBehaviour {
 		// TODO:calcVertcesの値を使う
 		int vertsInShape = shape.Verts.Length;
 
-		//int segments = spline.Resolution; // edgeLoopの間の面の数
-		//int edgeLoops = spline.Resolution+1; // edgeLoop(基本図形)の数
-		int segments = path.Length; // edgeLoopの間の面の数
-		int edgeLoops = path.Length + 1; // edgeLoop(基本図形)の数
+		// edgeLoopの間の面の数
+		int segments = path.Length;
 
-		int vertCount = vertsInShape * edgeLoops; // 頂点数の算出
-		int triCount = shape.Lines.Length * segments; // 三角形の数
+		// edgeLoop(基本図形)の数
+		int edgeLoops = path.Length + 1; 
+
+		// 頂点数を算出
+		int vertCount = CalcVertces(meshType) * spline.Loops;
+		vertCount = vertCount + shape.Verts.Length;
+
+		Debug.Log("Vertices : " + vertCount);
+
+		// 三角形の数
+		int triCount = shape.Lines.Length * segments; 
 		int triIndexCount = triCount * 3;
 
 		int[] triangleIndices = new int[triIndexCount];
-		Vector3[] vertices = new Vector3[vertCount];
-		Vector3[] normals = new Vector3[vertCount];
-		Vector2[] uvs = new Vector2[vertCount];
+		List<Vector3> vertices = new List<Vector3>();
+		List<Vector3> normals = new List<Vector3>();
+		List<Vector2> uvs = new List<Vector2>();
 
 		// 頂点の算出
 		int uc = 0;
@@ -99,9 +108,9 @@ public class TrackCreate : MonoBehaviour {
 		float t = 0f;
 		float resolution = 1f / spline.Loops;
 
-		for (int i = 0; i < edgeLoops; i++) {
-			int offset = i * vertsInShape;
+		int offset = 0;
 
+		for (int i = 0; i < edgeLoops; i++) {
 			// 路面形状の更新
 			if (i % spline.Loops == 0) {
 				t = resolution;
@@ -115,6 +124,7 @@ public class TrackCreate : MonoBehaviour {
 
 				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
+
 				CurrentCP++;
 			} else {
 				t += resolution;
@@ -135,38 +145,54 @@ public class TrackCreate : MonoBehaviour {
 
 				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, widthR, widthL, cp.RoadType, cp.GimicType);
+
+
 			}
 
-			for (int j = 0; j < vertsInShape; j++) {
-				int id = offset + j;
-				// Oriented pointを元に、頂点の位置を追加
-				vertices[id] = path[i % path.Length].LocalToWorld(shape.Verts[j]);
+			if (shape.Verts == null) {
+				vertsInShape = 0;
+			} else {
+				vertsInShape = shape.Verts.Length;
 
-				// Oriented pointを元に、法線の向きを追加
-				//normals[id] = path[i].LocalToWorldDirction(shape.normals[j]);
+			}
+			offset = i * vertsInShape;
 
-				// U座標を元にUVを追加、Vはpathの長さに準ずる
-				if (uc > shape.UCoords.Length - 1) {
-					uc = 0;
+			if (shape.Verts != null) {
+				for (int j = 0; j < vertsInShape; j++) {
+					int id = offset + j;
+					// Oriented pointを元に、頂点の位置を追加
+					//vertices[id] = path[i % path.Length].LocalToWorld(shape.Verts[j]);
+					Vector3 vert = path[i % path.Length].LocalToWorld(shape.Verts[j]);
+					vertices.Add(vert);
+
+					// Oriented pointを元に、法線の向きを追加
+					//normals[id] = path[i].LocalToWorldDirction(shape.normals[j]);
+
+					// U座標を元にUVを追加、Vはpathの長さに準ずる
+					if (uc > shape.UCoords.Length - 1) {
+						uc = 0;
+					}
+					if (i < path.Length) {
+						vCoord = spline.SectionDistances[i];
+					} else {
+						float firstDisance =
+							(spline.CurvePoints[0].m_position
+							- spline.CurvePoints[spline.CurvePoints.Length - 1].m_position).magnitude;
+						float lastV = spline.SectionDistances[spline.SectionDistances.Length - 1] + firstDisance;
+						vCoord = lastV;
+					}
+
+					//uvs[id] = new Vector2(shape.UCoords[uc], vCoord / 20f);
+					Vector2 uv = new Vector2(shape.UCoords[uc], vCoord / 20f);
+					uvs.Add(uv);
+
+					uc++;
 				}
-				if (i < path.Length) {
-					vCoord = spline.SectionDistances[i];
-				} else {
-					float firstDisance =
-						(spline.CurvePoints[0].m_position
-						- spline.CurvePoints[spline.CurvePoints.Length - 1].m_position).magnitude;
-					float lastV = spline.SectionDistances[spline.SectionDistances.Length - 1] + firstDisance;
-					vCoord = lastV;
-				}
-
-				uvs[id] = new Vector2(shape.UCoords[uc], vCoord / 20f);
-
-				uc++;
 			}
 		}
 		int ti = 0;
 		for (int i = 0; i < segments; i++) {
-			int offset = i * vertsInShape;
+			offset = i * vertsInShape;
 			for (int l = 0; l < shape.Lines.Length; l += 2) {
 				// lineのindicesに基づいて2つの三角形を追加
 				int a = offset + (shape.Lines[l] + vertsInShape);
@@ -185,11 +211,11 @@ public class TrackCreate : MonoBehaviour {
 
 		// mesh生成用
 		//mesh.Clear();
-		mesh.vertices = vertices;
+		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangleIndices;
 		//mesh.normals = normals;
 		mesh.RecalculateNormals();
-		mesh.uv = uvs;
+		mesh.uv = uvs.ToArray();
 	}
 
 	/// <summary>
@@ -204,11 +230,13 @@ public class TrackCreate : MonoBehaviour {
 		int verts = 0;
 	
 		for (int i = 0; i < spline.ControlPoints.Length; i++) {
-			cp = spline.ControlPoints[i];
+			cp = spline.ControlPoints[spline.ClampCPPos(i)];
 
 			ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
 
-			verts += shape.Verts.Length;
+			if(shape.Verts != null) {
+				verts += shape.Verts.Length;
+			}
 
 		}
 

@@ -124,7 +124,7 @@ public class Spline : MonoBehaviour {
 
 			// 始点から終点までを描画
 			for (int i = 0; i < m_controlPoints.Length; i++) {
-				if ((i == 0 || i == m_controlPoints.Length - 2 || i == m_controlPoints.Length - 1) && !IsLoop) {
+				if ((i == m_controlPoints.Length - 2 || i == m_controlPoints.Length - 1) && !IsLoop) {
 					continue;
 				}
 

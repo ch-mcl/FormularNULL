@@ -47,7 +47,7 @@ public class TrackCreate : MonoBehaviour {
 			// collisionの更新
 			roadColl.sharedMesh = m_Roadmesh;
 
-			/*
+			
 			// 壁
 			Extrude((int)MeshType.CollWall, m_Wallmesh, m_path);
 			// collisionの更新
@@ -56,7 +56,7 @@ public class TrackCreate : MonoBehaviour {
 			Extrude((int)MeshType.Model, m_Modelmesh, m_path);
 			MeshFilter mf = GetComponent<MeshFilter>();
 			mf.mesh = m_Modelmesh;
-			*/
+			
 		}
 	}
 
@@ -68,13 +68,10 @@ public class TrackCreate : MonoBehaviour {
 	/// <param name="path"></param>
 	public void Extrude(int meshType, Mesh mesh, OrientedPoint[] path) {
 
-		ControlPoint cp = spline.ControlPoints[0];
+		ControlPoint cp = spline.ControlPoints[0]; // 現在のCP
 
 		// 現在CPの路面形状を生成
 		ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
-
-		// TODO:calcVertcesの値を使う
-		int vertsInShape = shape.Verts.Length;
 
 		// edgeLoopの間の面の数
 		int segments = path.Length;
@@ -82,36 +79,32 @@ public class TrackCreate : MonoBehaviour {
 		// edgeLoop(基本図形)の数
 		int edgeLoops = path.Length + 1; 
 
-		// 頂点数を算出
-		int vertCount = CalcVertces(meshType) * spline.Loops;
-		vertCount = vertCount + shape.Verts.Length;
-
-		Debug.Log("Vertices : " + vertCount);
-
-		// 三角形の数
-		int triCount = shape.Lines.Length * segments; 
-		int triIndexCount = triCount * 3;
-
-		int[] triangleIndices = new int[triIndexCount];
+		//int[] triangleIndices = new int[triIndexCount];
+		List<int> triangleIndices = new List<int>();
 		List<Vector3> vertices = new List<Vector3>();
 		List<Vector3> normals = new List<Vector3>();
 		List<Vector2> uvs = new List<Vector2>();
 
+		#region 頂点の追加
 		// 頂点の算出
-		int uc = 0;
-		float vCoord = 0f;
-		int CurrentCP = 0;
 
-		ControlPoint next = spline.ControlPoints[spline.ClampCPPos(CurrentCP + 1)]; ;
+		int CurrentCP = 0; // 現在のCP番号
+		ControlPoint next = spline.ControlPoints[spline.ClampCPPos(CurrentCP + 1)]; // 次のCP
+
 		float widthR = 0;
 		float widthL = 0;
 		float t = 0f;
-		float resolution = 1f / spline.Loops;
+		float resolution = 1f / spline.Loops; // 粒度
+
+		int uCoord = 0; // U座標
+		float vCoord = 0f; // V座標
+
+		int vertsInShape = 0;
 
 		int offset = 0;
 
 		for (int i = 0; i < edgeLoops; i++) {
-			// 路面形状の更新
+			#region 路面形状の更新
 			if (i % spline.Loops == 0) {
 				t = resolution;
 
@@ -145,74 +138,85 @@ public class TrackCreate : MonoBehaviour {
 
 				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, widthR, widthL, cp.RoadType, cp.GimicType);
-
-
 			}
+			#endregion
 
-			if (shape.Verts == null) {
-				vertsInShape = 0;
-			} else {
-				vertsInShape = shape.Verts.Length;
+			#region 路面頂点の追加
+			if (shape.Vertices != null) {
+				// 頂点群ありの場合
+				vertsInShape = shape.Vertices.Length; // 路面頂点を取得
 
-			}
-			offset = i * vertsInShape;
-
-			if (shape.Verts != null) {
 				for (int j = 0; j < vertsInShape; j++) {
-					int id = offset + j;
-					// Oriented pointを元に、頂点の位置を追加
-					//vertices[id] = path[i % path.Length].LocalToWorld(shape.Verts[j]);
-					Vector3 vert = path[i % path.Length].LocalToWorld(shape.Verts[j]);
+					// 頂点のグローバル座標化
+					Vector3 vert = path[i % path.Length].LocalToWorld(shape.Vertices[j]);
+					// 頂点を追加
 					vertices.Add(vert);
 
-					// Oriented pointを元に、法線の向きを追加
-					//normals[id] = path[i].LocalToWorldDirction(shape.normals[j]);
+					// 法線のグローバル座標化
+					//Vector3 normal = path[i].LocalToWorldDirction(shape.Normals[j]);
+					// 法線を追加
+					//normals.Add(normal);
 
 					// U座標を元にUVを追加、Vはpathの長さに準ずる
-					if (uc > shape.UCoords.Length - 1) {
-						uc = 0;
+					if (uCoord > shape.UCoords.Length - 1) {
+						// 最後のU座標の場合
+						uCoord = 0;
 					}
-					if (i < path.Length) {
-						vCoord = spline.SectionDistances[i];
-					} else {
+
+					if (i >= path.Length) {
+						// 最後のOrientedPointの場合
 						float firstDisance =
 							(spline.CurvePoints[0].m_position
 							- spline.CurvePoints[spline.CurvePoints.Length - 1].m_position).magnitude;
 						float lastV = spline.SectionDistances[spline.SectionDistances.Length - 1] + firstDisance;
 						vCoord = lastV;
+					} else {
+						// 0番目~(最後-1)番目の場合
+						vCoord = spline.SectionDistances[i];
 					}
 
-					//uvs[id] = new Vector2(shape.UCoords[uc], vCoord / 20f);
-					Vector2 uv = new Vector2(shape.UCoords[uc], vCoord / 20f);
+					// uv座標を追加
+					Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord / 20f);
 					uvs.Add(uv);
 
-					uc++;
+					uCoord++;
 				}
 			}
-		}
-		int ti = 0;
-		for (int i = 0; i < segments; i++) {
-			offset = i * vertsInShape;
-			for (int l = 0; l < shape.Lines.Length; l += 2) {
-				// lineのindicesに基づいて2つの三角形を追加
-				int a = offset + (shape.Lines[l] + vertsInShape);
-				int b = offset + (shape.Lines[l]);
-				int c = offset + (shape.Lines[l + 1]);
-				int d = offset + (shape.Lines[l + 1] + vertsInShape);
+			#endregion
 
-				triangleIndices[ti] = a; ti++;
-				triangleIndices[ti] = b; ti++;
-				triangleIndices[ti] = c; ti++;
-				triangleIndices[ti] = c; ti++;
-				triangleIndices[ti] = d; ti++;
-				triangleIndices[ti] = a; ti++;
+			#region 三角形配列用
+			if (i < segments) {
+				// iが面数未満の場合
+				if (shape.Lines != null) {
+					int lines = shape.Lines.Length;
+
+					for (int l = 0; l < lines; l += 2) {
+						int a = offset + (shape.Lines[l] + vertsInShape);
+						int b = offset + (shape.Lines[l]);
+						int c = offset + (shape.Lines[l + 1]);
+						int d = offset + (shape.Lines[l + 1] + vertsInShape);
+
+
+						triangleIndices.Add(a);
+						triangleIndices.Add(b);
+						triangleIndices.Add(c);
+						triangleIndices.Add(c);
+						triangleIndices.Add(d);
+						triangleIndices.Add(a);
+					}
+					offset += vertsInShape;
+				}
 			}
-		}
+			#endregion
 
-		// mesh生成用
+
+		}
+		#endregion
+
+		// mesh生成
 		//mesh.Clear();
 		mesh.vertices = vertices.ToArray();
-		mesh.triangles = triangleIndices;
+		mesh.triangles = triangleIndices.ToArray();
 		//mesh.normals = normals;
 		mesh.RecalculateNormals();
 		mesh.uv = uvs.ToArray();
@@ -234,8 +238,8 @@ public class TrackCreate : MonoBehaviour {
 
 			ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
 
-			if(shape.Verts != null) {
-				verts += shape.Verts.Length;
+			if(shape.Vertices != null) {
+				verts += shape.Vertices.Length;
 			}
 
 		}

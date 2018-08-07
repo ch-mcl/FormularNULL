@@ -5,19 +5,47 @@ using UnityEngine;
 // 生成する形の定義
 // ControlPointから生成される
 public class ExtrudeShape {
-	private Vector2[] m_Verts;		// 頂点位置
-	private Vector2[] m_Normals;	// 法線の向き
-	private int[] m_Lines;          // 辺
-	private float[] m_UCoords;		// U座標 (V座標はモデル作成時に設定)
-
-	private int polyNum = 24; // ハーフパイプ、パイプ、シリンダーの頂点数
+	/// <summary>
+	/// 頂点位置
+	/// </summary>
+	private Vector2[] m_Vertices;
+	
+	/// <summary>
+	/// 法線の向き
+	/// </summary>
+	private Vector2[] m_Normals;
+	
+	/// <summary>
+	/// 辺
+	/// </summary>
+	private int[] m_Lines;
+	
+	/// <summary>
+	/// U座標
+	/// (V座標はモデル作成時に設定)
+	/// </summary>
+	private float[] m_UCoords;
+	
+	/// <summary>
+	/// ハーフパイプ、パイプ、シリンダーの頂点数
+	/// </summary>
+	private int polyNum = 24;
 
 	/// <summary>
 	/// 頂点位置を取得
 	/// </summary>
-	public Vector2[] Verts {
+	public Vector2[] Vertices {
 		get {
-			return m_Verts;
+			return m_Vertices;
+		}
+	}
+
+	/// <summary>
+	/// 法線を取得
+	/// </summary>
+	public Vector2[] Normals {
+		get {
+			return m_Normals;
 		}
 	}
 
@@ -49,9 +77,11 @@ public class ExtrudeShape {
 	public ExtrudeShape(int meshType, float widthR, float widthL, int road, int gimic) {
 
 		// 道路の中心
-		// 右幅が大きい場合+ 左幅が大きい場合-
 		float center = widthR - widthL;
 		if(Mathf.Abs(center) > 0) {
+			// 幅が右/左のどちらかに寄っている場合
+			// 右幅が大きい: 正の値 
+			// 左幅が大きい: 負の値
 			center = center / 2f;
 		}
 
@@ -73,12 +103,36 @@ public class ExtrudeShape {
 		float wallL = widthL + 2;
 
 		float wallLow = 0.8f;
-		float wallHight = 2f;
+		float wallHight = 4f;
 
 		switch (meshType) {
 			case 0:
 				#region 路面用
 				switch (road) {
+					case 0:
+					case 1:
+					case 2:
+					case 3:
+						#region 基本
+						// 0~3
+						m_Vertices = new Vector2[] {
+
+							// 路面
+							new Vector2(widthR, 0),	// 右
+							new Vector2(center, 0),		// 中央
+							new Vector2(-widthL, 0)	// 左
+						};
+						m_UCoords = new float[] {
+							// 路面
+							1f, 0.5f, 0f
+						};
+						m_Lines = new int[]{
+							// 路面
+							0, 1,
+							1, 2
+						};
+						#endregion
+						break;
 					case 4:
 						#region ハーフパイプ
 						CreateCircle(radius, false, false);
@@ -100,24 +154,8 @@ public class ExtrudeShape {
 						#endregion
 						break;
 					default:
-						#region 基本
-						// 0~3
-						m_Verts = new Vector2[] {
-
-							// 路面
-							new Vector2(widthR, 0),	// 右
-							new Vector2(center, 0),		// 中央
-							new Vector2(-widthL, 0)	// 左
-						};
-						m_UCoords = new float[] {
-							// 路面
-							1f, 0.5f, 0f
-						};
-						m_Lines = new int[]{
-							// 路面
-							0, 1,
-							1, 2
-						};
+						#region 異常
+						Debug.LogError("Invalued RoadType");
 						#endregion
 						break;
 				}
@@ -127,15 +165,17 @@ public class ExtrudeShape {
 				#region 壁
 				switch (road) {
 					case 0:
+					case 1:
+					case 3:
 						#region 基本
 
-						m_Verts = new Vector2[] {
+						m_Vertices = new Vector2[] {
 
 							// 路面
-							new Vector2(widthR, 4),		
+							new Vector2(widthR, wallHight),		
 							new Vector2(widthR, 0),	// 右
 							new Vector2(-widthL, 0),	// 左
-							new Vector2(-widthL, 4)
+							new Vector2(-widthL, wallHight)
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -149,38 +189,17 @@ public class ExtrudeShape {
 						#endregion
 						break;
 					case 2:
-						#region 壁無し
+					case 4:
+					case 5:
+					case 6:
+					case 7:
+						#region 空白/壁無し
 
-						m_Verts = new Vector2[] {
-							// 路面
-						};
-						m_UCoords = new float[] {
-							// 路面
-						};
-						m_Lines = new int[]{
-							// 路面
-						};
 						#endregion
 						break;
 					default:
-						#region 生成エラー防止
-						m_Verts = new Vector2[] {
-
-							// 路面
-							new Vector2(widthR, 4),
-							new Vector2(widthR, 0),	// 右
-							new Vector2(-widthL, 0),	// 左
-							new Vector2(-widthL, 4)
-						};
-						m_UCoords = new float[] {
-							// 路面
-							0f, 1f, 0f, 1f
-						};
-						m_Lines = new int[]{
-							// 路面
-							0, 1,
-							2, 3
-						};
+						#region 異常
+						Debug.LogError("Invalued RoadType");
 						#endregion
 						break;
 				}
@@ -191,11 +210,12 @@ public class ExtrudeShape {
 				switch (road) {
 					case 0:
 						#region 基本
-						m_Verts = new Vector2[] {
+						m_Vertices = new Vector2[] {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
-							new Vector2(center, 0),		// 中央
+							new Vector2(center, 0),	// 中央
+							new Vector2(center, 0),	// 中央
 							new Vector2(-shoulderL, shoulderDown),// 左
 
 							// 左 路肩
@@ -236,21 +256,22 @@ public class ExtrudeShape {
 						};
 						m_UCoords = new float[] {
 							// 路面
-							0f, 1.5f, 3f,
+							0.5f, 0f, 
+							0f, 0.5f,
 							// 左 路肩
-							1f, 0f,
+							0.625f, 0.5f,
 							// 左 縁
-							1f, 0f,
+							0.75f, 0.625f,
 							// 左 横
-							1f, 0f,
+							0.75f, 0.625f,
 							// 裏
-							1f, 0f,
+							1f, 0.75f, 
 							// 右 横
-							1f, 0f,
+							0.75f, 0.625f,
 							// 右 縁
-							1f, 0f,
+							0.75f, 0.625f,
 							// 右 路肩
-							1f, 0f,
+							0.625f, 0.5f,
 							// 右壁
 							0f, 1f,
 							// 左壁
@@ -259,37 +280,37 @@ public class ExtrudeShape {
 						m_Lines = new int[]{
 							// 路面
 							0, 1,
-							1, 2,
+							2, 3,
 							// 左 路肩
-							3, 4,
+							4, 5,
 							// 左 縁
-							5, 6,
+							6, 7,
 							// 左 横
-							7, 8,
+							8, 9,
 							// 裏
-							9, 10,
+							10, 11,
 							// 右 横
-							11, 12,
+							12, 13,
 							// 右 縁
-							13, 14,
+							14, 15,
 							// 右 路肩
-							15, 16,
+							16, 17,
 							// 右壁
-							17, 18,
+							18, 19,
 							// 左壁
-							19, 20
+							20, 21
 						};
 						#endregion
 						break;
 					case 1:
 						#region 高い壁
-						m_Verts = new Vector2[] {
+						m_Vertices = new Vector2[] {
 							new Vector2(widthR, 0),			// 右
 							new Vector2(center, 0),			// 中央
 							new Vector2(-widthL, 0),		// 左
 
-							new Vector2(widthR+2, 8),		// 右端
-							new Vector2(-(widthL+2), 8),	// 左端
+							new Vector2(widthR+2, 10),		// 右端
+							new Vector2(-(widthL+2), 10),	// 左端
 
 							new Vector2(widthR+2, -2),		// 右端下
 							new Vector2(-(widthL+2), -2),	// 左端下
@@ -315,7 +336,7 @@ public class ExtrudeShape {
 						break;
 					case 2:
 						#region 壁無し
-						m_Verts = new Vector2[] {
+						m_Vertices = new Vector2[] {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
@@ -390,9 +411,9 @@ public class ExtrudeShape {
 						#endregion
 						break;
 					case 3:
-						// TODO:定義追加
+						// TODO:天井部 定義追加
 						#region トンネル
-						m_Verts = new Vector2[] {
+						m_Vertices = new Vector2[] {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
@@ -426,6 +447,7 @@ public class ExtrudeShape {
 							// 右 路肩
 							new Vector2(edgeR, 0),	// 右 道境界
 							new Vector2(shoulderR, shoulderDown),	// 右
+
 
 						};
 						m_UCoords = new float[] {
@@ -484,9 +506,7 @@ public class ExtrudeShape {
 						break;
 					case 7:
 						#region 空白
-						m_Verts = new Vector2[] { };
-						m_UCoords = new float[] { };
-						m_Lines = new int[] { };
+
 						#endregion
 						break;
 					default:
@@ -526,7 +546,7 @@ public class ExtrudeShape {
 		}
 
 		// 各種初期化
-		m_Verts = new Vector2[polyNum];
+		m_Vertices = new Vector2[polyNum];
 		m_UCoords = new float[polyNum];
 
 		// 辺を構成する頂点群　関連
@@ -553,7 +573,7 @@ public class ExtrudeShape {
 			float m_x = Mathf.Cos(theta * i) * width;
 			float m_y = Mathf.Sin(theta * i) * width;
 
-			m_Verts[i] = new Vector2(m_x, m_y);
+			m_Vertices[i] = new Vector2(m_x, m_y);
 
 			m_UCoords[i] = 1 / polyNum;
 

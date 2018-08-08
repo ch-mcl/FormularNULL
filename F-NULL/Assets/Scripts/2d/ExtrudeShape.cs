@@ -89,13 +89,13 @@ public class ExtrudeShape {
 		float radius = widthR + widthL;
 		radius = radius / 2;
 
-		float edgeR = widthR - 2;
-		float edgeL = widthL - 2;
+		float edgeR = widthR - 0.8f;
+		float edgeL = widthL - 0.8f;
 
-		float shoulderR = edgeR - 2;
-		float shoulderL = edgeL - 2;
+		float shoulderR = edgeR - 0.8f;
+		float shoulderL = edgeL - 0.8f;
 
-		float shoulderDown = -0.4f;
+		float shoulderDown = -0.2f;
 		float roadBottom = -2f;
 
 		// 壁
@@ -259,7 +259,7 @@ public class ExtrudeShape {
 							0.5f, 0f, 
 							0f, 0.5f,
 							// 左 路肩
-							0.625f, 0.5f,
+							0.75f, 0.625f,
 							// 左 縁
 							0.75f, 0.625f,
 							// 左 横
@@ -271,11 +271,11 @@ public class ExtrudeShape {
 							// 右 縁
 							0.75f, 0.625f,
 							// 右 路肩
-							0.625f, 0.5f,
+							0.75f, 0.625f,
 							// 右壁
-							0f, 1f,
+							0.625f, 0.5f,
 							// 左壁
-							0f, 1f
+							0.625f, 0.5f
 						};
 						m_Lines = new int[]{
 							// 路面
@@ -305,41 +305,10 @@ public class ExtrudeShape {
 					case 1:
 						#region 高い壁
 						m_Vertices = new Vector2[] {
-							new Vector2(widthR, 0),			// 右
-							new Vector2(center, 0),			// 中央
-							new Vector2(-widthL, 0),		// 左
-
-							new Vector2(widthR+2, 10),		// 右端
-							new Vector2(-(widthL+2), 10),	// 左端
-
-							new Vector2(widthR+2, -2),		// 右端下
-							new Vector2(-(widthL+2), -2),	// 左端下
-						};
-						m_UCoords = new float[] {
-							0f,
-							1.5f,
-							3f,
-							1f,
-							1f,
-							0f,
-							1f,
-						};
-						m_Lines = new int[]{
-							0, 1,
-							1, 2,
-							3, 0,
-							2, 4,
-							5, 3,
-							4, 6
-						};
-						#endregion
-						break;
-					case 2:
-						#region 壁無し
-						m_Vertices = new Vector2[] {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
+							new Vector2(center, 0),	// 中央
 							new Vector2(center, 0),	// 中央
 							new Vector2(-shoulderL, shoulderDown),// 左
 
@@ -369,55 +338,72 @@ public class ExtrudeShape {
 					
 							// 右 路肩
 							new Vector2(edgeR, 0),	// 右 道境界
-							new Vector2(shoulderR, shoulderDown)	// 右
+							new Vector2(shoulderR, shoulderDown),	// 右
+
+							// 右壁
+							new Vector2(wallR, wallHight*2),
+							new Vector2(widthR, 0),
+
+							// 左壁
+							new Vector2(-widthL, 0),
+							new Vector2(-wallL, wallHight*2)
 						};
 						m_UCoords = new float[] {
 							// 路面
-							0f, 1.5f, 3f,
+							0.5f, 0f,
+							0f, 0.5f,
 							// 左 路肩
-							1f, 0f,
+							0.75f, 0.625f,
 							// 左 縁
-							1f, 0f,
+							0.75f, 0.625f,
 							// 左 横
-							1f, 0f,
+							0.75f, 0.625f,
 							// 裏
-							1f, 0f,
+							1f, 0.75f, 
 							// 右 横
-							1f, 0f,
+							0.75f, 0.625f,
 							// 右 縁
-							1f, 0f,
+							0.75f, 0.625f,
 							// 右 路肩
-							1f, 0f
+							0.75f, 0.625f,
+							// 右壁
+							0.625f, 0.5f,
+							// 左壁
+							0.625f, 0.5f
 						};
 						m_Lines = new int[]{
 							// 路面
 							0, 1,
-							1, 2,
+							2, 3,
 							// 左 路肩
-							3, 4,
+							4, 5,
 							// 左 縁
-							5, 6,
+							6, 7,
 							// 左 横
-							7, 8,
+							8, 9,
 							// 裏
-							9, 10,
+							10, 11,
 							// 右 横
-							11, 12,
+							12, 13,
 							// 右 縁
-							13, 14,
+							14, 15,
 							// 右 路肩
-							15, 16
+							16, 17,
+							// 右壁
+							18, 19,
+							// 左壁
+							20, 21
 						};
 						#endregion
 						break;
-					case 3:
-						// TODO:天井部 定義追加
-						#region トンネル
+					case 2:
+						#region 壁無し
 						m_Vertices = new Vector2[] {
 
 							// 路面
 							new Vector2(shoulderR, shoulderDown),	// 右
-							new Vector2(center, 0),		// 中央
+							new Vector2(center, 0),	// 中央
+							new Vector2(center, 0),	// 中央
 							new Vector2(-shoulderL, shoulderDown),// 左
 
 							// 左 路肩
@@ -447,45 +433,123 @@ public class ExtrudeShape {
 							// 右 路肩
 							new Vector2(edgeR, 0),	// 右 道境界
 							new Vector2(shoulderR, shoulderDown),	// 右
-
-
 						};
 						m_UCoords = new float[] {
 							// 路面
-							0f, 1.5f, 3f,
+							0.5f, 0f,
+							0f, 0.5f,
 							// 左 路肩
-							1f, 0f,
+							0.75f, 0.625f,
 							// 左 縁
-							1f, 0f,
+							0.75f, 0.625f,
 							// 左 横
-							1f, 0f,
+							0.75f, 0.625f,
 							// 裏
-							1f, 0f,
+							1f, 0.75f, 
 							// 右 横
-							1f, 0f,
+							0.75f, 0.625f,
 							// 右 縁
-							1f, 0f,
+							0.75f, 0.625f,
 							// 右 路肩
-							1f, 0f,
+							0.75f, 0.625f
 						};
 						m_Lines = new int[]{
 							// 路面
 							0, 1,
-							1, 2,
+							2, 3,
 							// 左 路肩
-							3, 4,
+							4, 5,
 							// 左 縁
-							5, 6,
+							6, 7,
 							// 左 横
-							7, 8,
+							8, 9,
 							// 裏
-							9, 10,
+							10, 11,
 							// 右 横
-							11, 12,
+							12, 13,
 							// 右 縁
-							13, 14,
+							14, 15,
 							// 右 路肩
-							15, 16
+							16, 17
+						};
+						#endregion
+						break;
+					case 3:
+						// TODO:天井部 定義追加
+						#region トンネル
+						m_Vertices = new Vector2[] {
+
+							// 路面
+							new Vector2(shoulderR, shoulderDown),	// 右
+							new Vector2(center, 0),	// 中央
+							new Vector2(center, 0),	// 中央
+							new Vector2(-shoulderL, shoulderDown),// 左
+
+							// 左 路肩
+							new Vector2(-shoulderL, shoulderDown),// 左
+							new Vector2(-edgeL, 0),// 左 道境界
+
+							// 左 縁
+							new Vector2(-edgeL, 0),// 左 道境界
+							new Vector2(-widthL, 0),	// 左端
+
+							// 左 横
+							new Vector2(-widthL, 0),   // 左端
+							new Vector2(-widthL, roadBottom),// 左端下
+
+							// 裏
+							new Vector2(-widthL, roadBottom),// 左端下
+							new Vector2(widthR, roadBottom),	// 右端下
+
+							// 右 横
+							new Vector2(widthR, roadBottom), // 右端下
+							new Vector2(widthR, 0),	// 右端
+
+							// 右 縁
+							new Vector2(widthR, 0),	// 右端
+							new Vector2(edgeR, 0),	// 右 道境界
+					
+							// 右 路肩
+							new Vector2(edgeR, 0),	// 右 道境界
+							new Vector2(shoulderR, shoulderDown),	// 右
+						};
+						m_UCoords = new float[] {
+							// 路面
+							0.5f, 0f,
+							0f, 0.5f,
+							// 左 路肩
+							0.75f, 0.625f,
+							// 左 縁
+							0.75f, 0.625f,
+							// 左 横
+							0.75f, 0.625f,
+							// 裏
+							1f, 0.75f, 
+							// 右 横
+							0.75f, 0.625f,
+							// 右 縁
+							0.75f, 0.625f,
+							// 右 路肩
+							0.75f, 0.625f
+						};
+						m_Lines = new int[]{
+							// 路面
+							0, 1,
+							2, 3,
+							// 左 路肩
+							4, 5,
+							// 左 縁
+							6, 7,
+							// 左 横
+							8, 9,
+							// 裏
+							10, 11,
+							// 右 横
+							12, 13,
+							// 右 縁
+							14, 15,
+							// 右 路肩
+							16, 17
 						};
 						#endregion
 						break;

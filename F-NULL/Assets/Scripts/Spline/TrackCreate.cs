@@ -170,6 +170,8 @@ public class TrackCreate : MonoBehaviour {
 							- spline.CurvePoints[spline.CurvePoints.Length - 1].m_position).magnitude;
 						float lastV = spline.SectionDistances[spline.SectionDistances.Length - 1] + firstDisance;
 						vCoord = lastV;
+					} else if (i == 0) {
+						vCoord = 0;
 					} else {
 						// 0番目~(最後-1)番目の場合
 						vCoord = spline.SectionDistances[i];

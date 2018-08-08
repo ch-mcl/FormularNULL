@@ -180,7 +180,7 @@ public class Spline : MonoBehaviour {
 		// 1つ前の位置
 		Vector3 lastPos = p0; // Bezierは1つ前の点を含まないので上書き
 		Vector3 newPos;
-		float t; 
+		float t = 0; 
 
 		int next = ClampCPPos(pos+1); //　次CPの番号
 
@@ -195,8 +195,8 @@ public class Spline : MonoBehaviour {
 		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward)*m_controlPoints[current].transform.rotation;
 		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward)*m_controlPoints[next].transform.rotation;
 
-		for (int i = 1; i <= m_loops; i++) {
-			t = i * m_resolution;
+		for (int i = 0; i < m_loops; i++) {
+			t += m_resolution;
 
 			newPos = GetBezierPosition(t, p0, p1, p2, p3);
 
@@ -229,7 +229,8 @@ public class Spline : MonoBehaviour {
 			Gizmos.DrawLine(lastPos, newPos);
 
 			// 全長として記憶
-			m_length += Mathf.Abs((newPos - lastPos).magnitude);
+			float distance = Mathf.Abs((newPos - lastPos).magnitude);
+			m_length += distance;
 			// 区間長を記憶
 			m_sectionDistance[m_curvePointIndex] = m_length;
 

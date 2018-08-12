@@ -119,6 +119,7 @@ public class Spline : MonoBehaviour {
 
 
 			m_bezierHandlePoints = new Vector3[m_controlPoints.Length * 2]; // bezierハンドルの初期化
+			AutoHandle();
 
 			m_length = 0f;
 
@@ -143,57 +144,34 @@ public class Spline : MonoBehaviour {
 	/// </summary>
 	/// <param name="pos"></param>
 	public void DisplaySpline(int pos) {
-		// 自動bezierハンドル
-		// handlePointsの位置を計算
-		for(int i = 0; i < m_controlPoints.Length; i++) {
-
-			Vector3 hp0 = m_controlPoints[ClampCPPos(i-1)].transform.position; // 1つ前の点
-			Vector3 hp1 = m_controlPoints[i].transform.position; // ハンドルを求めたい点
-			Vector3 hp2 = m_controlPoints[ClampCPPos(i+1)].transform.position; // 1つ後の点
-
-			Vector3 dir01 = hp0-hp1;
-			Vector3 dir21 = hp2-hp1;
-
-			Vector3 dir02 = hp0-hp2;
-
-			float preDis = dir01.magnitude;
-			float nextDis = -dir21.magnitude;
-
-			dir01 = dir01.normalized;
-			dir21 = -dir21.normalized;
-			dir02 = dir02.normalized;
-
-			m_bezierHandlePoints[ClampHandlePos((i*2)-1)] = hp1+(dir02*preDis*m_alpha);
-			m_bezierHandlePoints[i*2] = hp1+(dir02*nextDis*m_alpha);
-
-			m_controlPoints[i].transform.LookAt(m_bezierHandlePoints[i*2]); // CPの向きを変更
-		}
-
 		Vector3 p0 = m_controlPoints[pos].transform.position;
 
-		Vector3 p1 = m_bezierHandlePoints[pos*2];
-		Vector3 p2 = m_bezierHandlePoints[(pos*2)+1];
+		Vector3 p1 = m_bezierHandlePoints[pos * 2];
+		Vector3 p2 = m_bezierHandlePoints[(pos * 2) + 1];
 
-		Vector3 p3 = m_controlPoints[ClampCPPos(pos+1)].transform.position;
+		Vector3 p3 = m_controlPoints[ClampCPPos(pos + 1)].transform.position;
 		int current = ClampCPPos(pos); // 現在CPの番号
 
 		// 1つ前の位置
 		Vector3 lastPos = p0; // Bezierは1つ前の点を含まないので上書き
 		Vector3 newPos;
-		float t = 0; 
+		float t = 0;
 
-		int next = ClampCPPos(pos+1); //　次CPの番号
+		int next = ClampCPPos(pos + 1); //　次CPの番号
+
+		ControlPoint currentCP = m_controlPoints[current];
+		ControlPoint nextCP = m_controlPoints[next];
 
 
-		Vector3 currentForward = m_controlPoints[current].transform.forward; // 現在CPのバンク角
-		Vector3 nextForward = m_controlPoints[next].transform.forward; // 次CPのバンク角
+		Vector3 currentForward = currentCP.transform.forward; // 現在CPのバンク角
+		Vector3 nextForward = nextCP.transform.forward; // 次CPのバンク角
 
-		
-		float currentBankAngle = -m_controlPoints[current].Bank; // 現在CPのバンク角度
-		float nextBankAngle = -m_controlPoints[next].Bank; // 次CPのバンク角度
 
-		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward)*m_controlPoints[current].transform.rotation;
-		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward)*m_controlPoints[next].transform.rotation;
+		float currentBankAngle = -currentCP.Bank; // 現在CPのバンク角度
+		float nextBankAngle = -nextCP.Bank; // 次CPのバンク角度
+
+		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward) * currentCP.transform.rotation;
+		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward) * nextCP.transform.rotation;
 
 		for (int i = 0; i < m_loops; i++) {
 			t += m_resolution;
@@ -205,19 +183,37 @@ public class Spline : MonoBehaviour {
 			// バンク、ロール
 			Quaternion q;
 			q = Quaternion.Lerp(currentBankQ, nextBankQ, t);
-			Vector3 up = q*Vector3.up; // 上方向を取得
+			Vector3 up = q * Vector3.up; // 上方向を取得
 			q = Quaternion.LookRotation(tan, up);
 
 			// 横幅の表示
 			if (m_previewWidth == true) {
 				// x軸の方向を描画
+				float widthR = 0f;
+				float widthL = 0f;
+
+				// 右幅が変化する場合
+				if (currentCP.WidthR != nextCP.WidthR) {
+					// 右幅を更新
+					widthR = currentCP.WidthR + t * (nextCP.WidthR - currentCP.WidthR);
+				} else {
+					widthR = currentCP.WidthR;
+				}
+
+				if (currentCP.WidthL != nextCP.WidthL) {
+					// 左幅を更新
+					widthL = currentCP.WidthL + t * (nextCP.WidthL - currentCP.WidthL);
+				} else {
+					widthL = currentCP.WidthL;
+				}
+
 				Gizmos.color = Color.red;
-				Gizmos.DrawLine(newPos, newPos + (q * Vector3.right) * m_controlPoints[current].WidthR);
-				Gizmos.DrawLine(newPos, newPos + (q * Vector3.right) * -m_controlPoints[current].WidthL);
+				Gizmos.DrawLine(newPos, newPos + (q * Vector3.right) * widthR);
+				Gizmos.DrawLine(newPos, newPos + (q * Vector3.right) * -widthL);
 			}
 
 			// 上方向の表示
-			if(m_previewUp == true) {
+			if (m_previewUp == true) {
 				// y軸の方向を描画
 				Gizmos.color = Color.green;
 				Gizmos.DrawLine(newPos, newPos + (q * Vector3.up) * 20f);
@@ -246,6 +242,36 @@ public class Spline : MonoBehaviour {
 
 			Gizmos.DrawWireSphere(p1, 10f);
 			Gizmos.DrawWireSphere(p2, 10f);
+		}
+	}
+
+	/// <summary>
+	/// 自動bezierハンドル
+	/// handlePointsの位置を計算
+	/// </summary>
+	private void AutoHandle() {
+		for (int i = 0; i < m_controlPoints.Length; i++) {
+
+			Vector3 hp0 = m_controlPoints[ClampCPPos(i - 1)].transform.position; // 1つ前の点
+			Vector3 hp1 = m_controlPoints[i].transform.position; // ハンドルを求めたい点
+			Vector3 hp2 = m_controlPoints[ClampCPPos(i + 1)].transform.position; // 1つ後の点
+
+			Vector3 dir01 = hp0 - hp1;
+			Vector3 dir21 = hp2 - hp1;
+
+			Vector3 dir02 = hp0 - hp2;
+
+			float preDis = dir01.magnitude;
+			float nextDis = -dir21.magnitude;
+
+			dir01 = dir01.normalized;
+			dir21 = -dir21.normalized;
+			dir02 = dir02.normalized;
+
+			m_bezierHandlePoints[ClampHandlePos((i * 2) - 1)] = hp1 + (dir02 * preDis * m_alpha);
+			m_bezierHandlePoints[i * 2] = hp1 + (dir02 * nextDis * m_alpha);
+
+			m_controlPoints[i].transform.LookAt(m_bezierHandlePoints[i * 2]); // CPの向きを変更
 		}
 	}
 

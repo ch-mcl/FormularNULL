@@ -163,22 +163,20 @@ public class TrackCreate : MonoBehaviour {
 						uCoord = 0;
 					}
 
-					if (i >= path.Length) {
+					if (i > path.Length-1) {
 						// 最後のOrientedPointの場合
 						float firstDisance =
 							(spline.CurvePoints[0].m_position
 							- spline.CurvePoints[spline.CurvePoints.Length - 1].m_position).magnitude;
 						float lastV = spline.SectionDistances[spline.SectionDistances.Length - 1] + firstDisance;
 						vCoord = lastV;
-					} else if (i == 0) {
-						vCoord = 0;
 					} else {
 						// 0番目~(最後-1)番目の場合
 						vCoord = spline.SectionDistances[i];
 					}
 
 					// uv座標を追加
-					Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord / 20f);
+					Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord / 10f);
 					uvs.Add(uv);
 
 					uCoord++;

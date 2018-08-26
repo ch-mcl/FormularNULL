@@ -13437,7 +13437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loader: {fileID: 466309398}
-  vehicleID: 1
+  vehicleID: 9000
   maximumSpeed: 303.8889
   agv_perform:
     serializedVersion: 2
@@ -14561,7 +14561,7 @@ MonoBehaviour:
   changePosSpeed: 0.1
   sense: 0.1
   defaultFOV: 45
-  zoom: 0.8
+  zoom: 1.2
   defultCamAngle: 16
   runningCamAngle: -2
   minZoomVel: 0

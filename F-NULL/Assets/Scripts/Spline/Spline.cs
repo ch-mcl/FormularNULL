@@ -6,10 +6,6 @@ using UnityEngine;
 // CatmullRomSpline を算出
 public class Spline : MonoBehaviour {
 	[SerializeField]
-	private GameObject m_CPprefab;
-
-	[SerializeField]
-	//private ControlPoint[] m_controlPoints; // CP // 制御点 XのCPに相当
 	private List <ControlPoint> m_controlPoints = new List<ControlPoint>(); // CP // 制御点 XのCPに相当
 
 	// 全長
@@ -20,7 +16,6 @@ public class Spline : MonoBehaviour {
 	Vector3[] m_bezierHandlePoints; // Bezierハンドル
 
 	[SerializeField]
-	//private OrientedPoint[] m_curvePoints;
 	private List<OrientedPoint> m_curvePoints = new List<OrientedPoint>();
 
 	// 横幅表示フラグ
@@ -420,13 +415,26 @@ public class Spline : MonoBehaviour {
 	}
 
 	public void InsertCP(int insertIndex) {
-		List<ControlPoint> cps = new List<ControlPoint>();
+		if(insertIndex == m_controlPoints.Count - 1) {
+			insertIndex = 0;
+		} else {
+			insertIndex += 1;
+		}
 
-		cps.AddRange( GetComponentsInChildren<ControlPoint>() );
+		GameObject cp = Instantiate(m_controlPoints[insertIndex].gameObject);
+		cp.transform.parent = transform;
 
-		cps.Insert( insertIndex, Instantiate(cps[insertIndex]) );
+		Vector3 p0 = m_controlPoints[insertIndex].transform.position;
+		Vector3 p1= m_bezierHandlePoints[insertIndex * 2];
+		Vector3 p2 = m_bezierHandlePoints[(insertIndex * 2) + 1];
+		Vector3 p3 = m_controlPoints[ClampCPPos(insertIndex + 1)].transform.position;
+
+		Vector3 cpPos = GetBezierPosition(0.5f, p0, p1, p2, p3);
+
+		cp.transform.position = cpPos;
+		cp.gameObject.transform.SetSiblingIndex(insertIndex+1);
 
 		GetCP();
-		//ChangeCPName();
+		ChangeCPName();
 	}
 }

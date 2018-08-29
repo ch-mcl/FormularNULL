@@ -405,6 +405,9 @@ public class Spline : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// CPの名前を更新する
+	/// </summary>
 	public void ChangeCPName() {
 		m_controlPoints[0].name = (m_controlPoints.Count - 1).ToString();
 		m_controlPoints[0].ID = (m_controlPoints.Count - 1);
@@ -414,10 +417,19 @@ public class Spline : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// CPを挿入する
+	/// </summary>
+	/// <param name="insertIndex"></param>
 	public void InsertCP(int insertIndex) {
-		if(insertIndex == m_controlPoints.Count - 1) {
+		if(insertIndex > m_controlPoints.Count - 1) {
+			// CP最大値を超える場合
+			insertIndex = m_controlPoints.Count - 1;
+		} else if(insertIndex == m_controlPoints.Count - 1) {
+			// 1つ目に追加する場合
 			insertIndex = 0;
 		} else {
+			// 追加する場合
 			insertIndex += 1;
 		}
 
@@ -429,6 +441,7 @@ public class Spline : MonoBehaviour {
 		Vector3 p2 = m_bezierHandlePoints[(insertIndex * 2) + 1];
 		Vector3 p3 = m_controlPoints[ClampCPPos(insertIndex + 1)].transform.position;
 
+
 		Vector3 cpPos = GetBezierPosition(0.5f, p0, p1, p2, p3);
 
 		cp.transform.position = cpPos;
@@ -436,5 +449,12 @@ public class Spline : MonoBehaviour {
 
 		GetCP();
 		ChangeCPName();
+	}
+
+	/// <summary>
+	/// CPを追加する
+	/// </summary>
+	public void AddCP() {
+		InsertCP(ControlPoints.Count - 2);
 	}
 }

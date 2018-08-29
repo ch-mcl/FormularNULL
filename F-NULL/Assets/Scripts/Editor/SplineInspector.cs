@@ -32,8 +32,16 @@ public class SplineInspector : Editor {
 
 		insertIndex = EditorGUILayout.IntField("Insert CP index", insertIndex);
 
+		if (GUILayout.Button("ADD CP")) {
+			spline.AddCP();
+		}
+
 		if (GUILayout.Button("Insert CP")) {
 			spline.InsertCP(insertIndex);
+		}
+
+		if (GUILayout.Button("REMOVE CP")) {
+			//TODO: CP削除(エラーなし)
 		}
 	}
 
@@ -43,8 +51,6 @@ public class SplineInspector : Editor {
 
 		// ControlPointが無効か判定
 		if (spline.ControlPoints != null) {
-			//spline.CurvePoints = new OrientedPoint[spline.ControlPoints.Length * spline.Loops]; // Cutmull-RomSpline曲線上の全点を保持
-
 			// CatmullRomSplineを始点から終点までに描画
 			for (int i = 0; i < spline.ControlPoints.Count; i++) {
 				if ((i == spline.ControlPoints.Count - 2 || i == spline.ControlPoints.Count - 1) && !spline.IsLoop) {

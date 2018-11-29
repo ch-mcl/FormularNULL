@@ -80,11 +80,13 @@ public class TrackCreate : MonoBehaviour {
 		ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
 
 		// edgeLoopの間の面の数
-		int segments = path.Count;
+		int segments;
+		segments = path.Count+1;
 
 		// edgeLoop(基本図形)の数
-		int edgeLoops = path.Count + 1; 
-		
+		int edgeLoops;
+		edgeLoops = path.Count+1; 
+
 		List<int> triangleIndices = new List<int>();
 		List<Vector3> vertices = new List<Vector3>();
 		List<Vector3> normals = new List<Vector3>();
@@ -103,6 +105,7 @@ public class TrackCreate : MonoBehaviour {
 
 		int uCoord = 0; // U座標
 		float vCoord = 0f; // V座標
+		float distance = 0f;
 
 		int vertsInShape = 0;
 
@@ -168,22 +171,12 @@ public class TrackCreate : MonoBehaviour {
 					if (uCoord > shape.UCoords.Length - 1) {
 						// 最後のU座標の場合
 						uCoord = 0;
+						distance += spline.SectionDistances[Mathf.FloorToInt((i-1)/spline.Loops)];
 					}
-
-					if (i > path.Count-1) {
-						// 最後のOrientedPointの場合
-						float firstDisance =
-							(spline.CurvePoints[0].m_position
-							- spline.CurvePoints[spline.CurvePoints.Count - 1].m_position).magnitude;
-						float lastV = spline.SectionDistances[spline.SectionDistances.Count - 1] + firstDisance;
-						vCoord = lastV;
-					} else {
-						// 0番目~(最後-1)番目の場合
-						vCoord = spline.SectionDistances[i];
-					}
+					vCoord = distance / 10f;
 
 					// uv座標を追加
-					Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord / 10f);
+					Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord);
 					uvs.Add(uv);
 
 					uCoord++;
@@ -193,10 +186,6 @@ public class TrackCreate : MonoBehaviour {
 			}
 			#endregion
 
-			if((i-1)%spline.Loops == 0) {
-				Debug.DrawLine(Vector3.zero, vert, Color.magenta);
-			}
-
 			#region 三角形配列用
 			if (i < segments) {
 				// iが面数未満の場合
@@ -204,27 +193,12 @@ public class TrackCreate : MonoBehaviour {
 
 					int lines = shape.Lines.Length;
 
-					if (i % spline.Loops == 0) {
+					if (i > 0) {
 						for (int l = 0; l < lines; l += 2) {
-							int a = offset + (shape.Lines[l] + vertsInShape);
-							int b = offset + (shape.Lines[l]);
-							int c = offset + (shape.Lines[l + 1]);
-							int d = offset + (shape.Lines[l + 1] + vertsInShape);
-
-
-							triangleIndices.Add(a);
-							triangleIndices.Add(b);
-							triangleIndices.Add(c);
-							triangleIndices.Add(c);
-							triangleIndices.Add(d);
-							triangleIndices.Add(a);
-						}
-					} else {
-						for (int l = 0; l < lines; l += 2) {
-							int a = offset + (shape.Lines[l] + vertsInShape);
-							int b = offset + (shape.Lines[l]);
-							int c = offset + (shape.Lines[l + 1]);
-							int d = offset + (shape.Lines[l + 1] + vertsInShape);
+							int a = offset + (shape.Lines[l]);
+							int b = offset + (shape.Lines[l] - vertsInShape);
+							int c = offset + (shape.Lines[l + 1] - vertsInShape);
+							int d = offset + (shape.Lines[l + 1]);
 
 
 							triangleIndices.Add(a);

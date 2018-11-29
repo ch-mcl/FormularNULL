@@ -170,6 +170,8 @@ public class Spline : MonoBehaviour {
 		Quaternion currentBankQ = Quaternion.AngleAxis(currentBankAngle, currentForward) * currentCP.transform.rotation;
 		Quaternion nextBankQ = Quaternion.AngleAxis(nextBankAngle, nextForward) * nextCP.transform.rotation;
 
+		float distance = 0;
+
 		for (int i = 0; i < m_loops; i++) {
 			t = i*m_resolution;
 
@@ -221,11 +223,14 @@ public class Spline : MonoBehaviour {
 			Gizmos.color = Color.white;
 			Gizmos.DrawLine(lastPos, newPos);
 
+			if (i == 1) {
+				// magnitudeは重い処理なので1回だけ実行
+				distance = Mathf.Abs((newPos - lastPos).magnitude);
+				// 区間長を記憶
+				m_sectionDistance.Add(distance);
+			}
 			// 全長として記憶
-			float distance = Mathf.Abs((newPos - lastPos).magnitude);
 			m_length += distance;
-			// 区間長を記憶
-			m_sectionDistance.Add(m_length);
 
 			lastPos = newPos;
 		}

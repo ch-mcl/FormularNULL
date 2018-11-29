@@ -25,7 +25,7 @@ public class RunMeshCreate : Editor {
 
 		if (GUILayout.Button("SaveMesh")) {
 			MeshFilter mf = creater.GetComponent<MeshFilter>();
-			string path = "Assets/Procedual/" + meshName + ".asset";
+			string path = "Assets/Scene/TrackCreate" + meshName + ".asset";
 			AssetDatabase.CreateAsset(mf.sharedMesh, path);
 			AssetDatabase.SaveAssets();
 		}

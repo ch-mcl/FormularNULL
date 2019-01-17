@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.002
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.077043675, g: 0.08765551, b: 0.1102941, a: 1}
+  m_AmbientSkyColor: {r: 0.60094076, g: 0.6837131, b: 0.8602941, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.53
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 4d413f564f6a4f94b9d67725da84ea88, type: 2}
   m_HaloStrength: 0
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 133479713}
+  m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
@@ -1500,4 +1500,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RayColor: {r: 1, g: 1, b: 1, a: 1}
-  m_PathObjects: []
+  m_PathObjects:
+  - {fileID: 1659786148}
+  - {fileID: 512590207}
+  - {fileID: 201437099}
+  - {fileID: 778470316}
+  - {fileID: 317574739}
+  - {fileID: 987044198}
+  - {fileID: 23360562}
+  - {fileID: 284526669}
+  - {fileID: 567355438}
+  - {fileID: 728895248}
+  - {fileID: 296748558}
+  - {fileID: 1117675883}
+  - {fileID: 926397384}
+  - {fileID: 748870488}
+  - {fileID: 626655444}
+  - {fileID: 298929144}
+  - {fileID: 2003411768}

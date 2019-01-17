@@ -703,7 +703,9 @@ MonoBehaviour:
   m_PathObjects:
   - {fileID: 399106905}
   - {fileID: 687396562}
+  - {fileID: 2039166062}
   - {fileID: 1807873500}
+  - {fileID: 349301856}
   - {fileID: 288337845}
 --- !u!1 &810997062
 GameObject:
@@ -1056,6 +1058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17eaaf32f30964b45b90e1c8e6beb2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setLoopTimes: 0
+  roadTexureDiv: 20
+  handLoop: 2
   spline: {fileID: 687413880}
   roadColl: {fileID: 1587394425}
   wallColl: {fileID: 1983195140}

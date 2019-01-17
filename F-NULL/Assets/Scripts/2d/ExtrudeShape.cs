@@ -34,7 +34,7 @@ public class ExtrudeShape {
 	/// <summary>
 	/// 壁幅
 	/// </summary>
-	private float m_wallWidth = 2f;
+	private float m_wallWidth = 4f;
 
 	/// <summary>
 	/// 壁　高さ(低い場合)
@@ -246,7 +246,6 @@ public class ExtrudeShape {
 					case 0:
 						#region 基本
 						m_Vertices = new Vector2[] {
-
 							// 路面
 							new Vector2(shoulderR, m_edgeBottom),	// 右
 							new Vector2(center, 0),	// 中央
@@ -259,22 +258,22 @@ public class ExtrudeShape {
 
 							// 左 縁
 							new Vector2(-edgeL, 0),// 左 道境界
-							new Vector2(-widthL, 0),	// 左端
+							new Vector2(-(widthL + m_wallWidth), 0),	// 左端
 
 							// 左 横
-							new Vector2(-widthL, 0),   // 左端
-							new Vector2(-widthL, m_roadBottom),// 左端下
+							new Vector2(-(widthL + m_wallWidth), 0),   // 左端
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
 
 							// 裏
-							new Vector2(-widthL, m_roadBottom),// 左端下
-							new Vector2(widthR, m_roadBottom),	// 右端下
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
+							new Vector2(widthR + m_wallWidth, m_roadBottom),	// 右端下
 
 							// 右 横
-							new Vector2(widthR, m_roadBottom), // 右端下
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, m_roadBottom), // 右端下
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 
 							// 右 縁
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 							new Vector2(edgeR, 0),	// 右 道境界
 					
 							// 右 路肩
@@ -340,7 +339,6 @@ public class ExtrudeShape {
 					case 1:
 						#region 高い壁
 						m_Vertices = new Vector2[] {
-
 							// 路面
 							new Vector2(shoulderR, m_edgeBottom),	// 右
 							new Vector2(center, 0),	// 中央
@@ -353,22 +351,22 @@ public class ExtrudeShape {
 
 							// 左 縁
 							new Vector2(-edgeL, 0),// 左 道境界
-							new Vector2(-widthL, 0),	// 左端
+							new Vector2(-(widthL + m_wallWidth), 0),	// 左端
 
 							// 左 横
-							new Vector2(-widthL, 0),   // 左端
-							new Vector2(-widthL, m_roadBottom),// 左端下
+							new Vector2(-(widthL + m_wallWidth), 0),   // 左端
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
 
 							// 裏
-							new Vector2(-widthL, m_roadBottom),// 左端下
-							new Vector2(widthR, m_roadBottom),	// 右端下
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
+							new Vector2(widthR + m_wallWidth, m_roadBottom),	// 右端下
 
 							// 右 横
-							new Vector2(widthR, m_roadBottom), // 右端下
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, m_roadBottom), // 右端下
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 
 							// 右 縁
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 							new Vector2(edgeR, 0),	// 右 道境界
 					
 							// 右 路肩
@@ -434,7 +432,6 @@ public class ExtrudeShape {
 					case 2:
 						#region 壁無し
 						m_Vertices = new Vector2[] {
-
 							// 路面
 							new Vector2(shoulderR, m_edgeBottom),	// 右
 							new Vector2(center, 0),	// 中央
@@ -447,22 +444,22 @@ public class ExtrudeShape {
 
 							// 左 縁
 							new Vector2(-edgeL, 0),// 左 道境界
-							new Vector2(-widthL, 0),	// 左端
+							new Vector2(-(widthL + m_wallWidth), 0),	// 左端
 
 							// 左 横
-							new Vector2(-widthL, 0),   // 左端
-							new Vector2(-widthL, m_roadBottom),// 左端下
+							new Vector2(-(widthL + m_wallWidth), 0),   // 左端
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
 
 							// 裏
-							new Vector2(-widthL, m_roadBottom),// 左端下
-							new Vector2(widthR, m_roadBottom),	// 右端下
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
+							new Vector2(widthR + m_wallWidth, m_roadBottom),	// 右端下
 
 							// 右 横
-							new Vector2(widthR, m_roadBottom), // 右端下
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, m_roadBottom), // 右端下
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 
 							// 右 縁
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 							new Vector2(edgeR, 0),	// 右 道境界
 					
 							// 右 路肩
@@ -514,38 +511,38 @@ public class ExtrudeShape {
 						#region トンネル
 						m_Vertices = new Vector2[] {
 							// 路面
-							new Vector2(shoulderR, m_edgeBottom), // 右
+							new Vector2(shoulderR, m_edgeBottom),	// 右
 							new Vector2(center, 0),	// 中央
 							new Vector2(center, 0),	// 中央
-							new Vector2(-shoulderL, m_edgeBottom), // 左
+							new Vector2(-shoulderL, m_edgeBottom),// 左
 
 							// 左 路肩
-							new Vector2(-shoulderL, m_edgeBottom), // 左
-							new Vector2(-edgeL, 0), // 左 道境界
+							new Vector2(-shoulderL, m_edgeBottom),// 左
+							new Vector2(-edgeL, 0),// 左 道境界
 
 							// 左 縁
-							new Vector2(-edgeL, 0), // 左 道境界
-							new Vector2(-widthL, 0), // 左端
+							new Vector2(-edgeL, 0),// 左 道境界
+							new Vector2(-(widthL + m_wallWidth), 0),	// 左端
 
 							// 左 横
-							new Vector2(-widthL, 0), // 左端
-							new Vector2(-widthL, m_roadBottom), // 左端下
+							new Vector2(-(widthL + m_wallWidth), 0),   // 左端
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
 
 							// 裏
-							new Vector2(-widthL, m_roadBottom), // 左端下
-							new Vector2(widthR, m_roadBottom), // 右端下
+							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
+							new Vector2(widthR + m_wallWidth, m_roadBottom),	// 右端下
 
 							// 右 横
-							new Vector2(widthR, m_roadBottom), // 右端下
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, m_roadBottom), // 右端下
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 
 							// 右 縁
-							new Vector2(widthR, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, 0),	// 右端
 							new Vector2(edgeR, 0),	// 右 道境界
 					
 							// 右 路肩
-							new Vector2(edgeR, 0), // 右 道境界
-							new Vector2(shoulderR, m_edgeBottom), // 右
+							new Vector2(edgeR, 0),	// 右 道境界
+							new Vector2(shoulderR, m_edgeBottom),	// 右
 
 							// 右壁
 							new Vector2(wallR*0.8f, m_wallHigh*4),

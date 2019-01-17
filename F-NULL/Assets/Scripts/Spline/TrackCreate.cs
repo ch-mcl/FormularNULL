@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class TrackCreate : MonoBehaviour {
 	[SerializeField]
+	private bool setLoopTimes;
+
+	[SerializeField]
+	private float roadTexureDiv = 20f;
+
+	[SerializeField]
+	[Range(1, 1000)]
+	int handLoop = 2;
+
+	[SerializeField]
 	private Spline spline;
 
 	[SerializeField]
@@ -81,11 +91,19 @@ public class TrackCreate : MonoBehaviour {
 
 		// edgeLoopの間の面の数
 		int segments;
-		segments = path.Count+1;
+		segments = path.Count;
 
 		// edgeLoop(基本図形)の数
 		int edgeLoops;
-		edgeLoops = path.Count+1; 
+		edgeLoops = path.Count; 
+
+		if(setLoopTimes == true) {
+			segments = handLoop;
+			edgeLoops = handLoop;
+		}
+
+		segments = segments + 1;
+		edgeLoops = edgeLoops + 1;
 
 		List<int> triangleIndices = new List<int>();
 		List<Vector3> vertices = new List<Vector3>();
@@ -108,15 +126,20 @@ public class TrackCreate : MonoBehaviour {
 		float distance = 0f;
 
 		int vertsInShape = 0;
+		int preVertsInShape = 0;
+		int lines = 0;
 
-		int offset = 0;
+		vertsInShape = shape.Vertices.Length; // 路面頂点を取得
+		lines = shape.Lines.Length;
+
+		int offset = shape.Vertices.Length;
 
 		Vector3 vert = Vector3.zero;
 
 		for (int i = 0; i < edgeLoops; i++) {
 			#region 路面形状の更新
-			if ((i-1) % spline.Loops == 0) {
-				t = resolution;
+			if ((i-1) % (spline.Loops) == 0) {
+				t = 0;
 
 				cp = spline.ControlPoints[spline.ClampCPPos(CurrentCP)];
 				next = spline.ControlPoints[spline.ClampCPPos(CurrentCP+1)];
@@ -127,6 +150,14 @@ public class TrackCreate : MonoBehaviour {
 
 				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
+
+				if(cp.RoadType == (int)ControlPoint.RoadTypes.Gap) {
+					vertsInShape = 0;
+					lines = 0;
+				} else {
+					vertsInShape = shape.Vertices.Length; // 路面頂点を取得
+					lines = shape.Lines.Length;
+				}
 
 				CurrentCP++;
 			} else {
@@ -152,71 +183,69 @@ public class TrackCreate : MonoBehaviour {
 			#endregion
 
 			#region 路面頂点の追加
-			if (shape.Vertices != null) {
-				// 頂点群ありの場合
-				vertsInShape = shape.Vertices.Length; // 路面頂点を取得
+			for (int j = 0; j < vertsInShape; j++) {
+				// 頂点のグローバル座標化
+				vert = path[i % path.Count].LocalToWorld(shape.Vertices[j]);
+				// 頂点を追加
+				vertices.Add(vert);
 
-				for (int j = 0; j < vertsInShape; j++) {
-					// 頂点のグローバル座標化
-					vert = path[i % path.Count].LocalToWorld(shape.Vertices[j]);
-					// 頂点を追加
-					vertices.Add(vert);
+				// 法線のグローバル座標化
+				//Vector3 normal = path[i].LocalToWorldDirction(shape.Normals[j]);
+				// 法線を追加
+				//normals.Add(normal);
 
-					// 法線のグローバル座標化
-					//Vector3 normal = path[i].LocalToWorldDirction(shape.Normals[j]);
-					// 法線を追加
-					//normals.Add(normal);
-
-					// U座標を元にUVを追加、Vはpathの長さに準ずる
-					if (uCoord > shape.UCoords.Length - 1) {
-						// 最後のU座標の場合
-						uCoord = 0;
-						distance += spline.SectionDistances[Mathf.FloorToInt((i-1)/spline.Loops)];
-					}
-					vCoord = distance / 10f;
-
-					// uv座標を追加
-					Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord);
-					uvs.Add(uv);
-
-					uCoord++;
+				// U座標を元にUVを追加、Vはpathの長さに準ずる
+				if (uCoord > shape.UCoords.Length - 1) {
+					// 最後のU座標の場合
+					uCoord = 0;
+					distance += spline.SectionDistances[CurrentCP-1];
 				}
-			} else {
-				vertsInShape = 0;
+				vCoord = distance;
+
+				// uv座標を追加
+				Vector2 uv = new Vector2(shape.UCoords[uCoord], vCoord / roadTexureDiv);
+				uvs.Add(uv);
+
+				uCoord++;
 			}
 			#endregion
 
 			#region 三角形配列用
-			if (i < segments) {
+			if (i < segments && i > 0) {
 				// iが面数未満の場合
-				if (shape.Lines != null) {
-
-					int lines = shape.Lines.Length;
-
-					if (i > 0) {
-						for (int l = 0; l < lines; l += 2) {
-							int a = offset + (shape.Lines[l]);
-							int b = offset + (shape.Lines[l] - vertsInShape);
-							int c = offset + (shape.Lines[l + 1] - vertsInShape);
-							int d = offset + (shape.Lines[l + 1]);
+				for (int l = 0; l < lines; l += 2) {
+					int verts = vertsInShape;
 
 
-							triangleIndices.Add(a);
-							triangleIndices.Add(b);
-							triangleIndices.Add(c);
-							triangleIndices.Add(c);
-							triangleIndices.Add(d);
-							triangleIndices.Add(a);
-						}
+					//int ab = Mathf.Clamp(shape.Lines[l], 0, preVertsInShape);
+					//int cd = Mathf.Clamp(shape.Lines[l + 1], 0, preVertsInShape);
+						
+					int ab = shape.Lines[l];
+					int cd = shape.Lines[l + 1];
+
+					if (lines >= preVertsInShape*2) {
+
+						ab = Mathf.Clamp(shape.Lines[l], 0, preVertsInShape);
+						cd = Mathf.Clamp(shape.Lines[l + 1], 0, preVertsInShape);
 					}
-				} else {
-					vertsInShape = 0;
+
+					int a = offset + (ab);
+					int b = offset + (ab - verts);
+					int c = offset + (cd - verts);
+					int d = offset + (cd);
+
+					triangleIndices.Add(a);
+					triangleIndices.Add(b);
+					triangleIndices.Add(c);
+					triangleIndices.Add(c);
+					triangleIndices.Add(d);
+					triangleIndices.Add(a);
 				}
 				offset += vertsInShape;
 			}
 			#endregion
 
-
+			preVertsInShape = vertsInShape;
 		}
 		#endregion
 

@@ -128,9 +128,12 @@ public class TrackCreate : MonoBehaviour {
 		int vertsInShape = 0;
 		int preVertsInShape = 0;
 		int lines = 0;
+		int preLines = 0;
 
 		vertsInShape = shape.Vertices.Length; // 路面頂点を取得
 		lines = shape.Lines.Length;
+		preLines = shape.Lines.Length;
+		preVertsInShape = shape.Vertices.Length;
 
 		int offset = shape.Vertices.Length;
 
@@ -150,14 +153,6 @@ public class TrackCreate : MonoBehaviour {
 
 				// 路面形状の更新
 				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
-
-				if(cp.RoadType == (int)ControlPoint.RoadTypes.Gap) {
-					vertsInShape = 0;
-					lines = 0;
-				} else {
-					vertsInShape = shape.Vertices.Length; // 路面頂点を取得
-					lines = shape.Lines.Length;
-				}
 
 				CurrentCP++;
 			} else {
@@ -183,6 +178,12 @@ public class TrackCreate : MonoBehaviour {
 			#endregion
 
 			#region 路面頂点の追加
+			if (shape.Vertices == null) {
+				vertsInShape = 0;
+			} else {
+				vertsInShape = shape.Vertices.Length;
+			}
+
 			for (int j = 0; j < vertsInShape; j++) {
 				// 頂点のグローバル座標化
 				vert = path[i % path.Count].LocalToWorld(shape.Vertices[j]);
@@ -213,21 +214,29 @@ public class TrackCreate : MonoBehaviour {
 			#region 三角形配列用
 			if (i < segments && i > 0) {
 				// iが面数未満の場合
+
+				int verts = 0;
+
+				if (vertsInShape != preVertsInShape) {
+					verts = preVertsInShape;
+				} else {
+					verts = vertsInShape;
+				}
+
+				if (shape.Lines == null) {
+					lines = 0;
+				} else { 
+					lines = shape.Lines.Length;
+				}
+
+				if (lines > preLines) {
+					lines = preLines;
+				}
+
+
 				for (int l = 0; l < lines; l += 2) {
-					int verts = vertsInShape;
-
-
-					//int ab = Mathf.Clamp(shape.Lines[l], 0, preVertsInShape);
-					//int cd = Mathf.Clamp(shape.Lines[l + 1], 0, preVertsInShape);
-						
 					int ab = shape.Lines[l];
 					int cd = shape.Lines[l + 1];
-
-					if (lines >= preVertsInShape*2) {
-
-						ab = Mathf.Clamp(shape.Lines[l], 0, preVertsInShape);
-						cd = Mathf.Clamp(shape.Lines[l + 1], 0, preVertsInShape);
-					}
 
 					int a = offset + (ab);
 					int b = offset + (ab - verts);
@@ -245,7 +254,17 @@ public class TrackCreate : MonoBehaviour {
 			}
 			#endregion
 
-			preVertsInShape = vertsInShape;
+			if(shape.Lines == null) {
+				preLines = 0;
+			} else {
+				preLines = shape.Lines.Length;
+			}
+
+			if(shape.Vertices == null) {
+				preVertsInShape = 0;
+			} else {
+				preVertsInShape = vertsInShape;
+			}
 		}
 		#endregion
 

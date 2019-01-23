@@ -14290,7 +14290,7 @@ MonoBehaviour:
   changePosSpeed: 0.1
   sense: 0.1
   defaultFOV: 45
-  zoom: 0.8
+  zoom: 1.2
   defultCamAngle: 16
   runningCamAngle: -2
   minZoomVel: 0

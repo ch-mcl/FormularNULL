@@ -5,21 +5,28 @@ using UnityEngine;
 public class ControlPoint : MonoBehaviour {
 
 	[SerializeField]
-	private int m_id; // 何番目
+	private int m_id; //何番目
 
 	[SerializeField]
-	private RoadTypes m_RoadType = RoadTypes.Road; // 路面形状
+	private RoadTypes m_RoadType = RoadTypes.Road; //路面形状
 	[SerializeField]
-	private GimicTypes m_GimicType = GimicTypes.None; // ギミック
+	private GimicTypes m_GimicType = GimicTypes.None; //ギミック
+	[SerializeField]
+	private PlaceTypes m_PlaceType = PlaceTypes.Center;	//ギミックの設置位置
 
 	[SerializeField]
-	private float m_widthR = 26f; // 右幅
+	private float m_widthR = 26f; //右幅
 	[SerializeField]
-	private float m_widthL = 26f; // 左幅
+	private float m_widthL = 26f; //左幅
 	// 26.0 : Xのスタート地点の値(基準値)
 
+	[SerializeField]
+	private float m_GimcSizeR = 0.6f; //右側エリア(回復、スリップ、減速)サイズ
+	[SerializeField]
+	private float m_GimcSizeL = 0.6f; //左側エリア(回復、スリップ、減速)サイズ
+
 	[SerializeField] [Range(0, 360)]
-	private float m_roll = 0f; // バンク (0~360まで)
+	private float m_roll = 0f; //バンク (0~360まで)
 
 	/// <summary>
 	/// IDの取得
@@ -50,6 +57,15 @@ public class ControlPoint : MonoBehaviour {
 	public int GimicType {
 		get {
 			return (int)m_GimicType;
+		}
+	}
+
+	/// <summary>
+	/// 設置場所の取得
+	/// </summary>
+	public int PlaceType {
+		get {
+			return (int)m_PlaceType;
 		}
 	}
 
@@ -115,6 +131,14 @@ public class ControlPoint : MonoBehaviour {
 		*/
 	};
 
+	/// <summary>
+	/// 設置場所
+	/// </summary>
+	public enum PlaceTypes {
+		Right,	//右
+		Center,	//中央
+		Left		//左
+	}
 
 	
 }

@@ -7,47 +7,55 @@ using UnityEngine;
 public class ExtrudeShape {
 	#region 定数
 	/// <summary>
-	/// ハーフパイプ、パイプ、シリンダーの頂点数
-	/// </summary>
-	private int m_polyNum = 24;
-
-	/// <summary>
 	/// 路肩
 	/// </summary>
-	private float m_edge = 0.8f;
+	private const float m_edge = 0.8f;
 
 	/// <summary>
 	/// 路肩幅
 	/// </summary>
-	private float m_shoulder = 0.8f;
+	private const float m_shoulder = 0.8f;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	private float m_edgeBottom = -0.2f;
+	private const float m_edgeBottom = -0.2f;
 
 	/// <summary>
 	/// 路面　底辺
 	/// </summary>
-	private float m_roadBottom = -2f;
+	private const float m_roadBottom = -2f;
 
 	/// <summary>
 	/// 壁幅
 	/// </summary>
-	private float m_wallWidth = 4f;
+	private const float m_wallWidth = 4f;
 
 	/// <summary>
-	/// 壁　高さ(低い場合)
+	/// 壁　高さ(通常)
 	/// </summary>
-	private float m_wallLow = 0.8f;
+	private const float m_wallHeight = 0.8f;
 
 	/// <summary>
 	/// 壁　高さ(高い場合)
 	/// </summary>
-	private float m_wallHigh = 4f;
+	private const float m_wallHeightHigh = 8f;
+
+	/// <summary>
+	/// トンネルの最高点
+	/// </summary>
+	private const float m_tunnelHeight = 16f;
+
+	private const float m_objThin = 2f;
+
 	#endregion
 
 	#region フィールド
+	/// <summary>
+	/// ハーフパイプ、パイプ、シリンダーの頂点数
+	/// </summary>
+	private int m_polyNum = 24;
+
 	/// <summary>
 	/// 頂点位置
 	/// </summary>
@@ -207,10 +215,10 @@ public class ExtrudeShape {
 						m_Vertices = new Vector2[] {
 
 							// 路面
-							new Vector2(widthR, m_wallHigh),		
+							new Vector2(widthR, m_wallHeightHigh),		
 							new Vector2(widthR, 0),	// 右
 							new Vector2(-widthL, 0),	// 左
-							new Vector2(-widthL, m_wallHigh)
+							new Vector2(-widthL, m_wallHeightHigh)
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -281,12 +289,12 @@ public class ExtrudeShape {
 							new Vector2(shoulderR, m_edgeBottom),	// 右
 
 							// 右壁
-							new Vector2(wallR, m_wallLow),
+							new Vector2(wallR, m_wallHeight),
 							new Vector2(widthR, 0),
 
 							// 左壁
 							new Vector2(-widthL, 0),
-							new Vector2(-wallL, m_wallLow)
+							new Vector2(-wallL, m_wallHeight)
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -354,7 +362,7 @@ public class ExtrudeShape {
 							new Vector2(-(widthL + m_wallWidth), 0),	// 左端
 
 							// 左 横
-							new Vector2(-(widthL + m_wallWidth), 0),   // 左端
+							new Vector2(-(widthL + m_wallWidth), m_wallHeightHigh),   // 左端
 							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
 
 							// 裏
@@ -363,7 +371,7 @@ public class ExtrudeShape {
 
 							// 右 横
 							new Vector2(widthR + m_wallWidth, m_roadBottom), // 右端下
-							new Vector2(widthR + m_wallWidth, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, m_wallHeightHigh),	// 右端
 
 							// 右 縁
 							new Vector2(widthR + m_wallWidth, 0),	// 右端
@@ -374,12 +382,12 @@ public class ExtrudeShape {
 							new Vector2(shoulderR, m_edgeBottom),	// 右
 
 							// 右壁
-							new Vector2(wallR, m_wallHigh*2),
+							new Vector2(wallR, m_wallHeightHigh),
 							new Vector2(widthR, 0),
 
 							// 左壁
 							new Vector2(-widthL, 0),
-							new Vector2(-wallL, m_wallHigh*2)
+							new Vector2(-wallL, m_wallHeightHigh)
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -507,7 +515,6 @@ public class ExtrudeShape {
 						#endregion
 						break;
 					case 3:
-						// TODO:天井部 定義追加
 						#region トンネル
 						m_Vertices = new Vector2[] {
 							// 路面
@@ -525,7 +532,7 @@ public class ExtrudeShape {
 							new Vector2(-(widthL + m_wallWidth), 0),	// 左端
 
 							// 左 横
-							new Vector2(-(widthL + m_wallWidth), 0),   // 左端
+							new Vector2(-(widthL + m_wallWidth), m_wallHeightHigh),   // 左端
 							new Vector2(-(widthL + m_wallWidth), m_roadBottom),// 左端下
 
 							// 裏
@@ -534,7 +541,7 @@ public class ExtrudeShape {
 
 							// 右 横
 							new Vector2(widthR + m_wallWidth, m_roadBottom), // 右端下
-							new Vector2(widthR + m_wallWidth, 0),	// 右端
+							new Vector2(widthR + m_wallWidth, m_wallHeightHigh),	// 右端
 
 							// 右 縁
 							new Vector2(widthR + m_wallWidth, 0),	// 右端
@@ -545,18 +552,52 @@ public class ExtrudeShape {
 							new Vector2(shoulderR, m_edgeBottom),	// 右
 
 							// 右壁
-							new Vector2(wallR*0.8f, m_wallHigh*4),
+							new Vector2(wallR, m_wallHeightHigh),
 							new Vector2(widthR, 0),
 
 							// 左壁
 							new Vector2(-widthL, 0),
-							new Vector2(-wallL*0.8f, m_wallHigh*4),
+							new Vector2(-wallL, m_wallHeightHigh),
 
-							new Vector2(-wallL*0.8f, m_wallHigh*4),
-							new Vector2(center, m_wallHigh*6f),
+							//天井(左内)
+							new Vector2(-wallL, m_wallHeightHigh),
+							TunnelCelling(0.25f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.25f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.5f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.5f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.75f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.75f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(1f, -widthL, center, m_wallHeightHigh, m_tunnelHeight),
 
-							new Vector2(center, m_wallHigh*6f),
-							new Vector2(wallR*0.8f, m_wallHigh*4)
+							//天井(右内)
+							TunnelCelling(1f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.75f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.75f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.5f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.5f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.25f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							TunnelCelling(0.25f, widthR, center, m_wallHeightHigh, m_tunnelHeight),
+							new Vector2(wallR, m_wallHeightHigh),
+
+							//天井(左外)
+							TunnelCelling(0.25f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							new Vector2(-wallL-0.8f, m_wallHeightHigh),
+							TunnelCelling(0.5f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.25f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.75f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.5f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(1f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.75f, -widthL, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+
+							//天井(右外)
+							TunnelCelling(0.75f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(1f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.5f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.75f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.25f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							TunnelCelling(0.5f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin),
+							new Vector2(wallR, m_wallHeightHigh+m_objThin),
+							TunnelCelling(0.25f, widthR, center, m_wallHeightHigh, m_tunnelHeight+m_objThin)
 						};
 						m_UCoords = new float[] {
 							// 路面
@@ -580,9 +621,26 @@ public class ExtrudeShape {
 							0.625f, 0.5f,
 							// 左壁
 							0.625f, 0.5f,
-
-							0,0,
-							0,0
+							//天井(左内)
+							0.625f, 0.5f,
+							0f, 0f,
+							0f, 0f,
+							0f, 0f,
+							//天井(右内)
+							0f, 0f,
+							0f, 0f,
+							0f, 0f,
+							0.625f, 0.5f,
+							//天井(左外)
+							0f, 0f,
+							0f, 0f,
+							0f, 0f,
+							0f, 0f,
+							//天井(右外)
+							0f, 0f,
+							0f, 0f,
+							0f, 0f,
+							0f, 0f
 						};
 						m_Lines = new int[]{
 							// 路面
@@ -606,9 +664,26 @@ public class ExtrudeShape {
 							18, 19,
 							// 左壁
 							20, 21,
-
+							//天井(左内)
 							22, 23,
-							24, 25
+							24, 25,
+							26, 27,
+							28, 29,
+							//天井(右内)
+							30, 31,
+							32, 33,
+							34, 35,
+							36, 37,
+							//天井(左外)
+							38, 39,
+							40, 41,
+							42, 43,
+							44, 45,
+							//天井(左外)
+							46, 47,
+							48, 49,
+							50, 51,
+							52, 53
 						};
 
 						//TunnelCelling(m_Vertices, m_UCoords ,m_Lines);
@@ -649,20 +724,27 @@ public class ExtrudeShape {
 		}
 	}
 
-	private void TunnelCelling(Vector2[] verts, float[] uvs, int[] lines) {
-		float theta = 90 * Mathf.Deg2Rad;
+	/// <summary>
+	/// トンネル天井カーブを計算
+	/// </summary>
+	/// <param name="t"></param>
+	/// <param name="radius"></param>
+	/// <param name="centerX"></param>
+	/// <param name="centerY"></param>
+	/// <param name="top"></param>
+	/// <returns></returns>
+	private Vector2 TunnelCelling(float t, float radius, float centerX, float centerY, float top) {
+		Vector2 pos;	//算出して得た頂点の位置
 
-		int loop = m_polyNum/2;
-		float reslution = Mathf.PI / loop;
+		float startRad = Mathf.PI * -0.5f;
+		float rad = Mathf.PI * t * 0.5f;
 
-		/*
-		for (int i = 0; i < loop; i++) {
-			float mx = Mathf.Sin(i * reslution);
-			float my = Mathf.Cos(i * reslution);
+		float mx = Mathf.Sin(startRad+rad);
+		float my = Mathf.Cos(startRad+rad);
 
-			x = mx * width + Ox;
-			y = my * b + Oy;
-		}*/
+		pos = new Vector2(mx * -radius + centerX, my * top + centerY);
+
+		return pos;
 	}
 
 	/// <summary>

@@ -3,33 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlPoint : MonoBehaviour {
-
+	/// <summary>
+	/// CPの番号
+	/// </summary>
 	[SerializeField]
-	private int m_id; //何番目
-
-	[SerializeField]
-	private RoadTypes m_RoadType = RoadTypes.Road; //路面形状
-	[SerializeField]
-	private GimicTypes m_GimicType = GimicTypes.None; //ギミック
-	[SerializeField]
-	private PlaceTypes m_PlaceType = PlaceTypes.Center;	//ギミックの設置位置
-
-	[SerializeField]
-	private float m_widthR = 26f; //右幅
-	[SerializeField]
-	private float m_widthL = 26f; //左幅
-	// 26.0 : Xのスタート地点の値(基準値)
-
-	[SerializeField]
-	private float m_GimcSizeR = 0.6f; //右側エリア(回復、スリップ、減速)サイズ
-	[SerializeField]
-	private float m_GimcSizeL = 0.6f; //左側エリア(回復、スリップ、減速)サイズ
-
-	[SerializeField] [Range(0, 360)]
-	private float m_roll = 0f; //バンク (0~360まで)
+	private int m_id;
 
 	/// <summary>
-	/// IDの取得
+	/// 路面形状
+	/// [default:Road]
+	/// </summary>
+	[SerializeField]
+	private RoadTypes m_RoadType = RoadTypes.Road;
+
+	/// <summary>
+	/// 設置物(右)
+	/// [default:None]
+	/// </summary>
+	[SerializeField]
+	private ItemTypes m_ItemR = ItemTypes.None;
+
+	/// <summary>
+	/// 設置物(中央)
+	/// [default:None]
+	/// </summary>
+	[SerializeField]
+	private ItemTypes m_ItemCenter = ItemTypes.None;
+
+	/// <summary>
+	/// 設置物(左)
+	/// [default:None]
+	/// </summary>
+	[SerializeField]
+	private ItemTypes m_ItemL = ItemTypes.None;
+
+	//幅
+	//26.0f Xのスタート地点の値(基準値)
+	/// <summary>
+	/// 幅(右)
+	/// [default:26.0f]
+	/// </summary>
+	[SerializeField]
+	private float m_widthR = 26f;
+	/// <summary>
+	/// 幅(左)
+	/// [default:26.0f]
+	/// </summary>
+	[SerializeField]
+	private float m_widthL = 26f;
+
+
+	//エリアサイズ
+	//回復、スリップ、減速
+	/// <summary>
+	/// エリアサイズ(右)
+	/// [default:60%]
+	/// </summary>
+	[SerializeField]
+	private float m_AreaSizeR = 0.6f;
+
+	/// <summary>
+	/// エリアサイズ(左)
+	/// [default:60%]
+	/// </summary>
+	[SerializeField]
+	private float m_AreaSizeL = 0.6f;
+
+	/// <summary>
+	/// バンク角
+	/// (0度以上、360度未満)
+	/// [default:0.0f]
+	/// </summary>
+	[SerializeField] [Range(0, 360)]
+	private float m_roll = 0f;
+
+	/// <summary>
+	/// IDのプロパティ
 	/// </summary>
 	public int ID {
 		get {
@@ -43,7 +92,7 @@ public class ControlPoint : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 路面形状の取得
+	/// 路面形状のプロパティ
 	/// </summary>
 	public int RoadType {
 		get {
@@ -52,25 +101,34 @@ public class ControlPoint : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 設置物の取得
+	/// 設置物(右)のプロパティ
 	/// </summary>
-	public int GimicType {
+	public int ObjectR {
 		get {
-			return (int)m_GimicType;
+			return (int)m_ItemCenter;
 		}
 	}
 
 	/// <summary>
-	/// 設置場所の取得
+	/// 設置物(中央)のプロパティ
 	/// </summary>
-	public int PlaceType {
+	public int ObjectCenter {
 		get {
-			return (int)m_PlaceType;
+			return (int)m_ItemCenter;
 		}
 	}
 
 	/// <summary>
-	/// 右幅の取得
+	/// 設置場所(左)のプロパティ
+	/// </summary>
+	public int ObjectL {
+		get {
+			return (int)m_ItemL;
+		}
+	}
+
+	/// <summary>
+	/// 幅(右)のプロパティ
 	/// </summary>
 	public float WidthR {
 		get {
@@ -79,7 +137,7 @@ public class ControlPoint : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 左幅の取得
+	/// 幅(左)のプロパティ
 	/// </summary>
 	public float WidthL {
 		get {
@@ -88,7 +146,7 @@ public class ControlPoint : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// バンク角の取得
+	/// バンク角のプロパティ
 	/// </summary>
 	public float Bank {
 		get {
@@ -114,31 +172,17 @@ public class ControlPoint : MonoBehaviour {
 		*/
 	};
 
-	// 
 	/// <summary>
 	/// 設置物
 	/// </summary>
-	public enum GimicTypes {
+	public enum ItemTypes {
 		None, // 無し
+		Pit, // ピット
 		Dash, // ブーストプレート
 		Dirt, // ダート
-		Pit, // ピット
-		Mine, // マイン
 		Jump/*, // ジャンプ台
-		Gravity, // 重力エリア
-		Magnet, // マグネット
-		Wind // 風
+		Mine, // マイン
+		Force //重力エリア, マグネット, 風
 		*/
 	};
-
-	/// <summary>
-	/// 設置場所
-	/// </summary>
-	public enum PlaceTypes {
-		Right,	//右
-		Center,	//中央
-		Left		//左
-	}
-
-	
 }

@@ -87,7 +87,7 @@ public class TrackCreate : MonoBehaviour {
 		ControlPoint cp = spline.ControlPoints[0]; // 現在のCP
 
 		// 現在CPの路面形状を生成
-		ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
+		ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.ObjectCenter);
 
 		// edgeLoopの間の面の数
 		int segments = path.Count;
@@ -147,7 +147,7 @@ public class TrackCreate : MonoBehaviour {
 				widthL = cp.WidthL;
 
 				//路面形状を更新する
-				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.GimicType);
+				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.ObjectCenter);
 
 				CurrentCP++;
 			} else {
@@ -168,7 +168,7 @@ public class TrackCreate : MonoBehaviour {
 				}
 
 				//路面形状を更新する
-				shape = new ExtrudeShape(meshType, widthR, widthL, cp.RoadType, cp.GimicType);
+				shape = new ExtrudeShape(meshType, widthR, widthL, cp.RoadType, cp.ObjectCenter);
 			}
 			#endregion
 

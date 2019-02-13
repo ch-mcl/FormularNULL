@@ -6,6 +6,10 @@ public class TrackCreate : MonoBehaviour {
 	[SerializeField]
 	private bool setLoopTimes;
 
+	/// <summary>
+	/// 路面のテクスチャをループする区間
+	/// 20(m)で1枚分
+	/// </summary>
 	[SerializeField]
 	private float roadTexureDiv = 20f;
 
@@ -16,11 +20,38 @@ public class TrackCreate : MonoBehaviour {
 	[SerializeField]
 	private Spline spline;
 
+	/// <summary>
+	/// 路面用コリジョン
+	/// </summary>
 	[SerializeField]
-	private MeshCollider roadColl; // 路面用コリジョン
+	private MeshCollider roadColl;
 
+	/// <summary>
+	/// 壁用コリジョン
+	/// </summary>
 	[SerializeField]
-	private MeshCollider wallColl; // 壁用コリジョン
+	private MeshCollider wallColl;
+
+	/// <summary>
+	/// 壁用コリジョン
+	/// </summary>
+	[SerializeField]
+	private MeshCollider pitColl;
+	/// <summary>
+	/// コースの見た目
+	/// </summary>
+	[SerializeField]
+	private MeshFilter trackMesh;
+
+	//各種コース設置物生成フラグ
+	private bool creatPit = false;
+	private bool creatDirt = false;
+	private bool creatSlip = false;
+	private bool creatDamage = false;
+	private bool creatForce = false;
+	private bool creatDash = false;
+	private bool creatJump = false;
+	private bool creatMine = false;
 
 
 	/// <summary>
@@ -29,9 +60,31 @@ public class TrackCreate : MonoBehaviour {
 	enum MeshType {
 		CollRoad,
 		CollWall,
-		Model
+		Model,
+		CollPit,
+		/*
+		CollDirt,
+		CollSlip,
+		CollDamage,
+		CollForce,
+		*/
+		ModelPit,
+		/*
+		ModelDirt,
+		ModelSlip,
+		ModelDamage,
+		ModelForce,
+		*/
+		Dash,
+		Jump/*,
+		Mine,
+		*/
 	}
 
+	/// <summary>
+	/// Startメソッド
+	/// 初期化
+	/// </summary>
 	void Start() {
 		spline.GetCP();
 
@@ -48,31 +101,46 @@ public class TrackCreate : MonoBehaviour {
 		// 生成可能か判断
 		if (spline.CurvePoints != null) {
 			// 各種meshの初期化
-			Mesh m_Roadmesh = new Mesh(); // 路面用
-			Mesh m_Wallmesh = new Mesh(); // 壁
-			Mesh m_Modelmesh = new Mesh(); // 表示用
+			Mesh m_Roadmesh = new Mesh(); //路面用
+			Mesh m_Wallmesh = new Mesh(); //壁
+			Mesh m_Modelmesh = new Mesh(); //表示用
+			Mesh m_Pitmesh = new Mesh(); //回復エリア
+
 
 			List<OrientedPoint> m_path = spline.CurvePoints;
 
 			m_Modelmesh.Clear();
 
-
-
-			// 路面
+			//路面Collison
 			Extrude((int)MeshType.CollRoad, m_Roadmesh, m_path);
-			// collisionの更新
+			//collisionの更新
 			roadColl.sharedMesh = m_Roadmesh;
 
-			
-			// 壁
+			//壁Collison
 			Extrude((int)MeshType.CollWall, m_Wallmesh, m_path);
-			// collisionの更新
+			//collisionの更新
 			wallColl.sharedMesh = m_Wallmesh;
 
+			//見た目
 			Extrude((int)MeshType.Model, m_Modelmesh, m_path);
-			MeshFilter mf = GetComponent<MeshFilter>();
-			mf.mesh = m_Modelmesh;
-			
+			trackMesh.mesh = m_Modelmesh;
+
+			/*
+			int typeR, typeCenter, typeL;
+
+			for (int i = 0; i < spline.ControlPoints.Count; i++) {
+				typeR = spline.ControlPoints[i].ObjectR;
+				typeCenter = spline.ControlPoints[i].ObjectCenter;
+				typeL = spline.ControlPoints[i].ObjectL;
+
+
+
+				
+			}
+			*/
+			//回復エリア
+			Extrude((int)MeshType.CollPit, m_Pitmesh, m_path);
+			pitColl.sharedMesh = m_Pitmesh;
 		}
 	}
 
@@ -87,7 +155,7 @@ public class TrackCreate : MonoBehaviour {
 		ControlPoint cp = spline.ControlPoints[0]; // 現在のCP
 
 		// 現在CPの路面形状を生成
-		ExtrudeShape shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.ObjectCenter);
+		ExtrudeShape shape = new ExtrudeShape(meshType, 0f, cp.WidthR, cp.WidthL, cp.RoadType);
 
 		// edgeLoopの間の面の数
 		int segments = path.Count;
@@ -122,21 +190,39 @@ public class TrackCreate : MonoBehaviour {
 		float distance = 0f; //コースの長さ(V座標算出に使用)
 
 		//路面に関する値
-		int vertsInShape = shape.Vertices.Length;	//頂点数
-		int lines = shape.Lines.Length; ; //辺の数
+		int vertsInShape; //頂点数
+		if (shape.Vertices == null) {
+			//空の場合
+			vertsInShape = 0;
+		} else {
+			vertsInShape = shape.Vertices.Length;
+		}
+
+		int lines; ; //辺の数
+		if (shape.Lines == null) {
+			//空の場合
+			lines = 0;
+		} else {
+			lines = shape.Lines.Length;
+		}
+
 
 		//路面(1つ前)に関する値
-		int preVertsInShape = shape.Lines.Length;//頂点数(1つ前の路面)
-		int preLines = shape.Vertices.Length; //辺の数(1つ前の路面)
+		int preVertsInShape = vertsInShape;//頂点数(1つ前の路面)
+		int preLines = vertsInShape; //辺の数(1つ前の路面)
 
-		int offset = shape.Vertices.Length; //三角形配列で使用する値
+		int offset = vertsInShape; //三角形配列で使用する値
 
 		Vector3 vert = Vector3.zero; //路面の頂点
+
+		bool changeRoadType = false;
 
 		for (int i = 0; i < edgeLoops; i++) {
 			#region 路面形状の更新
 			//TODO:路面形状が変わる場合への対応
-			if ((i-1) % (spline.Loops) == 0) {
+			changeRoadType = ( (i - 1) % spline.Loops == 0 );
+
+			if (changeRoadType == true) {
 				t = 0;
 
 				cp = spline.ControlPoints[spline.ClampCPPos(CurrentCP)];
@@ -147,7 +233,7 @@ public class TrackCreate : MonoBehaviour {
 				widthL = cp.WidthL;
 
 				//路面形状を更新する
-				shape = new ExtrudeShape(meshType, cp.WidthR, cp.WidthL, cp.RoadType, cp.ObjectCenter);
+				shape = new ExtrudeShape(meshType, t, cp.WidthR, cp.WidthL, cp.RoadType);
 
 				CurrentCP++;
 			} else {
@@ -168,7 +254,7 @@ public class TrackCreate : MonoBehaviour {
 				}
 
 				//路面形状を更新する
-				shape = new ExtrudeShape(meshType, widthR, widthL, cp.RoadType, cp.ObjectCenter);
+				shape = new ExtrudeShape(meshType, t, widthR, widthL, cp.RoadType);
 			}
 			#endregion
 

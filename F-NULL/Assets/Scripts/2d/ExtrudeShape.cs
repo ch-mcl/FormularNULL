@@ -127,7 +127,7 @@ public class ExtrudeShape {
 	///<param name="widthL"></param>
 	///<param name="road"></param>
 	///<param name="gimic"></param>
-	public ExtrudeShape(int meshType, float widthR, float widthL, int road, int gimic) {
+	public ExtrudeShape(int meshType, float t, float widthR, float widthL, int road) {
 
 		//道路の中心
 		float center = widthR - widthL;
@@ -217,7 +217,6 @@ public class ExtrudeShape {
 						#region 基本
 
 						m_Vertices = new Vector2[] {
-
 							//路面
 							new Vector2(widthR, m_wallHeightHigh),		
 							new Vector2(widthR, 0),	//右
@@ -443,6 +442,12 @@ public class ExtrudeShape {
 						break;
 					case 2:
 						#region 壁無し
+
+						shoulderL = shoulderL - m_wallWidth;
+						shoulderR = shoulderR - m_wallWidth;
+						edgeL = edgeL - m_wallWidth;
+						edgeR = edgeR - m_wallWidth;
+
 						m_Vertices = new Vector2[] {
 							//路面
 							new Vector2(shoulderR, m_edgeBottom),	//右
@@ -722,6 +727,140 @@ public class ExtrudeShape {
 					default:
 						#region 異常
 						Debug.LogError("Invalued RoadType");
+						#endregion
+						break;
+				}
+				#endregion
+				break;
+			case 3:
+				#region エリア
+				switch (road) {
+					case 0:
+					case 1:
+						#region なし
+						#endregion
+						break;
+					case 5:
+					case 6:
+					case 7:
+					case 8:
+					case 9:
+						#region 右
+						m_Vertices = new Vector2[] {
+							new Vector2(widthR-0.8f, 0),
+							new Vector2(widthR-0.8f, m_wallHeightHigh),
+
+							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
+							new Vector2(widthR*0.4f-0.8f, 0),
+
+							new Vector2(widthR-0.8f, m_wallHeightHigh),
+							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh)
+						};
+						m_UCoords = new float[] {
+							//路面
+							0f, 1f,
+							0f, 1f,
+							0f, 1f
+						};
+						m_Lines = new int[]{
+							//路面
+							0, 1,
+							2, 3,
+							4, 5
+						};
+						#endregion
+						break;
+					case 2:
+						#region 左
+						m_Vertices = new Vector2[] {
+							new Vector2(-widthL*0.4f-0.8f, 0),
+							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
+
+							new Vector2(-widthL-0.8f, m_wallHeightHigh),
+							new Vector2(-widthL-0.8f, 0),
+
+							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
+							new Vector2(-widthL-0.8f, m_wallHeightHigh)
+						};
+						m_UCoords = new float[] {
+							//路面
+							0f, 1f,
+							0f, 1f,
+							0f, 1f
+						};
+						m_Lines = new int[]{
+							//路面
+							0, 1,
+							2, 3,
+							4, 5
+						};
+						#endregion
+						break;
+					case 3:
+						#region 両方
+						m_Vertices = new Vector2[] {
+							new Vector2(widthR-0.8f, 0),
+							new Vector2(widthR-0.8f, m_wallHeightHigh),
+
+							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
+							new Vector2(widthR*0.4f-0.8f, 0),
+
+							new Vector2(widthR-0.8f, m_wallHeightHigh),
+							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
+
+							new Vector2(-widthL*0.4f-0.8f, 0),
+							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
+
+							new Vector2(-widthL-0.8f, m_wallHeightHigh),
+							new Vector2(-widthL-0.8f, 0),
+
+							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
+							new Vector2(-widthL-0.8f, m_wallHeightHigh)
+						};
+						m_UCoords = new float[] {
+							//路面
+							0f, 1f,
+							0f, 1f,
+							0f, 1f,
+							0f, 1f,
+							0f, 1f,
+							0f, 1f
+						};
+						m_Lines = new int[]{
+							//路面
+							0, 1,
+							2, 3,
+							4, 5,
+							6, 7,
+							8, 9,
+							10, 11
+						};
+						#endregion
+						break;
+					case 4:
+						#region 中央
+						m_Vertices = new Vector2[] {
+							new Vector2(widthR*0.4f-0.8f, 0),
+							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
+
+							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
+							new Vector2(-widthL*0.4f-0.8f, 0),
+
+							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
+							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh)
+						};
+						m_UCoords = new float[] {
+							//路面
+							0f, 1f,
+							0f, 1f,
+							0f, 1f
+						};
+						m_Lines = new int[]{
+							//路面
+							0, 1,
+							2, 3,
+							4, 5
+						};
 						#endregion
 						break;
 				}

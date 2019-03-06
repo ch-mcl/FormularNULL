@@ -10,6 +10,9 @@ public class TrackScene : MonoBehaviour {
 	Color ambientColor;
 
 	[SerializeField]
+	Color fogColor;
+
+	[SerializeField]
 	Material trackMaterial;
 
 	[SerializeField]
@@ -20,6 +23,7 @@ public class TrackScene : MonoBehaviour {
 	void Start () {
 		RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
 		RenderSettings.ambientSkyColor = ambientColor;
+		RenderSettings.fogColor = fogColor;
 	}
 
 	void Update() {

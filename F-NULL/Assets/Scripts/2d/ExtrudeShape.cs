@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -163,21 +164,22 @@ public class ExtrudeShape {
 						#region 基本
 						//0~3
 						m_Vertices = new Vector2[] {
+							//路面
+							new Vector2(-widthL*0.4f, 0),
+							new Vector2(-widthL, 0),//左
 
-							//路面
-							new Vector2(widthR, 0),	//右
-							new Vector2(center, 0),		//中央
-							new Vector2(-widthL, 0)	//左
+							new Vector2(center, 0),
+							new Vector2(-widthL*0.4f, 0),//中央(左)
+
+							new Vector2(widthR*0.4f, 0),
+							new Vector2(center, 0),//中央(右)
+
+							new Vector2(widthR, 0),
+							new Vector2(widthR*0.4f, 0)//右
 						};
-						m_UCoords = new float[] {
-							//路面
-							1f, 0.5f, 0f
-						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							1, 2
-						};
+						m_UCoords = new float[m_Vertices.Length];
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 4:
@@ -219,19 +221,13 @@ public class ExtrudeShape {
 						m_Vertices = new Vector2[] {
 							//路面
 							new Vector2(widthR, m_wallHeightHigh),		
-							new Vector2(widthR, 0),	//右
-							new Vector2(-widthL, 0),	//左
+							new Vector2(widthR, 0),//右
+							new Vector2(-widthL, 0),//左
 							new Vector2(-widthL, m_wallHeightHigh)
 						};
-						m_UCoords = new float[] {
-							//路面
-							0f, 1f, 0f, 1f
-						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3
-						};
+						m_UCoords = new float[m_Vertices.Length];
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 2:
@@ -322,29 +318,8 @@ public class ExtrudeShape {
 							//左壁
 							0.625f, 0.5f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							//左 路肩
-							4, 5,
-							//左 縁
-							6, 7,
-							//左 横
-							8, 9,
-							//裏
-							10, 11,
-							//右 横
-							12, 13,
-							//右 縁
-							14, 15,
-							//右 路肩
-							16, 17,
-							//右壁
-							18, 19,
-							//左壁
-							20, 21
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 1:
@@ -415,29 +390,8 @@ public class ExtrudeShape {
 							//左壁
 							0.625f, 0.5f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							//左 路肩
-							4, 5,
-							//左 縁
-							6, 7,
-							//左 横
-							8, 9,
-							//裏
-							10, 11,
-							//右 横
-							12, 13,
-							//右 縁
-							14, 15,
-							//右 路肩
-							16, 17,
-							//右壁
-							18, 19,
-							//左壁
-							20, 21
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 2:
@@ -502,25 +456,8 @@ public class ExtrudeShape {
 							//右 路肩
 							0.75f, 0.625f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							//左 路肩
-							4, 5,
-							//左 縁
-							6, 7,
-							//左 横
-							8, 9,
-							//裏
-							10, 11,
-							//右 横
-							12, 13,
-							//右 縁
-							14, 15,
-							//右 路肩
-							16, 17
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 3:
@@ -656,52 +593,8 @@ public class ExtrudeShape {
 							0f, 0f,
 							0f, 0f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							//左 路肩
-							4, 5,
-							//左 縁
-							6, 7,
-							//左 横
-							8, 9,
-							//裏
-							10, 11,
-							//右 横
-							12, 13,
-							//右 縁
-							14, 15,
-							//右 路肩
-							16, 17,
-							//右壁
-							18, 19,
-							//左壁
-							20, 21,
-							//天井(左内)
-							22, 23,
-							24, 25,
-							26, 27,
-							28, 29,
-							//天井(右内)
-							30, 31,
-							32, 33,
-							34, 35,
-							36, 37,
-							//天井(左外)
-							38, 39,
-							40, 41,
-							42, 43,
-							44, 45,
-							//天井(左外)
-							46, 47,
-							48, 49,
-							50, 51,
-							52, 53
-						};
-
-						//TunnelCelling(m_Vertices, m_UCoords ,m_Lines);
-
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 4:
@@ -736,131 +629,72 @@ public class ExtrudeShape {
 				#region エリア
 				switch (road) {
 					case 0:
-					case 1:
-						#region なし
-						#endregion
-						break;
 					case 5:
 					case 6:
 					case 7:
 					case 8:
 					case 9:
-						#region 右
+						#region なし
+						#endregion
+						break;
+					case 1:
+						#region 左
 						m_Vertices = new Vector2[] {
-							new Vector2(widthR-0.8f, 0),
-							new Vector2(widthR-0.8f, m_wallHeightHigh),
-
-							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
-							new Vector2(widthR*0.4f-0.8f, 0),
-
-							new Vector2(widthR-0.8f, m_wallHeightHigh),
-							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh)
+							new Vector2(-widthL*0.4f, 0),
+							new Vector2(-widthL, 0)
 						};
 						m_UCoords = new float[] {
 							//路面
-							0f, 1f,
-							0f, 1f,
 							0f, 1f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							4, 5
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 2:
-						#region 左
+						#region 右
 						m_Vertices = new Vector2[] {
-							new Vector2(-widthL*0.4f-0.8f, 0),
-							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
-
-							new Vector2(-widthL-0.8f, m_wallHeightHigh),
-							new Vector2(-widthL-0.8f, 0),
-
-							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
-							new Vector2(-widthL-0.8f, m_wallHeightHigh)
+							new Vector2(widthR, 0),
+							new Vector2(widthR*0.4f, 0)
 						};
 						m_UCoords = new float[] {
 							//路面
-							0f, 1f,
-							0f, 1f,
 							0f, 1f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							4, 5
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 3:
 						#region 両方
 						m_Vertices = new Vector2[] {
-							new Vector2(widthR-0.8f, 0),
-							new Vector2(widthR-0.8f, m_wallHeightHigh),
+							new Vector2(widthR, 0),
+							new Vector2(widthR*0.4f, 0),
 
-							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
-							new Vector2(widthR*0.4f-0.8f, 0),
-
-							new Vector2(widthR-0.8f, m_wallHeightHigh),
-							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
-
-							new Vector2(-widthL*0.4f-0.8f, 0),
-							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
-
-							new Vector2(-widthL-0.8f, m_wallHeightHigh),
-							new Vector2(-widthL-0.8f, 0),
-
-							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
-							new Vector2(-widthL-0.8f, m_wallHeightHigh)
+							new Vector2(-widthL*0.4f, 0),
+							new Vector2(-widthL, 0)
 						};
 						m_UCoords = new float[] {
 							//路面
 							0f, 1f,
-							0f, 1f,
-							0f, 1f,
-							0f, 1f,
-							0f, 1f,
 							0f, 1f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							4, 5,
-							6, 7,
-							8, 9,
-							10, 11
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 					case 4:
 						#region 中央
 						m_Vertices = new Vector2[] {
-							new Vector2(widthR*0.4f-0.8f, 0),
-							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
-
-							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh),
-							new Vector2(-widthL*0.4f-0.8f, 0),
-
-							new Vector2(widthR*0.4f-0.8f, m_wallHeightHigh),
-							new Vector2(-widthL*0.4f-0.8f, m_wallHeightHigh)
+							new Vector2(widthR*0.4f, 0),
+							new Vector2(-widthL*0.4f, 0)
 						};
 						m_UCoords = new float[] {
 							//路面
-							0f, 1f,
-							0f, 1f,
 							0f, 1f
 						};
-						m_Lines = new int[]{
-							//路面
-							0, 1,
-							2, 3,
-							4, 5
-						};
+						//頂点を接続するして辺を構成する
+						ConnectVerts();
 						#endregion
 						break;
 				}
@@ -942,8 +776,8 @@ public class ExtrudeShape {
 		for (int i = 0; i < m_polyNum; i++) {
 			//Cos(theta), Sin(theta)から位置を求める
 			//それにwidth(半径)をかける
-			float m_x = Mathf.Cos(theta * i) * width;
-			float m_y = Mathf.Sin(theta * i) * width;
+			float m_x = Mathf.Cos(theta * i - Mathf.PI) * width;
+			float m_y = Mathf.Sin(theta * i - Mathf.PI) * width;
 
 			m_Vertices[i] = new Vector2(m_x, m_y);
 
@@ -962,6 +796,17 @@ public class ExtrudeShape {
 			} else {
 				m_Lines[vt + 1] = i + 1;
 			}
+		}
+	}
+
+	/// <summary>
+	/// 辺の自動セットアップ
+	/// </summary>
+	private void ConnectVerts() {
+		m_Lines = new int[m_Vertices.Length];
+		for (int i = 0; i < m_Vertices.Length-1; i++) {
+			m_Lines[i] = i;
+			m_Lines[i+1] = i + 1;
 		}
 	}
 }

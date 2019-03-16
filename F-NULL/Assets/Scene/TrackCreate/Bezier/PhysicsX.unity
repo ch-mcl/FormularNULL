@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.9686275, g: 0.6039216, b: 0.7803922, a: 0.128}
   m_FogMode: 2
   m_FogDensity: 0.002
@@ -527,8 +527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beamColor: {r: 0, g: 1, b: 0.12999988, a: 1}
-  ambientColor: {r: 0.81568635, g: 0.91372555, b: 0.9176471, a: 1}
-  fogColor: {r: 0, g: 0, b: 0, a: 0}
+  ambientColor: {r: 0.89411765, g: 0.5137255, b: 0.8156863, a: 1}
+  fogColor: {r: 0.96862745, g: 0.6039216, b: 0.78039217, a: 1}
   trackMaterial: {fileID: 2100000, guid: 0ed52305adbab1846ba4f38fa4db5c8f, type: 2}
   colorLearp: 0.4
 --- !u!4 &328309037
@@ -1262,7 +1262,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1006056147}
-  m_LocalRotation: {x: 0.0021467316, y: 0.7329615, z: -0.0023130353, w: 0.6802628}
+  m_LocalRotation: {x: 0.0021467318, y: 0.73296154, z: -0.0023130355, w: 0.68026286}
   m_LocalPosition: {x: -347, y: 20, z: -1085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

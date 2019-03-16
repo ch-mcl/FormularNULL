@@ -11,6 +11,7 @@ public class ButtonView : MonoBehaviour {
 	[SerializeField] Image Abutton;
 	[SerializeField] Image Bbutton;
 	[SerializeField] Image Ybutton;
+	[SerializeField] Image Xbutton;
 	[SerializeField] Image LT;
 	[SerializeField] Image RT;
 	[SerializeField] Image Select;
@@ -48,6 +49,13 @@ public class ButtonView : MonoBehaviour {
 		} else {
 			Ybutton.color = new Color(pc, pc, pc, da);
 		}
+
+		if (state.X) {
+			Xbutton.color = new Color(pc, pc, pc, pa);
+		} else {
+			Xbutton.color = new Color(pc, pc, pc, da);
+		}
+
 
 		if (state.Start)
 		{

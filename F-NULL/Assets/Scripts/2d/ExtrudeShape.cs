@@ -293,7 +293,17 @@ public class ExtrudeShape {
 
 							//左壁
 							new Vector2(-widthL, 0),
-							new Vector2(-wallL, m_wallHeight)
+							new Vector2(-wallL, m_wallHeight),
+
+
+							new Vector2(-shoulderL*0.5f+0.5f, 0.02f),
+							new Vector2(-shoulderL*0.5f-0.5f, 0.02f),
+
+							new Vector2 (center+1f, 0.02f),
+							new Vector2 (center-1f, 0.02f),
+
+							new Vector2(shoulderR*0.5f+0.5f, 0.02f),
+							new Vector2(shoulderR*0.5f-0.5f, 0.02f),
 						};
 						m_UCoords = new float[] {
 							//路面
@@ -316,7 +326,11 @@ public class ExtrudeShape {
 							//右壁
 							0.625f, 0.5f,
 							//左壁
-							0.625f, 0.5f
+							0.625f, 0.5f,
+							
+							0.625f, 0.5f,
+							0.625f, 0.5f,
+							0.625f, 0.5f,
 						};
 						//頂点を接続するして辺を構成する
 						ConnectVerts();
@@ -365,7 +379,16 @@ public class ExtrudeShape {
 
 							//左壁
 							new Vector2(-widthL, 0),
-							new Vector2(-wallL, m_wallHeightHigh)
+							new Vector2(-wallL, m_wallHeightHigh),
+
+							new Vector2(-shoulderL*0.5f+1f, 0.02f),
+							new Vector2(-shoulderL*0.5f, 0.02f),
+
+							new Vector2 (center+1f, 0.02f),
+							new Vector2 (center-1f, 0.02f),
+
+							new Vector2(shoulderR*0.5f, 0.02f),
+							new Vector2(shoulderR*0.5f-1f, 0.02f),
 						};
 						m_UCoords = new float[] {
 							//路面
@@ -388,7 +411,11 @@ public class ExtrudeShape {
 							//右壁
 							0.625f, 0.5f,
 							//左壁
-							0.625f, 0.5f
+							0.625f, 0.5f,
+
+							0.625f, 0.5f,
+							0.625f, 0.5f,
+							0.625f, 0.5f,
 						};
 						//頂点を接続するして辺を構成する
 						ConnectVerts();
@@ -436,6 +463,15 @@ public class ExtrudeShape {
 							//右 路肩
 							new Vector2(edgeR, 0),	//右 道境界
 							new Vector2(shoulderR, m_edgeBottom),	//右
+
+							new Vector2(-shoulderL*0.5f+1f, 0.02f),
+							new Vector2(-shoulderL*0.5f, 0.02f),
+
+							new Vector2 (center+1f, 0.02f),
+							new Vector2 (center-1f, 0.02f),
+
+							new Vector2(shoulderR*0.5f, 0.02f),
+							new Vector2(shoulderR*0.5f-1f, 0.02f),
 						};
 						m_UCoords = new float[] {
 							//路面
@@ -454,7 +490,11 @@ public class ExtrudeShape {
 							//右 縁
 							0.75f, 0.625f,
 							//右 路肩
-							0.75f, 0.625f
+							0.75f, 0.625f,
+
+							0.625f, 0.5f,
+							0.625f, 0.5f,
+							0.625f, 0.5f,
 						};
 						//頂点を接続するして辺を構成する
 						ConnectVerts();
@@ -509,6 +549,15 @@ public class ExtrudeShape {
 							//左壁
 							new Vector2(-widthL, 0),
 							new Vector2(-wallL, m_wallHeightHigh),
+
+							new Vector2(-shoulderL*0.5f+1f, 0.02f),
+							new Vector2(-shoulderL*0.5f, 0.02f),
+
+							new Vector2 (center+1f, 0.02f),
+							new Vector2 (center-1f, 0.02f),
+
+							new Vector2(shoulderR*0.5f, 0.02f),
+							new Vector2(shoulderR*0.5f-1f, 0.02f),
 
 							//天井(左内)
 							new Vector2(-wallL, m_wallHeightHigh),
@@ -572,6 +621,11 @@ public class ExtrudeShape {
 							0.625f, 0.5f,
 							//左壁
 							0.625f, 0.5f,
+
+							0.625f, 0.5f,
+							0.625f, 0.5f,
+							0.625f, 0.5f,
+
 							//天井(左内)
 							0.625f, 0.5f,
 							0f, 0f,

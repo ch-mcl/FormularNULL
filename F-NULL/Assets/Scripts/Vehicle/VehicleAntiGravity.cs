@@ -11,7 +11,7 @@ public class VehicleAntiGravity : MonoBehaviour {
 	LayerMask mask;
 
 	// 反重力
-	float downforce = 200f; // 機体を地面に引く力
+	float downforce = 1000f; // 機体を地面に引く力
 	float airdownforce = 50f; // 機体を地面に引く力
 	float downForceHeight = 2f; // 重力が有効になる　地面からの高度
 	float falltime = 0f; // 落下時間 

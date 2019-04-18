@@ -194,9 +194,14 @@ public class VehicleMover : MonoBehaviour {
 	bool m_slideTurn;
 
 	/// <summary>
-	/// 1フレーム前の機体y軸回転角(ヨー)角度
+	/// ステア入力
 	/// </summary>
-	float m_Oldrotation;
+	float m_steerDirection;
+
+	/// <summary>
+	/// 1フレーム前の機体の向き
+	/// </summary>
+	Vector3 m_oldDirection;
 
 	#region ブースト
 	/// <summary>
@@ -608,6 +613,7 @@ public class VehicleMover : MonoBehaviour {
 		// ステアリング
 		if (Mathf.Abs(move_steer) > 0) {
 			m_steer = true;
+			m_steerDirection = Mathf.Clamp(move_steer, -1f, 1f);
 
 			// ステア
 			m_steerForceSide = m_forwardforce * m_steerSlipAngle * move_steer;
@@ -756,20 +762,27 @@ public class VehicleMover : MonoBehaviour {
 	/// 旋回
 	/// </summary>
 	void SteerHelper() {
-		if (Mathf.Abs(m_Oldrotation - transform.eulerAngles.y) < m_gripAngle * m_vehicle.grip) {
+		Vector3 dir = transform.forward.normalized;
+		float result = Vector3.Dot(m_oldDirection, dir);
+		Debug.Log(result);
+
+		Quaternion velRotation = Quaternion.AngleAxis(result * m_steerDirection, transform.up);
+
+		m_rigidbody.velocity = velRotation * m_rigidbody.velocity;
+
+		/*
+		if (result < m_gripAngle * m_vehicle.grip) {
 			m_slipping = false;
 
 			// グリップが良いと旋回時のスピードロスが少ない
-			float turnadjust = (transform.eulerAngles.y - m_Oldrotation) * m_vehicle.grip;
+			//float turnadjust = (transform.eulerAngles.y - m_Oldrotation) * m_vehicle.grip;
 
-			Quaternion velRotation = Quaternion.AngleAxis(turnadjust, Vector3.up);
 
-			m_rigidbody.velocity = velRotation * m_rigidbody.velocity;
 		} else {
 			m_slipping = true;
 		}
-
-		m_Oldrotation = transform.eulerAngles.y;
+		*/
+		m_oldDirection = dir;
 	}
 
 	/// <summary>
